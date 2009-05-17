@@ -38,5 +38,8 @@
 ; http://www.hulubei.net/tudor/configuration/.emacs
 (setq make-backup-files nil)
 
+; disable tab indent
+(setq-default indent-tabs-mode nil)
+
 ;; improve paragraph flowing
 (setq sentence-end-double-space nil)
