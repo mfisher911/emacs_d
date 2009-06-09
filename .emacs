@@ -62,6 +62,9 @@
 ;; comment-handling
 (setq comment-style '(indent multi))
 
+; Always add a final newline
+(setq require-trailing-newline t)
+
 ;; slurp in other code
 (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
     (let* ((my-lisp-dir "~/el/")
@@ -88,6 +91,9 @@
     )
    ((equal hostname "SONNYCORLEONE")
     (load "~/.emacs.d/sonnycorleone.el" 'noerror)
+    )
+   ((equal hostname "sonnymcorleone.urmc-sh.rochester.edu")
+    (load "~/.emacs.d/sonnymcorleone.el" 'noerror)
     )
    (t (message "Unknown host %s" hostname))
    )
