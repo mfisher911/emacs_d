@@ -23,7 +23,7 @@
 ;; Stuff for LaTeX
 (setq tex-default-mode (quote latex-mode))
 (setq tex-dvi-view-command 
-        (if (eq window-system 'x) "xdvi" "dvi2tty * | cat -s"))
+      (if (eq window-system 'x) "xdvi" "dvi2tty * | cat -s"))
 
 ;; Stuff for C/C++ programming
 (setq c-basic-offset 4)
@@ -62,7 +62,10 @@
 ;; comment-handling
 (setq comment-style '(indent multi))
 
-; Always add a final newline
+;; set up URL browsing to be more like Terminal.app
+(global-set-key (kbd "<S-double-mouse-2>") 'browse-url-at-mouse)
+
+;; Always add a final newline
 (setq require-trailing-newline t)
 
 ;; slurp in other code
