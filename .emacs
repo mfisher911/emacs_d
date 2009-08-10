@@ -36,11 +36,12 @@
 ;;; From http://www.perlmonks.org/?node_id=650413
 ;; Use cperl-mode instead of the default perl-mode
 (defalias 'perl-mode 'cperl-mode)
+(add-to-list 'auto-mode-alist '("\\.cgi" . cperl-mode))
 
 ;; Use 4 space indents via cperl mode
 (custom-set-variables
   '(cperl-close-paren-offset -4)
-  '(cperl-continued-statement-offset 4)
+  '(cperl-continued-statement-offset 0)
   '(cperl-indent-level 4)
   '(cperl-indent-parens-as-block t)
   '(cperl-tab-always-indent t)
@@ -79,7 +80,7 @@
 (global-set-key (kbd "<S-double-mouse-2>") 'browse-url-at-mouse)
 
 ;; http://slashusr.wordpress.com/2009/08/09/using-m-from-switching-emacs-frames-on-osx/
-(global-set-key [?\M-`] 'other-frame) # This sets the key binding
+(global-set-key [?\M-`] 'other-frame) ; # This sets the key binding
 
 ;; Always add a final newline
 (setq require-trailing-newline t)
