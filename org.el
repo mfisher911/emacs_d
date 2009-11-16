@@ -22,11 +22,18 @@
 (setq org-agenda-files (quote ("/Volumes/org/work.org"
                                "/Volumes/org/refile.org"
                                )))
-(setq org-mobile-directory "/Volumes/org")
+(setq org-mobile-directory "/Volumes/org/mobile")
+(setq org-mobile-inbox-for-pull "/Volumes/org/mobile/from-mobile.org")
+(setq org-mobile-force-id-on-agenda-items t)
 (setq org-attach-directory "/Volumes/org/data/")
 (setq org-directory "/Volumes/org")
 (setq org-publish-timestamp-directory "/Volumes/org/.org-timestamps/")
 (setq org-default-notes-file "/Volumes/org/refile.org")
+
+(setq org-enforce-todo-dependencies t)
+(setq org-agenda-dim-blocked-tasks t)
+(setq org-log-done 'note)
+(setq org-log-into-drawer t)
 
 ;;;  Load Org Remember Stuff
 (require 'remember)
@@ -67,3 +74,22 @@
   :CLOCK-IN:
   %?" nil bottom nil))))
 (setq org-refile-targets (quote ((org-agenda-files :maxlevel . 5) (nil :maxlevel . 5))))
+
+;; 15.3.5
+;; Start the weekly agenda today
+(setq org-agenda-start-on-weekday nil)
+
+;; Include agenda archive files when searching for things
+(setq org-agenda-text-search-extra-files (quote (agenda-archives)))
+        
+;; 15.7.4 -- add new tasks without disturbin the context
+(setq org-insert-heading-respect-content t)
+
+;; 15.7.5 -- don't fire off Firefox by hitting enter on a link
+(setq org-return-follows-link nil)
+
+;; 15.8 -- attachment ID management
+(setq org-id-method (quote uuidgen))
+
+;; 15.9 -- deadlines
+(setq org-deadline-warning-days 30)
