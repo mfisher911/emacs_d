@@ -10,13 +10,13 @@
 
 ;;; try to version sniff a bit
 (cond
- ((string-match "23.1.1" emacs-version)
+ ((string-match "23.1.50.1" emacs-version)
   (setq mac-command-modifier 'meta)
   (setq default-frame-alist (quote ((tool-bar-lines . 0)
                                     (menu-bar-lines . 1)
                                     (width . 25)
                                     (height . 43))))
-  (setenv "PATH" "/Users/mfisher/bin:/opt/local/bin:/opt/local/sbin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/texbin:/usr/local/texlive/2007/bin/i386-darwin/:/opt/local/Library/Frameworks/Python.framework/Versions/2.6/bin/")
+  (setenv "PATH" "/Users/mfisher/bin:/opt/local/bin:/opt/local/sbin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/opt/local/Library/Frameworks/Python.framework/Versions/2.6/bin/")
   ))
 (cond
  ((and (boundp 'aquamacs-version-id)
@@ -26,6 +26,7 @@
                                     (menu-bar-lines . 1)
                                     (width . 80)
                                     (height . 40))))
+  (setq tabbar-mode nil nil (tabbar))
 ))
 
 ;; turn on the clock
