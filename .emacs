@@ -14,9 +14,11 @@
   (setq mac-command-modifier 'meta)
   (setq default-frame-alist (quote ((tool-bar-lines . 0)
                                     (menu-bar-lines . 1)
-                                    (width . 25)
+                                    (width . 80)
                                     (height . 43))))
-  (setenv "PATH" "/Users/mfisher/bin:/opt/local/bin:/opt/local/sbin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/opt/local/Library/Frameworks/Python.framework/Versions/2.6/bin/")
+  (when (equal system-type 'darwin)
+    (setenv "PATH" (concat "/opt/local/bin:/usr/local/bin:" (getenv "PATH")))
+    (push "/opt/local/bin" exec-path))
   ))
 (cond
  ((and (boundp 'aquamacs-version-id)
@@ -26,7 +28,8 @@
                                     (menu-bar-lines . 1)
                                     (width . 80)
                                     (height . 40))))
-  (setq tabbar-mode nil nil (tabbar))
+  (if (fboundp 'tabbar)
+      (setq tabbar-mode nil nil (tabbar)))
 ))
 
 ;; turn on the clock
