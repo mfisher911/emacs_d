@@ -10,7 +10,7 @@
 (setq auto-mode-alist (append '(("\\.\\(frm\\|bas\\|cls\\|vbs\\)$" .
                                  visual-basic-mode)) auto-mode-alist))
 (setq visual-basic-mode-indent 4)
-(setq mac-command-modifier 'meta)
+;;;(setq mac-command-modifier 'meta)
 (setq x-select-enable-clipboard t)
 (setq mac-tool-bar-display-mode 'icons)
 
@@ -22,15 +22,26 @@
 
 (server-mode 1)
 
-;;; Org Mode stuff
-(require 'org-install)
-;; The following lines are always needed.  Choose your own keys.
-(add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
-(global-set-key "\C-cl" 'org-store-link)
-(global-set-key "\C-ca" 'org-agenda)
-(global-set-key "\C-cb" 'org-iswitchb)
-(add-hook 'org-mode-hook 'turn-on-font-lock)  ; Org buffers only
-(setq org-mobile-directory "/Volumes/org")
-(setq org-attach-directory "/Volumes/org/data/")
-(setq org-directory "/Volumes/org")
-(setq org-publish-timestamp-directory "/Volumes/org/.org-timestamps/")
+;;; YASnippet
+(require 'yasnippet) ;; not yasnippet-bundle
+(yas/initialize)
+(yas/load-directory "~/el/yasnippet-read-only/snippets")
+
+(load "~/.emacs.d/org.el" 'noerror)
+
+(require 'growl)
+(defun growl-appt-display (min-to-app new-time msg)
+  (growl (format "Appointment in %s min." min-to-app)
+         (format "Time: %s\n%s" new-time msg)))
+(setq appt-disp-window-function (function growl-appt-display))
+
+;; http://emacs-fu.blogspot.com/2009/11/showing-pop-ups.html
+(setq
+  appt-message-warning-time 15 ;; warn 15 min in advance
+  appt-display-mode-line t     ;; show in the modeline
+  appt-display-format 'window) ;; use our func
+(appt-activate 1)              ;; active appt (appointment notification)
+(display-time)                 ;; time display is required for this...
+ ;; update appt each time agenda opened
+
+(add-hook 'org-finalize-agenda-hook 'org-agenda-to-appt)
