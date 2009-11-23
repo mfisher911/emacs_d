@@ -101,7 +101,7 @@
 (setq comment-style '(indent multi))
 
 ;; set up URL browsing to be more like Terminal.app
-(global-set-key (kbd "<S-double-mouse-2>") 'browse-url-at-mouse)
+(global-set-key (kbd "<M-S-mouse-1>") 'browse-url-at-mouse)
 
 ;; http://slashusr.wordpress.com/2009/08/09/using-m-from-switching-emacs-frames-on-osx/
 (global-set-key [?\M-`] 'other-frame) ; # This sets the key binding
