@@ -29,3 +29,4 @@
 
 (add-hook 'org-finalize-agenda-hook 'org-agenda-to-appt)
 
+;; (setq mac-command-modifier 'meta)
