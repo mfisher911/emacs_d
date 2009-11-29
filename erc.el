@@ -2,15 +2,20 @@
 (require 'erc)
 (require 'erc-match)
 (require 'erc-join)
+(require 'erc-goodies)
 (setq erc-modules (quote(autojoin button completion fill irccontrols
                                    keep-place list match menu
                                    move-to-prompt netsplit networks
-                                   noncommands readonly ring stamp
-                                   spelling track)))
+                                   noncommands readonly ring
+                                   scrolltobottom
+                                   stamp spelling track)))
 
 (setq erc-keywords '("mfisher" "spudnuts"))
-(setq erc-track-exclude-types '("JOIN" "NICK" "PART" "QUIT" "MODE"
-                                "324" "329" "332" "333" "353" "477"))
+(setq erc-hide-list '("JOIN" "NICK" "PART" "QUIT" "MODE"))
+(setq erc-track-exclude-types (append erc-hide-list
+                                      (quote("324" "329" "332" "333"
+                                             "353" "477"))))
+
 
 (add-hook 'window-configuration-change-hook 
           '(lambda ()
