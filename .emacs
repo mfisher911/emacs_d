@@ -142,6 +142,7 @@
 (let ((hostname (system-name)))
   (cond
    ((equal hostname "edison.homeunix.org")
+    (setq erc-system-name "edison.homeunix.org")
     (load "~/.emacs.d/edison.el" 'noerror)
     )
    ((equal hostname "lapblanket.local")
@@ -154,6 +155,7 @@
     (load "~/.emacs.d/sonhouse.el" 'noerror)
     )
    ((equal hostname "SONNYCORLEONE")
+    (setq erc-system-name "sonnycorleone")
     (load "~/.emacs.d/sonnycorleone.el" 'noerror)
     )
    ((equal hostname "sonnymcorleone.urmc-sh.rochester.edu")
