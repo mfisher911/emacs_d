@@ -38,6 +38,7 @@
 ;;;  Load Org Remember Stuff
 (require 'remember)
 (org-remember-insinuate)
+(define-key global-map "\C-cr" 'org-remember)
 
 ;; Start clock if a remember buffer includes :CLOCK-IN:
 (add-hook 'remember-mode-hook 'bh/start-clock-if-needed 'append)
@@ -48,9 +49,6 @@
     (when (re-search-forward " *:CLOCK-IN: *" nil t)
       (replace-match "")
       (org-clock-in))))
-
-;; I use C-M-r to start org-remember
-(global-set-key (kbd "C-M-r") 'org-remember)
 
 ;; Keep clocks running
 ;; (setq org-remember-clock-out-on-exit nil)
@@ -73,7 +71,9 @@
   %u
   :CLOCK-IN:
   %?" nil bottom nil))))
-(setq org-refile-targets (quote ((org-agenda-files :maxlevel . 5) (nil :maxlevel . 5))))
+(setq org-refile-targets (quote ((org-agenda-files :maxlevel . 5)
+                                 (nil :maxlevel . 5))))
+(setq org-refile-use-outline-path t)
 
 ;; 7.5 editing clock entries
 (setq org-time-stamp-rounding-minutes (quote (1 15)))
