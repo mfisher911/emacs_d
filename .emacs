@@ -110,6 +110,10 @@
 ;; Always add a final newline
 (setq require-trailing-newline t)
 
+;; always enable paren mode
+(show-paren-mode t)
+(setq show-paren-style 'mixed)
+
 ;; slurp in other code
 (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
     (let* ((my-lisp-dir "~/el/")
@@ -135,6 +139,12 @@
   (switch-to-buffer (get-buffer-create "*scratch*"))
   (lisp-interaction-mode)
   (insert initial-scratch-message))
+
+;; http://trey-jackson.blogspot.com/2008/01/emacs-tip-11-uniquify.html
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'forward)
+(setq uniquify-separator "/")
+(setq uniquify-after-kill-buffer-p t) ; rename after killing uniquified
 
 ;; conditional hostname stuff modeled from
 ;; http://www.ibm.com/developerworks/cn/linux/l-plset/emacs.dat 
