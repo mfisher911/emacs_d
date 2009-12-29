@@ -14,6 +14,12 @@
 (setq x-select-enable-clipboard t)
 (setq mac-tool-bar-display-mode 'icons)
 
+(add-hook 'find-file-hooks
+          (lambda ()
+            (if (equal "itsalltext"
+                       (substring buffer-file-name 84 94))
+                (flyspell-mode))))
+
 ;; http://emacs-fu.blogspot.com/2009/04/dot-emacs-trickery.html
 ; Make scripts executable on save
 (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
