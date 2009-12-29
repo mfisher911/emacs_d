@@ -110,6 +110,10 @@
 ;; Always add a final newline
 (setq require-trailing-newline t)
 
+;; always enable paren mode
+(show-paren-mode t)
+(setq show-paren-style 'mixed)
+
 ;; slurp in other code
 (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
     (let* ((my-lisp-dir "~/el/")
@@ -136,12 +140,19 @@
   (lisp-interaction-mode)
   (insert initial-scratch-message))
 
+;; http://trey-jackson.blogspot.com/2008/01/emacs-tip-11-uniquify.html
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'forward)
+(setq uniquify-separator "/")
+(setq uniquify-after-kill-buffer-p t) ; rename after killing uniquified
+
 ;; conditional hostname stuff modeled from
 ;; http://www.ibm.com/developerworks/cn/linux/l-plset/emacs.dat 
 ;; could probably make this easier
 (let ((hostname (system-name)))
   (cond
    ((equal hostname "edison.homeunix.org")
+    (setq erc-system-name "edison.homeunix.org")
     (load "~/.emacs.d/edison.el" 'noerror)
     )
    ((equal hostname "lapblanket.local")
@@ -154,6 +165,7 @@
     (load "~/.emacs.d/sonhouse.el" 'noerror)
     )
    ((equal hostname "SONNYCORLEONE")
+    (setq erc-system-name "sonnycorleone")
     (load "~/.emacs.d/sonnycorleone.el" 'noerror)
     )
    ((equal hostname "sonnymcorleone.urmc-sh.rochester.edu")

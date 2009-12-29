@@ -18,8 +18,3 @@
 (global-set-key (kbd "\C-c j a") 'jpl-reformat-align-enclosing-block)
 (global-set-key (kbd "\C-c j p") 'jpl-reformat-parameter-list-toggle-multiple-single)
 (require 'perlcritic)
-;; http://trey-jackson.blogspot.com/2008/01/emacs-tip-11-uniquify.html
-(require 'uniquify)
-(setq uniquify-buffer-name-style 'forward)
-(setq uniquify-separator "/")
-(setq uniquify-after-kill-buffer-p t) ; rename after killing uniquified
