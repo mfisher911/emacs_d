@@ -7,6 +7,17 @@
 (menu-bar-mode -1)
 (server-mode)
 
+;; Stuff for GNUS
+(require 'gnus)
+;; (setq gnus-check-new-newsgroups t)
+;; (setq gnus-save-killed-list t)
+(setq gnus-select-method
+      '(nntp "news.csh.rit.edu"
+             (nntp-open-connection-function nntp-open-ssl-stream)
+             (nntp-authinfo-file "~/.authinfo")
+             (nntp-port-number "nntps") ;see /etc/services
+             (nntp-address "news.csh.rit.edu")))
+
 ;; Stuff for LiveJournal 
 (setq load-path (cons "/home/mfisher/emacs/ljupdate/lisp" load-path)) 
 ;(setq coding-system-p "utf-8") 
@@ -25,7 +36,7 @@
 ;; enable twitter.el (http://www.busydoingnothing.co.uk/twitter-el/)
 (autoload 'twitter-get-friends-timeline "twitter" nil t)
 (autoload 'twitter-status-edit "twitter" nil t)
-;; (global-set-key "\C-xw" 'twitter-get-friends-timeline)
+(global-set-key "\C-xw" 'twitter-get-friends-timeline)
 (add-hook 'twitter-status-edit-mode-hook 'longlines-mode)
 
 ;; Font lock for (Al)pine/pico buffers:
@@ -65,7 +76,7 @@
 ;; autoreconf -i
 ;; ./configure && make
 ;; sudo make install
-(require 'jabber-autoloads)
+(require 'jabber)
 (add-hook 'jabber-post-connect-hooks 'jabber-autoaway-start)
 (setq jabber-chat-header-line-format
       '(" " (:eval (jabber-jid-displayname jabber-chatting-with))
