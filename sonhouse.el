@@ -40,3 +40,5 @@
 
 ;;; Magit
 (require 'magit)
+; (global-set-key (kbd "C-S-u") 'jpl-reformat-mark-enclosing-block)
+(global-set-key (kbd "C-x v \\") 'magit-status)
