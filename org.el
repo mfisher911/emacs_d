@@ -22,15 +22,15 @@
 (setq org-agenda-files (quote ("~/org/work.org"
                                "~/org/refile.org"
                                )))
-(setq org-mobile-directory "/Volumes/org/mobile")
+(setq org-mobile-directory "/sudo::/usr/local/www/apache22/data/org/mobile")
+(setq org-mobile-inbox-for-pull "/sudo::/usr/local/www/apache22/data/org/mobile/from-mobile.org")
 (setq org-mobile-files (quote ("~/org/work.org"
                                "~/org/movies.org"
+                               "~/org/notes.org"
                                "~/org/personal.org"
                                "~/org/books-read.org"
                                "~/org/books-to-read.org")))
-(setq org-mobile-inbox-for-pull "/Volumes/org/mobile/from-mobile.org")
 (setq org-mobile-force-id-on-agenda-items t)
-; (setq org-attach-directory "/Volumes/org/data/")
 (setq org-directory "~/org")
 (setq org-publish-timestamp-directory "~/org/.org-timestamps/")
 (setq org-default-notes-file "~/org/refile.org")
