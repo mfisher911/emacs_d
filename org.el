@@ -19,16 +19,21 @@
             (make-variable-buffer-local 'yas/trigger-key)
             (setq yas/trigger-key [tab])
             (define-key yas/keymap [tab] 'yas/next-field-group)))
-(setq org-agenda-files (quote ("/Volumes/org/work.org"
-                               "/Volumes/org/refile.org"
+(setq org-agenda-files (quote ("~/org/work.org"
+                               "~/org/refile.org"
                                )))
-(setq org-mobile-directory "/Volumes/org/mobile")
-(setq org-mobile-inbox-for-pull "/Volumes/org/mobile/from-mobile.org")
+(setq org-mobile-directory "/sudo::/usr/local/www/apache22/data/org/mobile")
+(setq org-mobile-inbox-for-pull "/sudo::/usr/local/www/apache22/data/org/mobile/from-mobile.org")
+(setq org-mobile-files (quote ("~/org/work.org"
+                               "~/org/movies.org"
+                               "~/org/notes.org"
+                               "~/org/personal.org"
+                               "~/org/books-read.org"
+                               "~/org/books-to-read.org")))
 (setq org-mobile-force-id-on-agenda-items t)
-(setq org-attach-directory "/Volumes/org/data/")
-(setq org-directory "/Volumes/org")
-(setq org-publish-timestamp-directory "/Volumes/org/.org-timestamps/")
-(setq org-default-notes-file "/Volumes/org/refile.org")
+(setq org-directory "~/org")
+(setq org-publish-timestamp-directory "~/org/.org-timestamps/")
+(setq org-default-notes-file "~/org/refile.org")
 
 (setq org-enforce-todo-dependencies t)
 (setq org-agenda-dim-blocked-tasks t)
@@ -60,17 +65,32 @@
 (setq org-remember-default-headline "Tasks")
 
 ;; 3 remember templates for TODO tasks, Notes, and Phone calls
-(setq org-remember-templates (quote (("todo" ?t "* TODO %?
+;;; http://phunculist.wordpress.com/2008/12/18/adding-a-journal-entry-using-org-mode/
+
+(setq org-remember-templates
+      '(
+        ("todo" ?t
+         "* TODO %?
   %u
-  %a" nil bottom nil)
-                                     ("note" ?n "* %?                                        :NOTE:
+  %a"
+         nil bottom nil)
+        ("note" ?n
+         "* %?                                        :NOTE:
   %u
-  %a" nil bottom nil)
-                                     ("phone" ?p "* PHONE %:name - %:company -                :PHONE:
+  %a"
+         nil bottom nil)
+        ("phone" ?p
+         "* PHONE %:name - %:company -                :PHONE:
   Contact Info: %a
   %u
   :CLOCK-IN:
-  %?" nil bottom nil))))
+  %?"
+         nil bottom nil)
+        ("Journal" ?j
+         ;; "* %U %?\n\n  %i\n  %a"
+         "* %U %? %^g\n\n   %x"
+         "~/org/journal.org" 'date-tree)))
+
 (setq org-refile-targets (quote ((org-agenda-files :maxlevel . 5)
                                  (nil :maxlevel . 5))))
 (setq org-refile-use-outline-path t)
@@ -100,3 +120,37 @@
 
 ;; 15.9 -- deadlines
 (setq org-deadline-warning-days 30)
+
+;; http://www.emacswiki.org/emacs-en/mobileorg (2010-01-27)
+(defun my-org-convert-incoming-items ()
+  (interactive)
+  (with-current-buffer (find-file-noselect org-mobile-inbox-for-pull)
+    (goto-char (point-min))
+    (while (re-search-forward "^\\* " nil t)
+      (goto-char (match-beginning 0))
+      (insert ?*)
+      (forward-char 2)
+      (insert "TODO ")
+      (goto-char (line-beginning-position))
+      (forward-line)
+      (insert
+       (format
+        " SCHEDULED: %s
+:PROPERTIES:
+:ID: %s :END:
+"
+        (with-temp-buffer (org-insert-time-stamp (current-time)))
+        (shell-command-to-string "uuidgen"))))
+    (let ((tasks (buffer-string)))
+      (erase-buffer)
+      (save-buffer)
+      (kill-buffer (current-buffer))
+      (with-current-buffer (find-file-noselect "~/Dropbox/todo.txt")
+        (save-excursion
+          (goto-char (point-min))
+          (search-forward "* CEG")
+          (goto-char (match-beginning 0))
+          (insert tasks))))))
+ 
+(add-hook 'org-mobile-post-pull-hook 'my-org-convert-incoming-items)
+

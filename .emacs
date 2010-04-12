@@ -45,6 +45,10 @@
 (setq line-number-mode t)
 (setq column-number-mode t)
 
+;; disable tool bars and scroll bars
+(tool-bar-mode -1)
+(scroll-bar-mode 0)
+
 ;; Stuff for LaTeX
 (setq tex-default-mode (quote latex-mode))
 (setq tex-dvi-view-command 

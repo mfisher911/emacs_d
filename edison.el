@@ -7,6 +7,13 @@
 (menu-bar-mode -1)
 (server-mode)
 
+; (add-to-list 'load-path "~/el/color-theme-6.6.0/")
+;(require 'color-theme)
+;(eval-after-load "color-theme"
+;  '(progn
+;     (color-theme-initialize)
+;     (color-theme-renegade)))
+
 ;; Stuff for GNUS
 (require 'gnus)
 ;; (setq gnus-check-new-newsgroups t)
@@ -32,12 +39,20 @@
 
 ;;; org mode
 (load "~/.emacs.d/org.el" 'noerror)
+(add-hook 'org-finalize-agenda-hook 'org-agenda-to-appt)
 
 ;; enable twitter.el (http://www.busydoingnothing.co.uk/twitter-el/)
 (autoload 'twitter-get-friends-timeline "twitter" nil t)
 (autoload 'twitter-status-edit "twitter" nil t)
 (global-set-key "\C-xw" 'twitter-get-friends-timeline)
 (add-hook 'twitter-status-edit-mode-hook 'longlines-mode)
+;; trying to help refresh the twitter timeline
+;; (add-hook 'twitter-timeline-view-mode-hook
+;;           (lambda ()
+;;             (define-key twitter-timeline-view-mode-map (kbd "g")
+;;               'twitter-get-friends-timeline)))
+;; ;            (local-unset-key "g")
+;; ;            (local-set-key "g" 'twitter-get-friends-timeline)))
 
 ;; Font lock for (Al)pine/pico buffers:
 ;; http://snarfed.org/space/emacs%20font-lock%20faces%20for%20composing%20email
@@ -98,3 +113,27 @@
   (lambda (msg)
     (unless (minibuffer-prompt)
       (message "%s" msg))))
+
+;; http://yrk.livejournal.com/271911.html
+(eval-after-load "jabber-roster"
+  '(defun jabber-fix-status (status)
+     "Make status strings more readable"
+     (when status
+       (when (string-match "\n+$" status)
+         (setq status (replace-match "" t t status)))
+       (when jabber-remove-newlines
+         (while (string-match "\n" status)
+           (setq status (replace-match " " t t status))))
+       (if (> (length status) 32)
+           (concat (substring status 0 29) " ...")
+         status))))
+
+;; try to set the window title
+;; http://www.splode.com/~friedman/software/emacs-lisp/src/xterm-title.el
+(when (and
+       (not window-system)
+       (or
+        (string= (getenv "TERM") "dumb")
+        (string-match "^xterm" (getenv "TERM"))))
+  (require 'xterm-title)
+  (xterm-title-mode 1))

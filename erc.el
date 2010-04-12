@@ -1,15 +1,16 @@
+;; (erc :server "chat.us.freenode.net" :port 6667 :nick "mfisher")
 ;; ERC
 (require 'erc)
 (require 'erc-join)
 (require 'erc-goodies)
 
 (setq erc-keywords '("mfisher" "spudnuts"))
-;; (setq erc-hide-list '("JOIN" "NICK" "PART" "QUIT" "MODE"))
-;; (setq erc-track-exclude-types (append erc-hide-list
-;;                                      (quote("324" "329" "332" "333"
-;;                                             "353" "477"))))
-(setq erc-track-exclude-types '("JOIN" "NICK" "PART" "QUIT" "MODE"
-                                "324" "329" "332" "333" "353" "477"))
+(setq erc-hide-list '("JOIN" "NICK" "PART" "QUIT" "MODE"))
+(setq erc-track-exclude-types (append erc-hide-list
+                                     (quote("324" "329" "332" "333"
+                                            "353" "477"))))
+;; (setq erc-track-exclude-types '("JOIN" "NICK" "PART" "QUIT" "MODE"
+;;                                 "324" "329" "332" "333" "353" "477"))
 (erc-track-mode 1)
 
 (add-hook 'window-configuration-change-hook 
@@ -53,12 +54,11 @@
 
 (erc-autojoin-mode 1)
 (setq erc-autojoin-channels-alist
-      '(("freenode.net" "#emacs" "#erc")
+      '(("freenode.net" "#emacs" "#erc" "#org-mode")
         ;; ("perl.org" "#catalyst")
         ))
-;; (erc :server "chat.us.freenode.net" :port 6667 :nick "mfisher")
 ;; (erc :server "irc.efnet.net" :port 6669 :nick "mfisher")
-;; (erc :server "localhost")
+;; (erc :server "irc.arstechnica.com" :port 6667 :nick "Spudnuts")
 
 ;; http://www.emacswiki.org/emacs/UnwrapLine
 (defun unwrap-line ()
