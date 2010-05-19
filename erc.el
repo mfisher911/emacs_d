@@ -12,6 +12,7 @@
 ;; (setq erc-track-exclude-types '("JOIN" "NICK" "PART" "QUIT" "MODE"
 ;;                                 "324" "329" "332" "333" "353" "477"))
 (erc-track-mode 1)
+(erc-truncate-mode 1)
 
 (add-hook 'window-configuration-change-hook 
           '(lambda ()
