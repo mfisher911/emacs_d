@@ -137,3 +137,6 @@
         (string-match "^xterm" (getenv "TERM"))))
   (require 'xterm-title)
   (xterm-title-mode 1))
+
+;; use magit
+(require 'magit)
