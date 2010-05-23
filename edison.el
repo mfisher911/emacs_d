@@ -140,3 +140,9 @@
 
 ;; use magit
 (require 'magit)
+
+;; markdown mode
+(autoload 'markdown-mode "markdown-mode.el"
+   "Major mode for editing Markdown files" t)
+(setq auto-mode-alist
+   (cons '("\\.mkdn" . markdown-mode) auto-mode-alist))
