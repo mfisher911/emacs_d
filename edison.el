@@ -137,3 +137,12 @@
         (string-match "^xterm" (getenv "TERM"))))
   (require 'xterm-title)
   (xterm-title-mode 1))
+
+;; use magit
+(require 'magit)
+
+;; markdown mode
+(autoload 'markdown-mode "markdown-mode.el"
+   "Major mode for editing Markdown files" t)
+(setq auto-mode-alist
+   (cons '("\\.mkdn" . markdown-mode) auto-mode-alist))
