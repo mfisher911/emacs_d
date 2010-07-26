@@ -86,3 +86,8 @@
 ;;; Magit
 (require 'magit)
 (global-set-key (kbd "C-x v \\") 'magit-status)
+
+;; Puppet-mode
+(autoload 'puppet-mode "puppet-mode"
+  "Major mode for editing puppet manifests")
+(add-to-list 'auto-mode-alist '("\\.pp$" . puppet-mode))
