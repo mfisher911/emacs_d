@@ -23,19 +23,19 @@
 
 ;; Add flyspell pychecker for Python.
 ;; http://www.plope.com/Members/chrism/flymake-mode
-(when (load "flymake" t)
-  (defun flymake-pyflakes-init ()
-    (let* ((temp-file (flymake-init-create-temp-buffer-copy
-                       'flymake-create-temp-inplace))
-           (local-file (file-relative-name
-                        temp-file
-                        (file-name-directory buffer-file-name))))
-      (list "pyflakes" (list local-file))))
+;; (when (load "flymake" t)
+;;   (defun flymake-pyflakes-init ()
+;;     (let* ((temp-file (flymake-init-create-temp-buffer-copy
+;;                        'flymake-create-temp-inplace))
+;;            (local-file (file-relative-name
+;;                         temp-file
+;;                         (file-name-directory buffer-file-name))))
+;;       (list "pyflakes" (list local-file))))
 
-  (add-to-list 'flymake-allowed-file-name-masks
-               '("\\.py\\'" flymake-pyflakes-init)))
+;;   (add-to-list 'flymake-allowed-file-name-masks
+;;                '("\\.py\\'" flymake-pyflakes-init)))
 
-(add-hook 'find-file-hook 'flymake-find-file-hook)
+;; (add-hook 'find-file-hook 'flymake-find-file-hook)
 
 ;; http://emacs-fu.blogspot.com/2009/04/dot-emacs-trickery.html
 ; Make scripts executable on save
@@ -44,6 +44,10 @@
 (windmove-default-keybindings 'shift)
 
 (server-mode 1)
+
+;;; org mode
+(load "~/.emacs.d/org.el" 'noerror)
+(add-hook 'org-finalize-agenda-hook 'org-agenda-to-appt)
 
 ;;; YASnippet
 (require 'yasnippet) ;; not yasnippet-bundle
