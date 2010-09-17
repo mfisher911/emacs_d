@@ -40,6 +40,11 @@
 ;;; org mode
 (load "~/.emacs.d/org.el" 'noerror)
 (add-hook 'org-finalize-agenda-hook 'org-agenda-to-appt)
+(setq org-agenda-files (quote ("~/org/movies.org"
+                               "~/org/books-read.org"
+                               "~/org/books-to-read.org"
+                               "~/org/personal.org"
+                               )))
 
 ;; Font lock for (Al)pine/pico buffers:
 ;; http://snarfed.org/space/emacs%20font-lock%20faces%20for%20composing%20email
