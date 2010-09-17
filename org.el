@@ -19,10 +19,6 @@
             (make-variable-buffer-local 'yas/trigger-key)
             (setq yas/trigger-key [tab])
             (define-key yas/keymap [tab] 'yas/next-field-group)))
-(setq org-agenda-files (quote ("~/org/work.org"
-                               "~/org/refile.org"
-                               "~/org/books-read.org"
-                               )))
 (setq org-mobile-directory "/sudo::/usr/local/www/apache22/data/org/mobile")
 (setq org-mobile-inbox-for-pull "/sudo::/usr/local/www/apache22/data/org/mobile/from-mobile.org")
 (setq org-mobile-files (quote ("~/org/work.org"
@@ -86,7 +82,7 @@
   %u
   :CLOCK-IN:
   %?"
-         "work.org" "Phone Message Log" nil)
+         "phone-messages.org" "Phone Messages" nil)
         ("book" ?b
          "** TODO %^{Short Title}
   :PROPERTIES:
