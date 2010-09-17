@@ -48,6 +48,9 @@
 ;;; org mode
 (load "~/.emacs.d/org.el" 'noerror)
 (add-hook 'org-finalize-agenda-hook 'org-agenda-to-appt)
+(require 'google-weather)
+(require 'org-google-weather)
+(add-to-list 'org-agenda-files '"~/org/weather.org")
 
 ;;; YASnippet
 (require 'yasnippet) ;; not yasnippet-bundle
