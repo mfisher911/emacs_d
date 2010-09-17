@@ -81,12 +81,25 @@
   %a"
          nil bottom nil)
         ("phone" ?p
-         "** PHONE %:name - %:company -                :PHONE:
-  Contact Info: %a
+         "** PHONE %^{name} - %^{company|University of Rochester} -                :PHONE:
+  Contact Info: %^{phone}
   %u
   :CLOCK-IN:
   %?"
          "work.org" "Phone Message Log" nil)
+        ("book" ?b
+         "** TODO %^{Short Title}
+  :PROPERTIES:
+  :Full-Title: %^{Full-Title}p
+  :Author:     %^{Author}p
+  :Year:       %^{Year}p
+  :Notes:
+  :Rating:
+  :Review:
+  :END:
+
+"
+         "books-to-read.org" "Books to Read" nil)
         ("Journal" ?j
          ;; "* %U %?\n\n  %i\n  %a"
          "* %U %? %^g\n\n   %x"
