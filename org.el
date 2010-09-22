@@ -61,6 +61,21 @@
 ;; I don't use this -- but set it in case I forget to specify a location in a future template
 (setq org-remember-default-headline "Tasks")
 
+;; 3.1 TODO Keywords
+(setq org-todo-keywords (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d!/!)")
+ (sequence "WAITING(w@/!)" "SOMEDAY(s!)" "|" "CANCELLED(c@/!)"))))
+
+(setq org-todo-keyword-faces
+      (quote (("TODO"      :foreground "red"          :weight bold)
+              ("NEXT"      :foreground "blue"         :weight bold)
+              ("DONE"      :foreground "forest green" :weight bold)
+              ("WAITING"   :foreground "yellow"       :weight bold)
+              ("SOMEDAY"   :foreground "goldenrod"    :weight bold)
+              ("CANCELLED" :foreground "orangered"    :weight bold))))
+
+;; 3.2 Fast Todo Selection
+(setq org-use-fast-todo-selection t)
+
 ;; 3 remember templates for TODO tasks, Notes, and Phone calls
 ;;; http://phunculist.wordpress.com/2008/12/18/adding-a-journal-entry-using-org-mode/
 
