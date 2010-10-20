@@ -111,6 +111,9 @@
 
 "
          "books-to-read.org" "Books to Read" nil)
+        ("ticket" ?k
+         "** TODO %^{Ticket}\n   :CLOCK-IN:\n   %?"
+         "work.org" "Request Tracker Tickets" nil)
         ("Journal" ?j
          ;; "* %U %?\n\n  %i\n  %a"
          "* %U %? %^g\n\n   %x"
