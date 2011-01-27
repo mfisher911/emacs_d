@@ -14,17 +14,6 @@
 ;     (color-theme-initialize)
 ;     (color-theme-renegade)))
 
-;; Stuff for GNUS
-(require 'gnus)
-;; (setq gnus-check-new-newsgroups t)
-;; (setq gnus-save-killed-list t)
-(setq gnus-select-method
-      '(nntp "news.csh.rit.edu"
-             (nntp-open-connection-function nntp-open-ssl-stream)
-             (nntp-authinfo-file "~/.authinfo")
-             (nntp-port-number "nntps") ;see /etc/services
-             (nntp-address "news.csh.rit.edu")))
-
 ;; Stuff for LiveJournal 
 (setq load-path (cons "/home/mfisher/emacs/ljupdate/lisp" load-path)) 
 ;(setq coding-system-p "utf-8") 
@@ -138,3 +127,13 @@
    "Major mode for editing Markdown files" t)
 (setq auto-mode-alist
    (cons '("\\.mkdn" . markdown-mode) auto-mode-alist))
+
+(require 'twittering-mode)
+
+;; ruby port
+;; (autoload 'ruby-mode "ruby-mode" "Mode for editing ruby source files")
+;; (add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
+;; (add-to-list 'interpreter-mode-alist '("ruby" . ruby-mode))
+;; (autoload 'run-ruby "inf-ruby" "Run an inferior Ruby process")
+;; (autoload 'inf-ruby-keys "inf-ruby" "Set local key defs for inf-ruby in ruby-mode")
+;; (add-hook 'ruby-mode-hook '(lambda () (inf-ruby-keys)))
