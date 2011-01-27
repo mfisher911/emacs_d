@@ -50,10 +50,10 @@
 (add-hook 'org-finalize-agenda-hook 'org-agenda-to-appt)
 (require 'google-weather)
 (require 'org-google-weather)
-(setq org-agenda-files (quote ("~/org/work.org"
-                               "~/org/phone-messages.org"
-                               "~/org/refile.org"
-                               "~/org/weather.org"
+(setq org-agenda-files (quote ("~/Dropbox/org/work.org"
+                               "~/Dropbox/org/phone-messages.org"
+                               "~/Dropbox/org/refile.org"
+                               "~/Dropbox/org/weather.org"
                                )))
 
 ;;; YASnippet
@@ -105,3 +105,7 @@
 
 ;; Nagios mode
 (autoload 'nagios-mode "nagios-mode" nil t)
+
+(add-to-list 'auto-mode-alist '("\\.[Cc][Ss][Vv]\\'" . csv-mode))
+(autoload 'csv-mode "csv-mode"
+  "Major mode for editing comma-separated value files." t)
