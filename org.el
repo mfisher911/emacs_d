@@ -115,12 +115,16 @@
         ("ticket" ?k
          "** TODO %^{Ticket}\n   :CLOCK-IN:\n   %?"
          "work.org" "Request Tracker Tickets" nil)
+        ("misc" ?m
+         "* %^{event}\n   :CLOCK-IN:\n   %?"
+         "misc.org" bottom)
         ("Journal" ?j
          ;; "* %U %?\n\n  %i\n  %a"
          "* %U %? %^g\n\n   %x"
          "journal.org" 'date-tree)))
 
 (setq org-refile-targets (quote ((org-agenda-files :maxlevel . 5)
+                                 ("~/org/misc.org" :maxlevel . 5)
                                  (nil :maxlevel . 5))))
 (setq org-refile-use-outline-path t)
 
