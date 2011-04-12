@@ -23,11 +23,14 @@
 (setq org-mobile-directory "~/Dropbox/MobileOrg")
 (setq org-mobile-inbox-for-pull "~/Dropbox/MobileOrg/from-mobile.org")
 (setq org-mobile-files (quote ("~/Dropbox/org/work.org"
+                               "~/Dropbox/org/work-notes.org"
+                               "~/Dropbox/org/misc.org"
                                "~/Dropbox/org/movies.org"
                                "~/Dropbox/org/notes.org"
                                "~/Dropbox/org/personal.org"
                                "~/Dropbox/org/books-read.org"
-                               "~/Dropbox/org/books-to-read.org")))
+                               "~/Dropbox/org/books-to-read.org"
+                               "~/Dropbox/org/tandberg-install.org")))
 (setq org-mobile-force-id-on-agenda-items t)
 (setq org-directory "~/Dropbox/org")
 (setq org-publish-timestamp-directory "~/Dropbox/org/.org-timestamps/")
