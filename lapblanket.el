@@ -4,6 +4,8 @@
 ;; (global-set-key "\C-xw" 'twitter-get-friends-timeline)
 ;; (add-hook 'twitter-status-edit-mode-hook 'longlines-mode)
 
+(setq user-mail-address "mfisher@csh.rit.edu")
+
 ;;; yasnippet
 (require 'yasnippet) ;; not yasnippet-bundle
 (yas/initialize)
