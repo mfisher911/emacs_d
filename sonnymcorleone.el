@@ -119,3 +119,7 @@
       rt-liber-username "mfisher"
       rt-liber-base-url "https://rt.son.rochester.edu/"
       rt-liber-update-default-queue "SONHelp")
+
+;;; package mode
+(require 'package)
+(package-initialize)

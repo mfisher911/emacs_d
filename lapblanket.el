@@ -55,3 +55,7 @@
                                )))
 
 (server-mode 1)
+
+;;; package mode
+(require 'package)
+(package-initialize)
