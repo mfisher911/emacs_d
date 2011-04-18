@@ -190,3 +190,5 @@
  
 ;; (add-hook 'org-mobile-post-pull-hook 'my-org-convert-incoming-items)
 
+(setq org-mobile-use-encryption t)
+(require 'maf-org-mobile "~/Dropbox/org/org-mobile-config.el.gpg")
