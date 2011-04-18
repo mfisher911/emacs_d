@@ -1,3 +1,7 @@
+;;; package mode
+(require 'package)
+(package-initialize)
+
 (require 'color-theme)
 (color-theme-initialize)
 ; (color-theme-select)
@@ -120,6 +124,3 @@
       rt-liber-base-url "https://rt.son.rochester.edu/"
       rt-liber-update-default-queue "SONHelp")
 
-;;; package mode
-(require 'package)
-(package-initialize)
