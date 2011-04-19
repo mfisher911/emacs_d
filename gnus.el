@@ -32,6 +32,7 @@
 
 (gnus-demon-add-handler 'gnus-demon-add-scanmail 5 nil)
 (gnus-demon-init)
+(setq gnus-use-demon t)
 
 ;; SMTP configuration
 (setq smtpmail-smtp-server "mail.csh.rit.edu")
@@ -54,6 +55,7 @@
 (menu-bar-mode -1)
 (fset 'yes-or-no-p 'y-or-n-p)
 (setq require-trailing-newline t)
+(setq sentence-end-double-space nil) ;; improve paragraph flowing
 
 ;;; bbdb
 (setq bbdb-default-area-code 585
