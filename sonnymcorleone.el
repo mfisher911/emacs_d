@@ -99,10 +99,6 @@
 ;; (edit-server-start)
 ;; (setq edit-server-new-frame nil)
 
-;;; Magit
-(require 'magit)
-(global-set-key (kbd "C-x v \\") 'magit-status)
-
 ;; Puppet-mode
 (autoload 'puppet-mode "puppet-mode"
   "Major mode for editing puppet manifests")
