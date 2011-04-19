@@ -22,9 +22,9 @@
             (define-key yas/keymap [tab] 'yas/next-field-group)))
 (setq org-mobile-directory "~/Dropbox/MobileOrg")
 (setq org-mobile-inbox-for-pull "~/Dropbox/MobileOrg/from-mobile.org")
-(setq org-mobile-files (quote ("~/Dropbox/org/work.org"
-                               "~/Dropbox/org/work-notes.org"
-                               "~/Dropbox/org/misc.org"
+(setq org-mobile-files (quote ("~/Dropbox/org/work.org.gpg"
+                               "~/Dropbox/org/work-notes.org.gpg"
+                               "~/Dropbox/org/misc.org.gpg"
                                "~/Dropbox/org/movies.org"
                                "~/Dropbox/org/notes.org"
                                "~/Dropbox/org/personal.org"
@@ -101,7 +101,7 @@
   %u
   :CLOCK-IN:
   %?"
-         "phone-messages.org" "Phone Messages" nil)
+         "phone-messages.org.gpg" "Phone Messages" nil)
         ("book" ?b
          "** TODO %^{Short Title}
   :PROPERTIES:
@@ -117,17 +117,17 @@
          "books-to-read.org" "Books to Read" nil)
         ("ticket" ?k
          "** TODO %^{Ticket}\n   :CLOCK-IN:\n   %?"
-         "work.org" "Request Tracker Tickets" nil)
+         "work.org.gpg" "Request Tracker Tickets" nil)
         ("misc" ?m
          "* %^{event}\n   :CLOCK-IN:\n   %?"
-         "misc.org" bottom)
+         "misc.org.gpg" bottom)
         ("Journal" ?j
          ;; "* %U %?\n\n  %i\n  %a"
          "* %U %? %^g\n\n   %x"
          "journal.org" 'date-tree)))
 
 (setq org-refile-targets (quote ((org-agenda-files :maxlevel . 5)
-                                 ("~/org/misc.org" :maxlevel . 5)
+                                 ("~/org/misc.org.gpg" :maxlevel . 5)
                                  (nil :maxlevel . 5))))
 (setq org-refile-use-outline-path t)
 
