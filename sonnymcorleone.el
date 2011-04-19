@@ -124,3 +124,5 @@
       rt-liber-base-url "https://rt.son.rochester.edu/"
       rt-liber-update-default-queue "SONHelp")
 
+;; Apache mode.
+(autoload 'apache-mode "apache-mode" nil t)
