@@ -12,22 +12,11 @@
   '(progn
      (color-theme-initialize)
      (color-theme-renegade)))
-(server-mode 1)
 (require 'jpl-reformat)
 (global-set-key (kbd "C-S-u") 'jpl-reformat-mark-enclosing-block)
 (global-set-key (kbd "\C-c j a") 'jpl-reformat-align-enclosing-block)
 (global-set-key (kbd "\C-c j p") 'jpl-reformat-parameter-list-toggle-multiple-single)
 (require 'perlcritic)
-;; http://trey-jackson.blogspot.com/2008/01/emacs-tip-11-uniquify.html
-(require 'uniquify)
-(setq uniquify-buffer-name-style 'forward)
-(setq uniquify-separator "/")
-(setq uniquify-after-kill-buffer-p t) ; rename after killing uniquified
-
-;;; YASnippet
-(require 'yasnippet)
-(yas/initialize)
-(yas/load-directory "~/el/yasnippet-read-only/snippets")
 
 ;;; ipython
 (require 'python-mode)
@@ -37,7 +26,3 @@
 (require 'ipython)
 (setq ipython-completion-command-string
       "print(';'.join(__IP.Completer.all_completions('%s')))\n")
-
-;;; Magit
-(require 'magit)
-(global-set-key (kbd "C-x v \\") 'magit-status)

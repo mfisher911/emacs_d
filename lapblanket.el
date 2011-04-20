@@ -1,19 +1,4 @@
-;;; package mode
-(require 'package)
-(package-initialize)
-
 (setq user-mail-address "mfisher@csh.rit.edu")
-
-;;; yasnippet
-(require 'yasnippet) ;; not yasnippet-bundle
-(yas/initialize)
-(yas/load-directory "~/el/yasnippet-read-only/snippets")
-
-(require 'growl)
-(defun growl-appt-display (min-to-app new-time msg)
-  (growl (format "Appointment in %s min." min-to-app)
-         (format "Time: %s\n%s" new-time msg)))
-(setq appt-disp-window-function (function growl-appt-display))
 
 ;; Chrome Edit Server -> Emacs
 ;; (require 'edit-server)
@@ -47,8 +32,6 @@
                                "~/Dropbox/org/books-to-read.org"
                                "~/Dropbox/org/personal.org"
                                )))
-
-(server-mode 1)
 
 ;; Twitter
 (require 'twittering-mode)

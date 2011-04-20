@@ -9,17 +9,43 @@
   (require 'vc-hooks) 
   ))
 
-;;; try to version sniff a bit
+;;; make the Mac experience consistent
 (when (equal system-type 'darwin)
   (setq mac-command-modifier 'meta)
+  (setq x-select-enable-clipboard t)
+  (setq mac-tool-bar-display-mode 'icons)
   (setq default-frame-alist (quote ((tool-bar-lines . 0)
                                     (width . 80)
                                     (height . 43))))
   (setenv "PATH" (concat "/opt/local/bin:/usr/local/bin:" (getenv "PATH")))
   (push "/usr/local/bin" exec-path)
   (push "/opt/local/bin" exec-path)
+
+  (require 'package)
+  (package-initialize)
+
+  ;; Use org-mode from default external install location if possible
   (if (file-exists-p "/usr/local/share/emacs/site-lisp/")
-      (setq load-path (cons "/usr/local/share/emacs/site-lisp/" load-path))))
+      (setq load-path (cons "/usr/local/share/emacs/site-lisp/" load-path)))
+
+  ;; Send appointment notices through Growl
+  (require 'growl)
+  (defun growl-appt-display (min-to-app new-time msg)
+    (growl (format "Appointment in %s min." min-to-app)
+           (format "Time: %s\n%s" new-time msg)))
+  (setq appt-disp-window-function (function growl-appt-display))
+
+  ;; http://emacs-fu.blogspot.com/2009/11/showing-pop-ups.html
+  (setq
+   appt-message-warning-time 15 ;; warn 15 min in advance
+   appt-display-mode-line t     ;; show in the modeline
+   appt-display-format 'window) ;; use our func
+  (appt-activate 1))
+
+;; And for FreeBSD -- if needed
+;; (when (equal system-type 'berkeley-unix))
+
+(server-mode 1)
 
 ;; turn on the clock
 (load "time")
@@ -127,10 +153,6 @@
       (setq load-path (cons my-lisp-dir load-path))
       (normal-top-level-add-subdirs-to-load-path)))
 
-;; Magit
-(require 'magit)
-(global-set-key (kbd "C-x v \\") 'magit-status)
-
 ;; python stuff from http://www.emacswiki.org/cgi-bin/wiki/PythonMode
 (add-hook 'python-mode-hook '(lambda () (define-key python-mode-map "\C-m" 'newline-and-indent)))
 (defun py-next-block ()
@@ -182,3 +204,12 @@
     ad-do-it
     (when (not (display-graphic-p))
       (setenv "GPG_AGENT_INFO" agent))))
+
+;;; Magit
+(require 'magit)
+(global-set-key (kbd "C-x v \\") 'magit-status)
+
+;;; YASnippet
+(require 'yasnippet) ;; not yasnippet-bundle
+(yas/initialize)
+(yas/load-directory "~/el/yasnippet-read-only/snippets")
