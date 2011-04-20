@@ -8,6 +8,7 @@
 (global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
+
 (add-hook 'org-mode-hook 'turn-on-font-lock)  ; Org buffers only
 (add-hook 'org-mode-hook
 	(lambda()
@@ -16,10 +17,18 @@
 ;; Make TAB the yas trigger key in the org-mode-hook and turn on flyspell mode
 (add-hook 'org-mode-hook
           (lambda ()
-            ;; yasnippet
             (make-variable-buffer-local 'yas/trigger-key)
             (setq yas/trigger-key [tab])
             (define-key yas/keymap [tab] 'yas/next-field-group)))
+;; Coerce the Org Agenda to Appt mode (mainly for Growl notices).
+(add-hook 'org-finalize-agenda-hook 'org-agenda-to-appt)
+
+(setq org-agenda-files (quote ("~/Dropbox/org/work.org.gpg"
+                               "~/Dropbox/org/phone-messages.org.gpg"
+                               "~/Dropbox/org/movies.org"
+                               "~/Dropbox/org/personal.org"
+                               )))
+
 (setq org-mobile-directory "~/Dropbox/MobileOrg")
 (setq org-mobile-inbox-for-pull "~/Dropbox/MobileOrg/from-mobile.org")
 (setq org-mobile-files (quote ("~/Dropbox/org/work.org.gpg"
