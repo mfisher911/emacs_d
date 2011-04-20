@@ -1,10 +1,5 @@
 (setq user-mail-address "mfisher@csh.rit.edu")
 
-;; Chrome Edit Server -> Emacs
-;; (require 'edit-server)
-;; (edit-server-start)
-;; (setq edit-server-new-frame nil)
-
 ;; Javascript2 mode.
 (autoload 'js2-mode "js2" nil t)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
