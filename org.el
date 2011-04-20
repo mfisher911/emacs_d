@@ -42,7 +42,6 @@
 (setq org-log-into-drawer t)
 
 ;;;  Load Org Remember Stuff
-(require 'remember)
 (org-remember-insinuate)
 (define-key global-map "\C-cr" 'org-remember)
 
