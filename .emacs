@@ -125,6 +125,12 @@
   (setq default-frame-alist (quote ((tool-bar-lines . 0)
                                     (width . 80)
                                     (height . 43))))
+  (setenv "TMPDIR" "~/.tmp/")
+  (unless (file-exists-p (getenv "TMPDIR"))
+    (progn (make-directory (getenv "TMPDIR"))
+      (set-file-modes (getenv "TMPDIR") ?\700)))
+  (setq tramp-temp-name-prefix
+        (concat (getenv "TMPDIR") "tramp."))
   (setenv "PATH" (concat "/opt/local/bin:/usr/local/bin:" (getenv "PATH")))
   (push "/usr/local/bin" exec-path)
   (push "/opt/local/bin" exec-path)
