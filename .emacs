@@ -3,10 +3,10 @@
 (load custom-file 'noerror)
 (setq require-final-newline t)
 
-;; Include version control -- needed for xemacs >= 21 
-(cond 
+;; Include version control -- needed for xemacs >= 21
+(cond
  ((string-match "XEmacs" emacs-version)
-  (require 'vc-hooks) 
+  (require 'vc-hooks)
   ))
 
 (server-mode 1)
@@ -16,10 +16,10 @@
 (setq display-time-24hr-format t)
 (display-time)
 
-;; Prevent the annoying beep on errors 
+;; Prevent the annoying beep on errors
 (setq visible-bell t)
 
-;; Display line and column numbers 
+;; Display line and column numbers
 (setq line-number-mode t)
 (setq column-number-mode t)
 
@@ -29,7 +29,7 @@
 
 ;; Stuff for LaTeX
 (setq tex-default-mode (quote latex-mode))
-(setq tex-dvi-view-command 
+(setq tex-dvi-view-command
       (if (eq window-system 'x) "xdvi" "dvi2tty * | cat -s"))
 
 ;; Stuff for C/C++ programming
@@ -104,6 +104,8 @@
 
 ;; Always add a final newline
 (setq require-trailing-newline t)
+(setq-default show-trailing-whitespace t)
+(setq default-indicate-empty-lines t)
 (savehist-mode 1)
 
 ;; always enable paren mode
@@ -120,6 +122,7 @@
 ;;; make the Mac experience consistent
 (when (equal system-type 'darwin)
   (setq mac-command-modifier 'meta)
+  (global-set-key (kbd "M-h") 'ns-do-hide-emacs) 
   (setq x-select-enable-clipboard t)
   (setq mac-tool-bar-display-mode 'icons)
   (setq default-frame-alist (quote ((tool-bar-lines . 0)
