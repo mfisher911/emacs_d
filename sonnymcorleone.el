@@ -1,10 +1,12 @@
 (setq user-mail-address "Michael_Fisher@URMC.Rochester.edu")
 
 (require 'color-theme)
+(require 'color-theme-solarized)
 (color-theme-initialize)
 ; (color-theme-select)
 (setq color-theme-is-global t)
-(color-theme-billw)
+;; (color-theme-billw)
+(color-theme-solarized-dark)
 
 ;; Add flyspell mode for "itsalltext" buffers.
 (add-hook 'find-file-hooks
@@ -13,6 +15,15 @@
                      (equal "itsalltext"
                             (substring buffer-file-name 84 94)))
                 (flyspell-mode))))
+
+(add-hook 'find-file-hooks
+          (lambda ()
+            (when (and (>= (length buffer-file-name) 94)
+                     (equal "rt.son.rochester.edu"
+                            (substring buffer-file-name 95 115)))
+              (auto-fill-mode nil)
+              (visual-line-mode t)
+              (local-set-key (kbd "C-c C-z") 'maf-delete-to-sigdashes))))
 
 ;; Add flyspell pychecker for Python.
 ;; http://www.plope.com/Members/chrism/flymake-mode
@@ -51,7 +62,7 @@
       (delete-region beg (point)))
      (insert "\n\n\n"))
   (forward-char 1))
-(global-set-key (kbd "C-c \\") 'maf-delete-to-sigdashes)
+
 
 ;; RT Liberation
 (require 'rt-liberation)
@@ -77,3 +88,5 @@
 
 (autoload 'csv-mode "csv-mode" "Major mode for editing CSV files." t)
 (add-to-list 'auto-mode-alist '("\\.[Cc][Ss][Vv]\\'" . csv-mode))
+
+(require 'ee-autoloads)
