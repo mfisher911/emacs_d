@@ -109,12 +109,6 @@
 ;; comment-handling
 (setq comment-style '(indent multi))
 
-;; set up URL browsing to be more like Terminal.app
-(global-set-key (kbd "<M-S-mouse-1>") 'browse-url-at-mouse)
-
-;; http://slashusr.wordpress.com/2009/08/09/using-m-from-switching-emacs-frames-on-osx/
-(global-set-key [?\M-`] 'other-frame) ; # This sets the key binding
-
 ;; Always add a final newline
 (setq require-trailing-newline t)
 (setq-default show-trailing-whitespace t)
@@ -136,6 +130,8 @@
 (when (equal system-type 'darwin)
   (setq mac-command-modifier 'meta)
   (global-set-key (kbd "M-h") 'ns-do-hide-emacs) 
+  ;; http://slashusr.wordpress.com/2009/08/09/using-m-from-switching-emacs-frames-on-osx/
+  (global-set-key (kbd "M-`") 'other-frame) ; # This sets the key binding
   (setq x-select-enable-clipboard t)
   (setq mac-tool-bar-display-mode 'icons)
   (setq default-frame-alist (quote ((tool-bar-lines . 0)
