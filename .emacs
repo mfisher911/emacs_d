@@ -43,7 +43,7 @@
 ;;; From http://www.perlmonks.org/?node_id=650413
 ;; Use cperl-mode instead of the default perl-mode
 (defalias 'perl-mode 'cperl-mode)
-(add-to-list 'auto-mode-alist '("\\.cgi" . cperl-mode))
+(add-to-list 'auto-mode-alist '("\\.\\(cgi\\|t\\)\\$" . cperl-mode))
 
 ;; From Peter.Weiss@Informatik.Uni-Oldenburg.DE (Peter Weiss)
 ;; Sun Nov 12 1995
