@@ -111,7 +111,7 @@
 
 ;; Always add a final newline
 (setq require-trailing-newline t)
-(setq-default show-trailing-whitespace t)
+(setq-default show-trailing-whitespace nil)
 (setq default-indicate-empty-lines t)
 (savehist-mode 1)
 
@@ -169,6 +169,9 @@
     (growl (format "Appointment in %s min." min-to-app)
            (format "Time: %s\n%s" new-time msg)))
   (setq appt-disp-window-function (function growl-appt-display))
+
+  ;; (add-to-list 'Info-default-directory-list
+  ;;              "/usr/local/texlive/2011/texmf/doc/info/")
 
   ;; http://emacs-fu.blogspot.com/2009/11/showing-pop-ups.html
   (setq
@@ -240,3 +243,30 @@
 (require 'yasnippet) ;; not yasnippet-bundle
 (yas/initialize)
 (yas/load-directory "~/el/yasnippet-read-only/snippets")
+
+;;
+;; TeXcount setup for TeXcount version 2.3
+;;
+(defun texcount-setup ()
+  (defun latex-word-count ()
+    (interactive)
+    (let*
+      ( (this-file (buffer-file-name))
+        (enc-str (symbol-name buffer-file-coding-system))
+        (enc-opt
+          (cond
+            ((string-match "utf-8" enc-str) "-utf8")
+            ((string-match "latin" enc-str) "-latin1")
+            ("-encoding=guess")
+        ) )
+        (word-count
+          (with-output-to-string
+            (with-current-buffer standard-output
+              (call-process "/usr/texbin/texcount"
+                            nil t nil "-0" enc-opt this-file)
+      ) ) ) )
+      (message word-count)
+  ) )
+  (define-key latex-mode-map (kbd "C-c C-w") 'latex-word-count)
+)
+(add-hook 'latex-mode-hook 'texcount-setup t)
