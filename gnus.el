@@ -1,4 +1,4 @@
-;; Stuff for Gnus (trimmed down)
+;; Stuff for Gnus (trimmed down)  (eval-buffer)
 ;; http://www.stat.ufl.edu/~presnell/Links/gnus-brief.org
 (require 'gnus)
 
@@ -34,6 +34,9 @@
 (gnus-demon-init)
 (setq gnus-use-demon t)
 
+(setq mail-source-delete-incoming t)
+(setq mail-source-delete-old-incoming-confirm nil)
+
 ;; SMTP configuration
 (setq smtpmail-smtp-server "mail.csh.rit.edu")
 ;; If you use the default mail user agent.
@@ -59,7 +62,6 @@
 
 ;;; bbdb
 (setq bbdb-default-area-code 585
-      bbdb-elided-display t
       bbdb-default-country "US")
 (require 'bbdb-autoloads)
 (require 'bbdb)
@@ -84,3 +86,22 @@
     ad-do-it
     (when (not (display-graphic-p))
       (setenv "GPG_AGENT_INFO" agent))))
+
+;; Try to make editing emails nicer
+(add-hook 'message-mode-hook
+	  (lambda ()
+	    (auto-fill-mode -1)
+	    (turn-on-visual-line-mode)))
+;; might also want:
+;; (define-key visual-line-mode-map (kbd "C-a") 'beginning-of-visual-line)
+
+;; Shortcut to mail Maria
+(defun maf-mail-maria ()
+  "Mail Maria"
+  (interactive)
+  (gnus-group-mail)
+  (message-goto-to)
+  (insert "mfisherdoc")
+  (message-tab)
+  (message-goto-subject))
+(define-key gnus-group-mode-map (kbd "C-c m") 'maf-mail-maria)
