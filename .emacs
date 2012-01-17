@@ -128,6 +128,7 @@
 
 ;;; make the Mac experience consistent
 (when (equal system-type 'darwin)
+  (define-key global-map [ns-drag-file] 'ns-find-file)
   (setq mac-command-modifier 'meta)
   (global-set-key (kbd "M-h") 'ns-do-hide-emacs)
   ;; http://slashusr.wordpress.com/2009/08/09/using-m-from-switching-emacs-frames-on-osx/
