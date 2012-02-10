@@ -26,7 +26,6 @@
 (setq org-agenda-files (quote ("~/Dropbox/org/work.org.gpg"
                                "~/Dropbox/org/misc.org.gpg"
                                "~/Dropbox/org/phone-messages.org.gpg"
-                               "~/Dropbox/org/movies.org"
                                "~/Dropbox/org/personal.org"
                                )))
 
@@ -35,7 +34,6 @@
 (setq org-mobile-files (quote ("~/Dropbox/org/work.org.gpg"
                                "~/Dropbox/org/work-notes.org.gpg"
                                "~/Dropbox/org/misc.org.gpg"
-                               "~/Dropbox/org/movies.org"
                                "~/Dropbox/org/notes.org"
                                "~/Dropbox/org/personal.org"
                                "~/Dropbox/org/books-read.org"
@@ -200,3 +198,4 @@
 ;; (add-hook 'org-mobile-post-pull-hook 'my-org-convert-incoming-items)
 
 (setq org-mobile-use-encryption t)
+(setq org-export-latex-href-format "\\url{%s}")

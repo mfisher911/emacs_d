@@ -19,8 +19,10 @@
 (add-hook 'find-file-hooks
           (lambda ()
             (when (and (>= (length buffer-file-name) 94)
-                     (equal "rt.son.rochester.edu"
-                            (substring buffer-file-name 95 115)))
+                       (or (equal "rt.son.rochester.edu"
+                                  (substring buffer-file-name 95 115))
+                           (equal "wiki.son.rochester.edu"
+                                  (substring buffer-file-name 95 117))))
               (auto-fill-mode nil)
               (visual-line-mode t)
               (local-set-key (kbd "C-c C-z") 'maf-delete-to-sigdashes))))
@@ -88,3 +90,18 @@
 
 (autoload 'csv-mode "csv-mode" "Major mode for editing CSV files." t)
 (add-to-list 'auto-mode-alist '("\\.[Cc][Ss][Vv]\\'" . csv-mode))
+
+;; omit files <http://www.20seven.org/journal/2008/11/emacs-dired-directory-management.html>
+(require 'dired-x) 
+(setq dired-omit-files 
+      (rx (or (seq bol (? ".") "#")         ;; emacs autosave files 
+              (seq "~" eol)                 ;; backup-files 
+              (seq bol "svn" eol)           ;; svn dirs 
+              (seq ".pyc" eol)
+              ))) 
+(setq dired-omit-extensions 
+      (append dired-latex-unclean-extensions 
+              dired-bibtex-unclean-extensions 
+              dired-texinfo-unclean-extensions)) 
+(add-hook 'dired-mode-hook (lambda () (dired-omit-mode 1))) 
+(put 'dired-find-alternate-file 'disabled nil)

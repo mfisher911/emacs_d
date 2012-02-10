@@ -13,6 +13,7 @@
 
 ;;; org mode
 (load "~/.emacs.d/org.el" 'noerror)
+(setq org-agenda-files (append '("~/Dropbox/org/weather.org") org-agenda-files))
 
 ;; Twitter
 (require 'twittering-mode)

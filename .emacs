@@ -171,6 +171,9 @@
            (format "Time: %s\n%s" new-time msg)))
   (setq appt-disp-window-function (function growl-appt-display))
 
+  ;; HTTP Error Messages
+  (require 'httpcode)
+
   ;; (add-to-list 'Info-default-directory-list
   ;;              "/usr/local/texlive/2011/texmf/doc/info/")
 
@@ -185,7 +188,10 @@
 ;; (when (equal system-type 'berkeley-unix))
 
 ;; python stuff from http://www.emacswiki.org/cgi-bin/wiki/PythonMode
-(add-hook 'python-mode-hook '(lambda () (define-key python-mode-map "\C-m" 'newline-and-indent)))
+(add-hook 'python-mode-hook 
+          '(lambda ()
+             (define-key python-mode-map "\C-m" 'newline-and-indent)
+             (setq show-trailing-whitespace t)))
 (defun py-next-block ()
   "go to the next block.  Cf. `forward-sexp' for lisp-mode"
   (interactive)
