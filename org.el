@@ -27,6 +27,7 @@
                                "~/Dropbox/org/misc.org.gpg"
                                "~/Dropbox/org/phone-messages.org.gpg"
                                "~/Dropbox/org/personal.org"
+                               "~/Dropbox/org/emp-hlth.org.gpg"
                                )))
 
 (setq org-mobile-directory "~/Dropbox/MobileOrg")
@@ -199,3 +200,6 @@
 
 (setq org-mobile-use-encryption t)
 (setq org-export-latex-href-format "\\url{%s}")
+
+;; 17.38 Remove Multiple State Change Log Details From The Agenda
+(setq org-agenda-skip-additional-timestamps-same-entry t)

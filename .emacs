@@ -24,8 +24,8 @@
 (setq column-number-mode t)
 
 ;; disable tool bars and scroll bars
-(tool-bar-mode -1)
-(scroll-bar-mode 0)
+(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
+(if (fboundp 'scroll-bar-mode) (scroll-bar-mode 0))
 
 ;; Stuff for LaTeX
 (setq tex-default-mode (quote latex-mode))
@@ -44,6 +44,7 @@
 ;; Use cperl-mode instead of the default perl-mode
 (defalias 'perl-mode 'cperl-mode)
 (add-to-list 'auto-mode-alist '("\\.\\(cgi\\|t\\)\\$" . cperl-mode))
+(add-hook 'cperl-mode-hook (setq show-trailing-whitespace t))
 
 ;; From Peter.Weiss@Informatik.Uni-Oldenburg.DE (Peter Weiss)
 ;; Sun Nov 12 1995
@@ -200,8 +201,10 @@
 
 (setq inhibit-splash-screen t)
 (setq initial-scratch-message
-      (format ";; scratch buffer created %s\n;; happy hacking\n\n"
-              (format-time-string "%Y-%m-%d at %T")))
+      (format ";; scratch buffer created %s\n;; %s\n;;%s\n;; happy hacking\n\n"
+              (format-time-string "%Y-%m-%d at %T")
+              (car (split-string (emacs-version) "\n"))
+              (car (cdr (split-string (emacs-version) "\n")))))
 (defun create-scratch-buffer nil
   "create a scratch buffer"
   (interactive)
