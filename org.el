@@ -14,12 +14,7 @@
 	(lambda()
          ;; flyspell mode to spell check everywhere
           (flyspell-mode 1)))
-;; Make TAB the yas trigger key in the org-mode-hook and turn on flyspell mode
-(add-hook 'org-mode-hook
-          (lambda ()
-            (make-variable-buffer-local 'yas/trigger-key)
-            (setq yas/trigger-key [tab])
-            (define-key yas/keymap [tab] 'yas/next-field-group)))
+
 ;; Coerce the Org Agenda to Appt mode (mainly for Growl notices).
 (add-hook 'org-finalize-agenda-hook 'org-agenda-to-appt)
 
