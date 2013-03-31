@@ -183,6 +183,19 @@
   (add-to-list 'Info-default-directory-list
                 "/usr/local/texlive/2012/texmf/doc/info/")
 
+  (defun load-gpg-agent-info ()
+    "Load the GPG Agent's info from disk."
+    (interactive)
+    (let ((oldbuf (current-buffer)))
+      (save-current-buffer
+        (view-file "~/.gpg-agent-info")
+        (setenv "GPG_AGENT_INFO"
+                (buffer-substring (search-forward "=")
+                                  (line-end-position)))
+        (kill-buffer))))
+
+  (load-gpg-agent-info)
+
   ;; http://emacs-fu.blogspot.com/2009/11/showing-pop-ups.html
   (setq
    appt-message-warning-time 15 ;; warn 15 min in advance
