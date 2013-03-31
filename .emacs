@@ -154,9 +154,11 @@
         `((".*" ,temporary-file-directory t)))
   (setq tramp-temp-name-prefix
         (concat (getenv "TMPDIR") "tramp."))
-  (setenv "PATH" (concat "/opt/local/bin:/usr/local/bin:" (getenv "PATH")))
+  (setenv "PATH" (concat "/usr/local/bin:"
+                         (getenv "PATH")
+                         ":/usr/texbin"))
   (push "/usr/local/bin" exec-path)
-  (push "/opt/local/bin" exec-path)
+  (push "/usr/texbin" exec-path)
 
   (require 'package)
   (package-initialize)
@@ -178,8 +180,8 @@
   ;; full-screen mode
   (global-set-key (kbd "M-F") 'ns-toggle-fullscreen)
 
-  ;; (add-to-list 'Info-default-directory-list
-  ;;              "/usr/local/texlive/2011/texmf/doc/info/")
+  (add-to-list 'Info-default-directory-list
+                "/usr/local/texlive/2012/texmf/doc/info/")
 
   ;; http://emacs-fu.blogspot.com/2009/11/showing-pop-ups.html
   (setq
