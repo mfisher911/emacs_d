@@ -23,6 +23,7 @@
                                "~/Dropbox/org/phone-messages.org.gpg"
                                "~/Dropbox/org/personal.org"
                                "~/Dropbox/org/emp-hlth.org.gpg"
+                               "~/Dropbox/org/caps.org.gpg"
                                )))
 
 (setq org-mobile-directory "~/Dropbox/MobileOrg")
@@ -129,9 +130,8 @@
          "* %U %? %^g\n\n   %x"
          "journal.org" 'date-tree)))
 
-(setq org-refile-targets (quote ((org-agenda-files :maxlevel . 5)
-                                 ("~/org/misc.org.gpg" :maxlevel . 5)
-                                 (nil :maxlevel . 5))))
+(setq org-refile-targets (quote ((nil :maxlevel . 5)
+                                 (org-agenda-files :maxlevel . 5))))
 (setq org-refile-use-outline-path t)
 
 ;; 7.5 editing clock entries
