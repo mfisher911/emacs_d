@@ -16,5 +16,13 @@
 (setq org-agenda-files (append '("~/Dropbox/org/weather.org") org-agenda-files))
 
 ;; Twitter
-(require 'twittering-mode)
-(setq twittering-use-master-password t)
+;; (require 'twittering-mode)
+;; (setq twittering-use-master-password t)
+
+;;; ESS mode
+(load "ESS/lisp/ess-site.el")
+
+;; LaTeX additions
+(add-hook 'latex-mode-hook 'turn-on-flyspell)
+(add-hook 'latex-mode-hook
+          (function (lambda () (setq sentence-end-double-space nil))))

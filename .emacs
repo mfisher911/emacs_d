@@ -129,6 +129,8 @@
 
 ;;; make the Mac experience consistent
 (when (equal system-type 'darwin)
+  (setq color-theme-is-global nil)
+
   (define-key global-map [ns-drag-file] 'ns-find-file)
   (setq mac-command-modifier 'meta)
   (global-set-key (kbd "M-h") 'ns-do-hide-emacs)
@@ -154,9 +156,11 @@
         `((".*" ,temporary-file-directory t)))
   (setq tramp-temp-name-prefix
         (concat (getenv "TMPDIR") "tramp."))
-  (setenv "PATH" (concat "/opt/local/bin:/usr/local/bin:" (getenv "PATH")))
+  (setenv "PATH" (concat "/usr/local/bin:"
+                         (getenv "PATH")
+                         ":/usr/texbin"))
   (push "/usr/local/bin" exec-path)
-  (push "/opt/local/bin" exec-path)
+  (push "/usr/texbin" exec-path)
 
   (require 'package)
   (package-initialize)
@@ -175,8 +179,24 @@
   ;; HTTP Error Messages
   (require 'httpcode)
 
-  ;; (add-to-list 'Info-default-directory-list
-  ;;              "/usr/local/texlive/2011/texmf/doc/info/")
+  ;; full-screen mode
+  (global-set-key (kbd "M-F") 'toggle-frame-fullscreen)
+
+  (add-to-list 'Info-default-directory-list
+                "/usr/local/texlive/2012/texmf/doc/info/")
+
+  (defun load-gpg-agent-info ()
+    "Load the GPG Agent's info from disk."
+    (interactive)
+    (let ((oldbuf (current-buffer)))
+      (save-current-buffer
+        (view-file "~/.gpg-agent-info")
+        (setenv "GPG_AGENT_INFO"
+                (buffer-substring (search-forward "=")
+                                  (line-end-position)))
+        (kill-buffer))))
+
+  (load-gpg-agent-info)
 
   ;; http://emacs-fu.blogspot.com/2009/11/showing-pop-ups.html
   (setq
@@ -248,11 +268,6 @@
 ;;; Magit
 (require 'magit)
 (global-set-key (kbd "C-x v \\") 'magit-status)
-
-;;; YASnippet
-(require 'yasnippet) ;; not yasnippet-bundle
-(yas/initialize)
-(yas/load-directory "~/el/yasnippet-read-only/snippets")
 
 ;;
 ;; TeXcount setup for TeXcount version 2.3

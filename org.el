@@ -14,12 +14,7 @@
 	(lambda()
          ;; flyspell mode to spell check everywhere
           (flyspell-mode 1)))
-;; Make TAB the yas trigger key in the org-mode-hook and turn on flyspell mode
-(add-hook 'org-mode-hook
-          (lambda ()
-            (make-variable-buffer-local 'yas/trigger-key)
-            (setq yas/trigger-key [tab])
-            (define-key yas/keymap [tab] 'yas/next-field-group)))
+
 ;; Coerce the Org Agenda to Appt mode (mainly for Growl notices).
 (add-hook 'org-finalize-agenda-hook 'org-agenda-to-appt)
 
@@ -28,6 +23,7 @@
                                "~/Dropbox/org/phone-messages.org.gpg"
                                "~/Dropbox/org/personal.org"
                                "~/Dropbox/org/emp-hlth.org.gpg"
+                               "~/Dropbox/org/caps.org.gpg"
                                )))
 
 (setq org-mobile-directory "~/Dropbox/MobileOrg")
@@ -134,9 +130,8 @@
          "* %U %? %^g\n\n   %x"
          "journal.org" 'date-tree)))
 
-(setq org-refile-targets (quote ((org-agenda-files :maxlevel . 5)
-                                 ("~/org/misc.org.gpg" :maxlevel . 5)
-                                 (nil :maxlevel . 5))))
+(setq org-refile-targets (quote ((nil :maxlevel . 5)
+                                 (org-agenda-files :maxlevel . 5))))
 (setq org-refile-use-outline-path t)
 
 ;; 7.5 editing clock entries
