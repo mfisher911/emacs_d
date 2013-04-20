@@ -120,6 +120,9 @@
 (show-paren-mode t)
 (setq show-paren-style 'mixed)
 
+;;; force the local org-mode
+(add-to-list 'load-path "~/el/org-mode/lisp") (require 'org-install)
+
 ;; slurp in other code
 (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
     (let* ((my-lisp-dir "~/el/")
@@ -161,13 +164,6 @@
                          ":/usr/texbin"))
   (push "/usr/local/bin" exec-path)
   (push "/usr/texbin" exec-path)
-
-  (require 'package)
-  (package-initialize)
-
-  ;; Use org-mode from default external install location if possible
-  (if (file-exists-p "/usr/local/share/emacs/site-lisp/")
-      (setq load-path (cons "/usr/local/share/emacs/site-lisp/" load-path)))
 
   ;; Send appointment notices through Growl
   (require 'growl)
