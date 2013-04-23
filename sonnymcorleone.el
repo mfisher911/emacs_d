@@ -85,8 +85,15 @@
 
 (autoload 'csv-mode "csv-mode" "Major mode for editing CSV files." t)
 (add-to-list 'auto-mode-alist '("\\.[Cc][Ss][Vv]\\'" . csv-mode))
+;; (define-key csv-mode-map (kbd "C-M-n") 'next-logical-line)
+;; (define-key csv-mode-map (kbd "C-M-p") 'previous-logical-line)
 
 (load "ESS/lisp/ess-site.el")
+
+(autoload 'graphviz-dot-mode "graphviz-dot-mode"
+  "Major mode for editing Graphviz DOT files." t)
+(add-to-list 'auto-mode-alist '("\\.[Dd][Oo][Tt]\\'" . graphviz-dot-mode))
+(setq graphviz-dot-preview-extension "pdf")
 
 ;; omit files <http://www.20seven.org/journal/2008/11/emacs-dired-directory-management.html>
 (require 'dired-x) 
