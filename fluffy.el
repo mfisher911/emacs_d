@@ -13,7 +13,6 @@
 
 ;;; org mode
 (load "~/.emacs.d/org.el" 'noerror)
-(setq org-agenda-files (append '("~/Dropbox/org/weather.org") org-agenda-files))
 
 ;; Twitter
 ;; (require 'twittering-mode)
@@ -26,3 +25,12 @@
 (add-hook 'latex-mode-hook 'turn-on-flyspell)
 (add-hook 'latex-mode-hook
           (function (lambda () (setq sentence-end-double-space nil))))
+
+(defalias 'list-buffers 'ibuffer)
+(ido-mode 1)
+(require 'gist)
+
+(require 'w3m)
+(setq newsticker-html-renderer 'w3m-region)
+
+(load-theme 'deeper-blue t)
