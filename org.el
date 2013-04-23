@@ -41,13 +41,6 @@
 (setq org-log-done 'note)
 (setq org-log-into-drawer t)
 
-(defun bh/start-clock-if-needed ()
-  (save-excursion
-    (goto-char (point-min))
-    (when (re-search-forward " *:CLOCK-IN: *" nil t)
-      (replace-match "")
-      (org-clock-in))))
-
 ;; 3.1 TODO Keywords
 (setq org-todo-keywords (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d@/!)")
  (sequence "WAITING(w@/!)" "SOMEDAY(s!)" "|" "CANCELLED(c@/!)"))))
@@ -63,50 +56,28 @@
 ;; 3.2 Fast Todo Selection
 (setq org-use-fast-todo-selection t)
 
-;; 3 remember templates for TODO tasks, Notes, and Phone calls
-;;; http://phunculist.wordpress.com/2008/12/18/adding-a-journal-entry-using-org-mode/
-
-(setq org-remember-templates
-      '(
-        ("todo" ?t
-         "* TODO %?
-  %u
-  %a"
-         nil bottom nil)
-        ("note" ?n
-         "* %?                                        :NOTE:
-  %u
-  %a"
-         nil bottom nil)
-        ("phone" ?p
-         "** PHONE %^{name} - %^{company|University of Rochester} -                :PHONE:
-  Contact Info: %^{phone}
-  %u
-  :CLOCK-IN:
-  %?"
-         "phone-messages.org.gpg" "Phone Messages" nil)
-        ("ticket" ?k
-         "** TODO %^{Ticket}\n   :CLOCK-IN:\n   %?"
-         "work.org.gpg" "Request Tracker Tickets" nil)
-        ("misc" ?m
-         "* %^{event}\n   :CLOCK-IN:\n   %?"
-         "misc.org.gpg" bottom)))
-
+;; 6.1 Capture Templates
+(define-key global-map (kbd "C-c c") 'org-capture)
 (setq org-capture-templates '(("t" "todo" entry
-  (file "~/Dropbox/org/refile.org")
+  (file "refile.org")
   "* TODO %?\n  %u\n  %a")
  ("n" "note" entry
-  (file "~/Dropbox/org/refile.org")
+  (file "refile.org")
   "* %?                                        :NOTE:\n  %u\n  %a")
  ("p" "phone" entry
   (file+headline "phone-messages.org.gpg" "Phone Messages")
-  "** PHONE %^{name} - %^{company|University of Rochester} -                :PHONE:\n  Contact Info: %^{phone}\n  %u\n  :CLOCK-IN:\n  %?")
+  "** PHONE %^{name} - %^{company|University of Rochester} -                :PHONE:\n  Contact Info: %^{phone}\n  %u\n\n  %?" 
+  :clock-in t :clock-resume t)
  ("k" "ticket" entry
   (file+headline "work.org.gpg" "Request Tracker Tickets")
-  "** TODO %^{Ticket}\n   :CLOCK-IN:\n   %?")
+  "** TODO %^{Ticket}\n\n    %?" :clock-in t :clock-resume t)
  ("m" "misc" entry
   (file "misc.org.gpg")
-  "* %^{event}\n   :CLOCK-IN:\n   %?")))
+  "* %^{event}\n\n   %?" :clock-in t :clock-resume t)
+ ("M" "movie" table-line
+  (file "movies.org")
+  "| %<%Y-%m-%d> | %^{Title} | %^{Theatre} | %^{Rating|3} | %^{New} |"
+  :kill-buffer t)))
 
 (setq org-refile-targets (quote ((nil :maxlevel . 5)
                                  (org-agenda-files :maxlevel . 5)
