@@ -29,6 +29,7 @@
 
 ;; Stuff for LaTeX
 (setq tex-default-mode (quote latex-mode))
+(add-hook 'latex-mode-hook 'turn-on-flyspell)
 (setq tex-dvi-view-command
       (if (eq window-system 'x) "xdvi" "dvi2tty * | cat -s"))
 
