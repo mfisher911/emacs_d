@@ -22,7 +22,6 @@
 (load "ESS/lisp/ess-site.el")
 
 ;; LaTeX additions
-(add-hook 'latex-mode-hook 'turn-on-flyspell)
 (add-hook 'latex-mode-hook
           (function (lambda () (setq sentence-end-double-space nil))))
 
