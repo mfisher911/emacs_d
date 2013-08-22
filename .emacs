@@ -159,7 +159,7 @@
         `((".*" ,temporary-file-directory t)))
   (setq tramp-temp-name-prefix
         (concat (getenv "TMPDIR") "tramp."))
-  (setenv "PATH" (concat "/usr/local/bin:"
+  (setenv "PATH" (concat "~/bin:/usr/local/bin:"
                          (getenv "PATH")
                          ":/usr/texbin"))
   (push "/usr/local/bin" exec-path)
