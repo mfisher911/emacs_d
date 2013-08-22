@@ -29,7 +29,8 @@
 (setq org-mobile-directory "~/Dropbox/Apps/MobileOrg")
 (setq org-mobile-inbox-for-pull "~/Dropbox/Apps/MobileOrg/from-mobile.org")
 (setq org-mobile-files (nconc '("~/Dropbox/org/work-notes.org.gpg"
-                               "~/Dropbox/org/notes.org")
+                                "~/Dropbox/org/status-updates.org"
+                                "~/Dropbox/org/notes.org")
                               org-agenda-files))
 (setq org-mobile-force-id-on-agenda-items t)
 (setq org-directory "~/Dropbox/org")
@@ -66,14 +67,14 @@
   "* %?                                        :NOTE:\n  %u\n  %a")
  ("p" "phone" entry
   (file+headline "phone-messages.org.gpg" "Phone Messages")
-  "** PHONE %^{name} - %^{company|University of Rochester} -                :PHONE:\n  Contact Info: %^{phone}\n  %u\n\n  %?" 
+  "\n** PHONE %^{name} - %^{company|University of Rochester} -                :PHONE:\n  Contact Info: %^{phone}\n  %u\n\n  %?\n" 
   :clock-in t :clock-resume t)
  ("k" "ticket" entry
   (file+headline "work.org.gpg" "Request Tracker Tickets")
-  "** TODO %^{Ticket}\n\n    %?" :clock-in t :clock-resume t)
+  "\n** TODO %^{Ticket}\n\n    %?\n" :clock-in t :clock-resume t)
  ("m" "misc" entry
   (file "misc.org.gpg")
-  "* %^{event}\n\n   %?" :clock-in t :clock-resume t)
+  "\n* %^{event}\n\n   %?\n" :clock-in t :clock-resume t)
  ("M" "movie" table-line
   (file "movies.org")
   "| %<%Y-%m-%d> | %^{Title} | %^{Theatre} | %^{Rating|3} | %^{New} |"
