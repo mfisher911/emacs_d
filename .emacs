@@ -325,3 +325,15 @@
                             ("\x2018" . "`")
                             ("\x2019" . "'"))
                           nil beg end))
+
+(add-hook 'markdown-mode-hook 'turn-on-flyspell)
+(eval-after-load 'autoinsert
+  '(define-auto-insert
+     '("\\.md\\'" . "Markdown skeleton")
+     '("Pelican blog headers: "
+       "Title: " _ "\n"
+       "Date: " (format-time-string "%Y-%m-%d %H:%M") "\n"
+       "Tags: " "\n"
+       "Slug: " (file-name-sans-extension (buffer-name)) "\n"
+       "Category: " "\n"
+       "Author: " (user-full-name) "\n\n")))
