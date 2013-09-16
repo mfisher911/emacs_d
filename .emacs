@@ -315,3 +315,13 @@
         (setq mode-name ,new-name))))
 
 (rename-modeline "js2-mode" js2-mode "JS2")
+
+;;; http://superuser.com/a/604264/14385
+(defun replace-smart-quotes (beg end)
+  "Replace 'smart quotes' in buffer or region with ASCII quotes."
+  (interactive "r")
+  (format-replace-strings '(("\x201C" . "``")
+                            ("\x201D" . "''")
+                            ("\x2018" . "`")
+                            ("\x2019" . "'"))
+                          nil beg end))
