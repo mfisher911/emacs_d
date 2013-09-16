@@ -263,8 +263,10 @@
       (setenv "GPG_AGENT_INFO" agent))))
 
 ;;; Magit
-(require 'magit)
-(global-set-key (kbd "C-x v \\") 'magit-status)
+;(require 'magit)
+(when (boundp 'magit-status)
+ (global-set-key (kbd "C-x v \\") 'magit-status)
+ (define-key magit-status-mode-map (kbd "q") 'magit-quit-session))
 
 ;; http://whattheemacsd.com/setup-magit.el-01.html
 (defadvice magit-status (around magit-fullscreen activate)
@@ -278,7 +280,6 @@
   (kill-buffer)
   (jump-to-register :magit-fullscreen))
 
-(define-key magit-status-mode-map (kbd "q") 'magit-quit-session)
 
 ;;
 ;; TeXcount setup for TeXcount version 2.3
