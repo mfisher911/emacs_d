@@ -337,3 +337,11 @@
        "Slug: " (file-name-sans-extension (buffer-name)) "\n"
        "Category: " "\n"
        "Author: " (user-full-name) "\n\n")))
+
+;;; Load theme paths.
+(add-to-list 'custom-theme-load-path "~/el/replace-colorthemes" t)
+(add-to-list 'custom-theme-load-path "~/el/mustang-theme" t)
+(add-to-list 'custom-theme-load-path "~/el/emacs-color-theme-solarized" t)
+(add-to-list 'custom-theme-load-path "~/el/zenburn-emacs" t)
+(add-to-list 'custom-theme-load-path "~/el/calmer-forest-theme" t)
+(add-to-list 'custom-theme-load-path "~/el/soft-morning-theme" t)
