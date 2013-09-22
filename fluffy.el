@@ -19,20 +19,9 @@
 ;; (require 'twittering-mode)
 ;; (setq twittering-use-master-password t)
 
-;;; ESS mode
-(load "ESS/lisp/ess-site.el")
-
-;; LaTeX additions
-(add-hook 'latex-mode-hook
-          (function (lambda () (setq sentence-end-double-space nil))))
-
 (defalias 'list-buffers 'ibuffer)
 (ido-mode 1)
 (require 'gist)
 
 (require 'w3m)
 (setq newsticker-html-renderer 'w3m-region)
-
-(autoload 'markdown-mode "markdown-mode"
-  "Major mode for editing Markdown files" t)
-(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))

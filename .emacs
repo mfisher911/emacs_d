@@ -176,6 +176,13 @@
   ;; HTTP Error Messages
   (require 'httpcode)
 
+  ;;; ESS mode
+  (load "ESS/lisp/ess-site.el")
+
+  ;; LaTeX additions
+  (add-hook 'latex-mode-hook
+            (function (lambda () (setq sentence-end-double-space nil))))
+
   ;; full-screen mode
   (global-set-key (kbd "M-F") 'toggle-frame-fullscreen)
 
@@ -325,6 +332,9 @@
                             ("\x2018" . "`")
                             ("\x2019" . "'"))
                           nil beg end))
+(autoload 'markdown-mode "markdown-mode"
+  "Major mode for editing Markdown files" t)
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 
 (add-hook 'markdown-mode-hook 'turn-on-flyspell)
 (eval-after-load 'autoinsert

@@ -88,8 +88,6 @@
 ;; (define-key csv-mode-map (kbd "C-M-n") 'next-logical-line)
 ;; (define-key csv-mode-map (kbd "C-M-p") 'previous-logical-line)
 
-(load "ESS/lisp/ess-site.el")
-
 (autoload 'graphviz-dot-mode "graphviz-dot-mode"
   "Major mode for editing Graphviz DOT files." t)
 (add-to-list 'auto-mode-alist '("\\.[Dd][Oo][Tt]\\'" . graphviz-dot-mode))
