@@ -337,7 +337,10 @@
   (format-replace-strings '(("\x201C" . "``")
                             ("\x201D" . "''")
                             ("\x2018" . "`")
-                            ("\x2019" . "'"))
+                            ("\x2019" . "'")
+                            (" " . "'")
+                            (" " . "``")
+                            (" " . "''"))
                           nil beg end))
 
 (autoload 'markdown-mode "markdown-mode"
