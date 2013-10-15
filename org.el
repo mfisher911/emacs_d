@@ -160,3 +160,8 @@
 
 ;; fontify code in code blocks
 (setq org-src-fontify-natively t)
+
+;; Load Org Babel mode for Graphviz.
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((dot . t))) ; this line activates dot
