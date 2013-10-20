@@ -28,3 +28,23 @@
 (setq jedi:setup-keys t)
 (add-hook 'python-mode-hook 'jedi:setup)
 (autoload 'jedi:setup "jedi" nil t)
+
+;;; publishing for MKT402
+(setq org-publish-project-alist
+      '(("mkt402-content"
+         :base-directory "~/Dropbox/school/mkt402"
+         :base-extension "org"
+         :publishing-directory "~/Sites/content/school/mkt402"
+         :recursive nil
+         :publishing-function org-html-publish-to-html
+         :headline-levels 4
+         :auto-preamble t
+        )
+        ("mkt402-static"
+         :base-directory "~/Dropbox/school/mkt402"
+         :base-extension "css\\|js\\|png\\|jpg\\|gif"
+         :publishing-directory "~/Sites/content/school/mkt402/"
+         :recursive nil
+         :publishing-function org-publish-attachment
+         )
+        ("mkt402" :components ("mkt402-content" "mkt402-static"))))
