@@ -23,28 +23,39 @@
 (ido-mode 1)
 (require 'gist)
 
-(load-theme 'mustang)
+(load-theme 'leuven)
 
 (setq jedi:setup-keys t)
 (add-hook 'python-mode-hook 'jedi:setup)
 (autoload 'jedi:setup "jedi" nil t)
 
-;;; publishing for MKT402
+;;; publishing for CIS442A
 (setq org-publish-project-alist
-      '(("mkt402-content"
-         :base-directory "~/Dropbox/school/mkt402"
+      '(("cis442a-content"
+         :base-directory "~/Dropbox/school/cis442a"
          :base-extension "org"
-         :publishing-directory "~/Sites/content/school/mkt402"
+         :publishing-directory "~/Sites/content/school/cis442a"
          :recursive nil
          :publishing-function org-html-publish-to-html
          :headline-levels 4
          :auto-preamble t
+         :auto-sitemap t                ; Generate sitemap.org automagically...
+         :sitemap-filename "index.org"  ; ... call it sitemap.org (it's the default)...
+         :sitemap-title "Sitemap"         ; ... with title 'Sitemap'.
         )
-        ("mkt402-static"
-         :base-directory "~/Dropbox/school/mkt402"
+        ("cis442a-static"
+         :base-directory "~/Dropbox/school/cis442a"
          :base-extension "css\\|js\\|png\\|jpg\\|gif"
-         :publishing-directory "~/Sites/content/school/mkt402/"
+         :publishing-directory "~/Sites/content/school/cis442a/"
          :recursive nil
          :publishing-function org-publish-attachment
          )
-        ("mkt402" :components ("mkt402-content" "mkt402-static"))))
+        ("cis442a" :components ("cis442a-content" "cis442a-static"))))
+
+(require 'clojure-mode)
+(require 'paredit)
+(add-hook 'clojure-mode-hook 'paredit-mode)
+
+;; PHP mode
+(autoload 'php-mode "php" nil t)
+(add-to-list 'auto-mode-alist '("\\.php$" . php-mode))
