@@ -171,3 +171,22 @@
 (require 'ox-latex)
 (add-to-list 'org-latex-packages-alist '("" "minted"))
 (setq org-latex-listings 'minted)
+
+;; de-mysql-table
+(defun mysql-to-org-table ()
+  "Convert a MySQL result table (bounded in +---+) to be an
+   Org table (bounded in |---|)."
+  (interactive)
+  (save-excursion
+    (goto-char (point-min))
+    (while (re-search-forward "^\\( +\\)\\+---" nil t)
+      (replace-match "\\1|---" nil nil))
+    (goto-char (point-min))
+    (while (re-search-forward "---\\+$" nil t)
+      (replace-match "---|" nil nil))))
+
+;; Use MathJax from their CDN instead of the old version on the Org
+;; servers.
+(setq org-html-mathjax-options
+      '((path "http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML")
+        (scale "100")(align "center")(indent "2em")(mathml t)))
