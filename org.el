@@ -164,4 +164,10 @@
 ;; Load Org Babel mode for Graphviz.
 (org-babel-do-load-languages
  'org-babel-load-languages
- '((dot . t))) ; this line activates dot
+ '((dot . t) (sql . t))) ; this line activates dot
+
+;; Minted -- better LaTeX source listings
+(setq org-latex-pdf-process (quote ("latexmk -g -pdf %f")))
+(require 'ox-latex)
+(add-to-list 'org-latex-packages-alist '("" "minted"))
+(setq org-latex-listings 'minted)
