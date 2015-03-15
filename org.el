@@ -2,12 +2,14 @@
 ;;;
 ;;; Org Mode
 ;;;
-(require 'org-install)
-(require 'org-checklist)
-(add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
-(global-set-key "\C-cl" 'org-store-link)
-(global-set-key "\C-ca" 'org-agenda)
-(global-set-key "\C-cb" 'org-iswitchb)
+(use-package org
+  :mode ("\\.org\\'" . org-mode)
+  :config
+  (global-set-key "\C-cl" 'org-store-link)
+  (global-set-key "\C-ca" 'org-agenda)
+  (global-set-key "\C-cb" 'org-iswitchb))
+
+(use-package org-checklist)
 
 (add-hook 'org-mode-hook 'turn-on-font-lock)  ; Org buffers only
 (add-hook 'org-mode-hook
