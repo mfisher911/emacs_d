@@ -54,8 +54,10 @@
 ;;   (add-to-list 'flymake-allowed-file-name-masks
 ;;                '("\\.py\\'" flymake-pylint-init)))
 
-(require 'flycheck)
-(add-hook 'after-init-hook #'global-flycheck-mode)
+(use-package flycheck
+  :ensure t
+  :config
+  (add-hook 'after-init-hook #'global-flycheck-mode))
 
 ;; http://emacs-fu.blogspot.com/2009/04/dot-emacs-trickery.html
 ; Make scripts executable on save
@@ -91,24 +93,27 @@
                                  visual-basic-mode)) auto-mode-alist))
 (setq visual-basic-mode-indent 4)
 
-(autoload 'apache-mode "apache-mode" nil t)
+(use-package apache-mode
+  :ensure t)
 
-(autoload 'puppet-mode "puppet-mode" "Puppet manifests-editing mode")
-(add-to-list 'auto-mode-alist '("\\.pp$" . puppet-mode))
+(use-package puppet-mode
+  :ensure t
+  :mode "\\.pp\\'")
 
 (autoload 'nagios-mode "nagios-mode" nil t)
 
-(autoload 'csv-mode "csv-mode" "Major mode for editing CSV files." t)
-(add-to-list 'auto-mode-alist '("\\.[Cc][Ss][Vv]\\'" . csv-mode))
+(use-package csv-mode
+  :ensure t
+  :mode "\\.[Cc][Ss][Vv]\\'")
+
 ;; (define-key csv-mode-map (kbd "C-M-n") 'next-logical-line)
 ;; (define-key csv-mode-map (kbd "C-M-p") 'previous-logical-line)
 
-(load "ESS/lisp/ess-site.el")
-
-(autoload 'graphviz-dot-mode "graphviz-dot-mode"
-  "Major mode for editing Graphviz DOT files." t)
-(add-to-list 'auto-mode-alist '("\\.[Dd][Oo][Tt]\\'" . graphviz-dot-mode))
-(setq graphviz-dot-preview-extension "pdf")
+(use-package graphviz-dot-mode
+  :ensure t
+  :mode "\\.[Dd][Oo][Tt]\\'"
+  :config
+  (setq graphviz-dot-preview-extension "pdf"))
 
 ;; omit files <http://www.20seven.org/journal/2008/11/emacs-dired-directory-management.html>
 (require 'dired-x) 
@@ -158,8 +163,10 @@
 	(kill-process process))
     (redraw-frame (selected-frame))))
 
-(setq jedi:setup-keys t)
-(add-hook 'python-mode-hook 'jedi:setup)
-(autoload 'jedi:setup "jedi" nil t)
-
 (setq w3m-default-display-inline-images t)
+
+(use-package elpy
+  :ensure t
+  :config
+  (elpy-enable)
+  (defalias 'workon 'pyvenv-workon))
