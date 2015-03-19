@@ -45,6 +45,7 @@
 ;; Default to text mode with auto-fill-mode on.
 (setq default-major-mode 'text-mode)
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
+(add-hook 'org-mode-hook 'turn-on-auto-fill)
 
 ;;; From http://www.perlmonks.org/?node_id=650413
 ;; Use cperl-mode instead of the default perl-mode
@@ -205,13 +206,31 @@
                                   (line-end-position)))
         (kill-buffer))))
 
-  (load-gpg-agent-info)
+  ;(load-gpg-agent-info)
+
+  (defun pbcopy ()
+    (interactive)
+    (call-process-region (point) (mark) "pbcopy")
+    (setq deactivate-mark t))
+
+  (defun pbpaste ()
+    (interactive)
+    (call-process-region (point)
+                         (if mark-active (mark) (point)) "pbpaste" t t))
+
+  (defun pbcut ()
+    (interactive)
+    (pbcopy)
+    (delete-region (region-beginning) (region-end)))
+
+  (global-set-key (kbd "C-c c") 'pbcopy)
+  (global-set-key (kbd "C-c v") 'pbpaste)
+  (global-set-key (kbd "C-c x") 'pbcut)
 
   ;; http://emacs-fu.blogspot.com/2009/11/showing-pop-ups.html
   (setq
    appt-message-warning-time 15 ;; warn 15 min in advance
-   appt-display-mode-line t     ;; show in the modeline
-   appt-display-format 'window) ;; use our func
+   appt-display-mode-line t)    ;; show in the modeline
   (appt-activate 1))
 
 ;; And for FreeBSD -- if needed

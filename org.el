@@ -17,15 +17,17 @@
          ;; flyspell mode to spell check everywhere
           (flyspell-mode 1)))
 
-;; Coerce the Org Agenda to Appt mode (mainly for Growl notices).
+;; Coerce the Org Agenda to Appt mode
 (add-hook 'org-finalize-agenda-hook 'org-agenda-to-appt)
 
 (setq org-agenda-files (quote ("~/Dropbox/org/work.org.gpg"
                                "~/Dropbox/org/misc.org.gpg"
-                               "~/Dropbox/org/phone-messages.org.gpg"
+                               "~/Dropbox/org/phone.org.gpg"
                                "~/Dropbox/org/personal.org"
-                               "~/Dropbox/org/emp-hlth.org.gpg"
+                               "~/Dropbox/org/urwell.org.gpg"
+                               "~/Dropbox/org/bb.org.gpg"
                                "~/Dropbox/org/caps.org.gpg"
+                               "~/Dropbox/org/team.org.gpg"
                                )))
 
 (setq org-mobile-directory "~/Dropbox/Apps/MobileOrg")
@@ -68,7 +70,7 @@
   (file "refile.org")
   "* %?                                        :NOTE:\n  %u\n  %a")
  ("p" "phone" entry
-  (file+headline "phone-messages.org.gpg" "Phone Messages")
+  (file+headline "phone.org.gpg" "Phone Messages")
   "\n** PHONE %^{name} - %^{company|University of Rochester} -                :PHONE:\n  Contact Info: %^{phone}\n  %u\n\n  %?\n" 
   :clock-in t :clock-resume t)
  ("k" "ticket" entry
@@ -192,3 +194,15 @@
 (setq org-html-mathjax-options
       '((path "http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML")
         (scale "100")(align "center")(indent "2em")(mathml t)))
+
+(require 'org-mime)
+(add-hook 'message-mode-hook
+          (lambda ()
+            (local-set-key "\C-c\M-o" 'org-mime-htmlize)))
+
+(defun nmd-timestamp-definition ()
+  "Add timestamp definition entry '- [TIMESTAMP] :: ' for logging meeting minutes."
+  (interactive)
+  (org-insert-heading)
+  (org-time-stamp-inactive 1)
+  (move-end-of-line 1))
