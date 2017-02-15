@@ -227,6 +227,10 @@
   (global-set-key (kbd "C-c v") 'pbpaste)
   (global-set-key (kbd "C-c x") 'pbcut)
 
+  (set-fontset-font t 'symbol
+                    (font-spec :family "Apple Color Emoji")
+                    nil 'prepend)
+
   ;; http://emacs-fu.blogspot.com/2009/11/showing-pop-ups.html
   (setq
    appt-message-warning-time 15 ;; warn 15 min in advance
