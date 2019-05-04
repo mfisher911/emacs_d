@@ -5,7 +5,8 @@
 (setq calendar-longitude -77.626047)
 ;; (require 'theme-changer)
 ;; (change-theme 'solarized-light 'solarized-dark)
-(load-theme 'leuven)
+;; (load-theme 'leuven)
+(load-theme 'sexy-monochrome)
 
 ;; Add flyspell mode for "itsalltext" buffers.
 (add-hook 'find-file-hooks
@@ -53,6 +54,18 @@
 
 ;;   (add-to-list 'flymake-allowed-file-name-masks
 ;;                '("\\.py\\'" flymake-pylint-init)))
+
+
+(use-package yaml-mode
+  :ensure t
+  :config
+  (add-hook 'yaml-mode-hook '(lambda () (ansible 1))))
+
+;; required by flycheck
+(use-package let-alist
+  :ensure t)
+;; (use-package seq
+;;   :ensure t)
 
 (use-package flycheck
   :ensure t
@@ -170,3 +183,18 @@
   :config
   (elpy-enable)
   (defalias 'workon 'pyvenv-workon))
+
+(use-package web-mode
+  :ensure t
+  :config
+  (add-to-list 'auto-mode-alist '("\\.html$" . web-mode))
+  (setq web-mode-code-indent-offset 2))
+
+;; (setq python-shell-interpreter "frameworkpython"
+;;       python-shell-interpreter-args "-im IPython")
+
+;; (setq python-shell-interpreter "python"
+;;       python-shell-interpreter-args "")
+
+; (add-hook 'markdown-mode-hook #'flycheck-mode)
+; (add-hook 'text-mode-hook #'flycheck-mode)

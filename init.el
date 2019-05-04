@@ -15,6 +15,8 @@
 
 (server-start)
 
+(setq save-abbrevs 'silently)
+
 ;; turn on the clock
 (use-package time
   :config
@@ -22,7 +24,7 @@
   (display-time))
 
 ;; Prevent the annoying beep on errors
-(setq visible-bell t)
+(setq visible-bell nil)
 
 ;; Display line and column numbers
 (setq line-number-mode t)
@@ -108,6 +110,12 @@
 (setq make-backup-files nil)
 (setq tramp-backup-directory-alist backup-directory-alist)
 
+;; https://superuser.com/a/179608
+(setq tramp-shell-prompt-pattern "^[^$>\n]*[#$%>] *\\(\[[0-9;]*[a-zA-Z] *\\)*")
+
+;; https://emacs.stackexchange.com/a/22305
+(setq tramp-copy-size-limit nil)
+
 ; disable tab indent
 (setq-default indent-tabs-mode nil)
 
@@ -143,6 +151,8 @@
 
   (define-key global-map [ns-drag-file] 'ns-find-file)
   (setq mac-command-modifier 'meta)
+  (setq mac-option-modifier 'super) ; make opt key do Super
+  (global-set-key [s-backspace] 'backward-kill-word) ;; match terminal
   (global-set-key (kbd "M-h") 'ns-do-hide-emacs)
   ;; http://slashusr.wordpress.com/2009/08/09/using-m-from-switching-emacs-frames-on-osx/
   (global-set-key (kbd "M-`") 'other-frame) ; # This sets the key binding
@@ -177,10 +187,10 @@
     :ensure t)
 
   ;;; ESS mode
-  (use-package ess
-     :ensure t
-     :config
-     (load "ess-site"))
+;;   (use-package ess
+;;      :ensure t
+;;      :config
+;;      (load "ess-site"))
 
   ;; LaTeX additions
   (add-hook 'latex-mode-hook
@@ -226,54 +236,6 @@
   (global-set-key (kbd "C-c c") 'pbcopy)
   (global-set-key (kbd "C-c v") 'pbpaste)
   (global-set-key (kbd "C-c x") 'pbcut)
-
-  (set-fontset-font t 'symbol
-                    (font-spec :family "Apple Color Emoji")
-                    nil 'prepend)
-
-  ;; http://jblevins.org/log/emacs-omnifocus
-  ;; https://gist.github.com/jrblevin/cacbaf7b34b042bb308b
-  (defun applescript-quote-string (argument)
-    "Quote a string for passing as a string to AppleScript."
-    (if (or (not argument) (string-equal argument ""))
-        "\"\""
-      ;; Quote using double quotes, but escape any existing quotes or
-      ;; backslashes in the argument with backslashes.
-      (let ((result "")
-            (start 0)
-            end)
-        (save-match-data
-          (if (or (null (string-match "[^\"\\]" argument))
-                  (< (match-end 0) (length argument)))
-              (while (string-match "[\"\\]" argument start)
-                (setq end (match-beginning 0)
-                      result (concat result (substring argument start end)
-                                     "\\" (substring argument end (1+ end)))
-                      start (1+ end))))
-          (concat "\"" result (substring argument start) "\"")))))
-
-  (defun send-region-to-omnifocus (beg end)
-    "Send the selected region to OmniFocus.
-Use the first line of the region as the task name and the second
-and subsequent lines as the task note."
-    (interactive "r")
-    (let* ((region (buffer-substring-no-properties beg end))
-           (match (string-match "^\\(.*\\)$" region))
-           (name (substring region (match-beginning 1) (match-end 1)))
-           (note (if (< (match-end 0) (length region))
-                     (concat (substring region (+ (match-end 0) 1) nil) "\n\n")
-                   "")))
-      (do-applescript
-       (format "set theDate to current date
-              set taskName to %s
-              set taskNote to %s
-              set taskNote to (taskNote) & \"Added from Emacs on \" & (theDate as string)
-              tell front document of application \"OmniFocus\"
-                make new inbox task with properties {name:(taskName), note:(taskNote)}
-              end tell"
-               (applescript-quote-string name)
-               (applescript-quote-string note)))
-      (message "Sent to OmniFocus: `%s'" name)))
 
   ;; http://emacs-fu.blogspot.com/2009/11/showing-pop-ups.html
   (setq
@@ -350,10 +312,13 @@ and subsequent lines as the task note."
 ;;; Magit
 (use-package magit
   :ensure t
-  :bind ("C-x v \\" . magit-status)
   :config
-  (setq magit-push-always-verify nil)
-  (define-key magit-status-mode-map (kbd "q") 'magit-quit-session))
+  (global-set-key (kbd "C-x v \\") 'magit-status)
+  (define-key magit-status-mode-map (kbd "q") 'magit-quit-session)
+  (setq magit-git-global-arguments
+        (nconc magit-git-global-arguments
+               '("-c" "color.ui=false"
+                 "-c" "color.diff=false"))))
 
 ;; http://whattheemacsd.com/setup-magit.el-01.html
 (defadvice magit-status (around magit-fullscreen activate)
@@ -419,7 +384,8 @@ and subsequent lines as the task note."
                             ("\x2019" . "'")
                             ("’" . "'")
                             ("“" . "``")
-                            ("”" . "''"))
+                            ("”" . "''")
+                            ("–" . "--"))
                           nil beg end))
 
 (use-package markdown-mode
@@ -447,3 +413,4 @@ and subsequent lines as the task note."
 (prefer-coding-system 'utf-8)
 (when (display-graphic-p)
    (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING)))
+(setq default-directory "~/")
