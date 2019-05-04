@@ -14,7 +14,6 @@
 (require 'use-package)
 
 (server-start)
-
 (setq save-abbrevs 'silently)
 
 ;; turn on the clock
@@ -236,6 +235,10 @@
   (global-set-key (kbd "C-c c") 'pbcopy)
   (global-set-key (kbd "C-c v") 'pbpaste)
   (global-set-key (kbd "C-c x") 'pbcut)
+
+  (set-fontset-font t 'symbol
+                    (font-spec :family "Apple Color Emoji")
+                    nil 'prepend)
 
   ;; http://emacs-fu.blogspot.com/2009/11/showing-pop-ups.html
   (setq
