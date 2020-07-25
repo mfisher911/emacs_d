@@ -98,6 +98,7 @@
 ;; http://www.hulubei.net/tudor/configuration/.emacs
 (setq make-backup-files nil)
 (setq tramp-backup-directory-alist backup-directory-alist)
+(setq tramp-default-method "sshx")
 
 ;; https://superuser.com/a/179608
 (setq tramp-shell-prompt-pattern "^[^$>\n]*[#$%>] *\\(\[[0-9;]*[a-zA-Z] *\\)*")
