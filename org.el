@@ -27,8 +27,8 @@
             (lambda ()
               (local-set-key "\C-c\M-o" 'org-mime-htmlize))))
 
-;; (use-package htmlize
-;;   :ensure t)
+(use-package htmlize
+  :ensure t)
 
 ;; http://wenshanren.org/?p=781
 (defun org-font-lock-ensure ()
