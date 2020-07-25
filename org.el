@@ -37,9 +37,9 @@
 
 (add-hook 'org-mode-hook 'turn-on-font-lock)  ; Org buffers only
 (add-hook 'org-mode-hook
-	(lambda()
-         ;; flyspell mode to spell check everywhere
-          (flyspell-mode 1)))
+          (lambda()
+            ;; flyspell mode to spell check everywhere
+            (flyspell-mode 1)))
 
 ;; Coerce the Org Agenda to Appt mode
 (add-hook 'org-finalize-agenda-hook 'org-agenda-to-appt)
