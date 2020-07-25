@@ -1,3 +1,9 @@
+;;; sonm17mfisher4 --- Personal customizations
+;;;
+;;; Commentary:
+;;;
+;;; Code:
+;;;
 (setq user-mail-address "Michael_Fisher@URMC.Rochester.edu")
 
 (setq calendar-location-name "Rochester, NY")
@@ -153,8 +159,8 @@
 ;; (require 'flymake-perlcritic)
 
 (defun pinentry-curses-send-command (process command)
-  (save-excursion
-    (set-buffer buffer)
+  "Copied this from somewhere for PGP interaction with PROCESS and COMMAND."
+  (with-current-buffer
     (erase-buffer)
     (process-send-string process command)
     (while (and (eq (process-status process) 'run)
@@ -164,6 +170,7 @@
       (accept-process-output process 0.1))))
 
 (defun pinentry-curses-test ()
+  "Test to see whether pinentry (curses) is able to process."
   (interactive)
   (unwind-protect
       (let* ((buffer (generate-new-buffer "pinentry"))

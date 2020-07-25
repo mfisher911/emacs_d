@@ -1,4 +1,9 @@
-;; This needs to live in ~/.emacs .
+;;; init.el --- personal customizations
+;;; Commentary:
+;;;   Contains my common Emacs customizations and loads additional
+;;;   machine-specific customizations.
+;;; Code:
+
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file 'noerror)
 
@@ -57,7 +62,7 @@
 ;; From Peter.Weiss@Informatik.Uni-Oldenburg.DE (Peter Weiss)
 ;; Sun Nov 12 1995
 (defun match-paren (arg)
-  "Go to the matching parenthesis if on parenthesis otherwise insert %."
+  "Go to the matching parenthesis for ARG if on parenthesis otherwise insert %."
   (interactive "p")
   (cond ((looking-at "\\s\(")
          (forward-list 1) (backward-char 1))
@@ -69,7 +74,7 @@
 
 ;; http://www.perlmonks.org/?abspart=1;displaytype=displaycode;node_id=516539;part=1
 (defun perltidy-buffer ()
-  "Runs an entire buffer through perltidy."
+  "Run perltidy on the current buffer."
   (interactive)
   (let ((orig-point (point)))
     (shell-command-on-region
@@ -90,7 +95,7 @@
 
 ;; Got this from Kai, who may have gotten it from Tom Christiansen
 (defun perldoc (man-args)
-  "Launches perldoc for a given item."
+  "Launch perldoc for MAN-ARGS."
   (interactive "sPerldoc: ")
   (require 'man)
   (let ((manual-program "perldoc"))
@@ -218,16 +223,19 @@
   ;(load-gpg-agent-info)
 
   (defun pbcopy ()
+    "Copy the current paste buffer to the Mac."
     (interactive)
     (call-process-region (point) (mark) "pbcopy")
     (setq deactivate-mark t))
 
   (defun pbpaste ()
+    "Copy the Mac's current paste buffer."
     (interactive)
     (call-process-region (point)
                          (if mark-active (mark) (point)) "pbpaste" t t))
 
   (defun pbcut ()
+    "Cut the current region."
     (interactive)
     (pbcopy)
     (delete-region (region-beginning) (region-end)))
@@ -263,7 +271,7 @@
              (define-key python-mode-map "\C-m" 'newline-and-indent)
              (setq show-trailing-whitespace t)))
 (defun py-next-block ()
-  "go to the next block.  Cf. `forward-sexp' for lisp-mode"
+  "Go to the next block.  Cf. `forward-sexp' for 'lisp-mode'."
   (interactive)
   (py-mark-block nil 't)
   (back-to-indentation))
@@ -275,7 +283,7 @@
               (car (split-string (emacs-version) "\n"))
               (car (cdr (split-string (emacs-version) "\n")))))
 (defun create-scratch-buffer nil
-  "create a scratch buffer"
+  "Create a customized scratch buffer."
   (interactive)
   (switch-to-buffer (get-buffer-create "*scratch*"))
   (lisp-interaction-mode)
@@ -325,21 +333,22 @@
 
 ;; http://whattheemacsd.com/setup-magit.el-01.html
 (defadvice magit-status (around magit-fullscreen activate)
+  "Make Magit have a full-screen window."
   (window-configuration-to-register :magit-fullscreen)
   ad-do-it
   (delete-other-windows))
 
 (defun magit-quit-session ()
-  "Restores the previous window configuration and kills the magit buffer"
+  "Restore the previous window configuration and kill the magit buffer."
   (interactive)
   (kill-buffer)
   (jump-to-register :magit-fullscreen))
-
 
 ;;
 ;; TeXcount setup for TeXcount version 2.3
 ;;
 (defun texcount-setup ()
+  "Make a container function for doing LaTeX word counting."
   (defun latex-word-count ()
     (interactive)
     (let*
@@ -366,6 +375,7 @@
 
 ;;; http://whattheemacsd.com/appearance.el-01.html
 (defmacro rename-modeline (package-name mode new-name)
+  "Rename modeline entries for PACKAGE-NAME's MODE as NEW-NAME."
   `(eval-after-load ,package-name
      '(defadvice ,mode (after rename-modeline activate)
         (setq mode-name ,new-name))))
@@ -379,7 +389,7 @@
 
 ;;; http://superuser.com/a/604264/14385
 (defun replace-smart-quotes (beg end)
-  "Replace 'smart quotes' in buffer or region with ASCII quotes."
+  "Replace 'smart quotes' in buffer or region (BEG..END) with ASCII quotes."
   (interactive "r")
   (format-replace-strings '(("\x201C" . "``")
                             ("\x201D" . "''")
@@ -396,6 +406,7 @@
   :mode "\\.md\\'"
   :config
   (add-hook 'markdown-mode-hook 'turn-on-flyspell))
+
 (use-package autoinsert
   :config
   (define-auto-insert
@@ -407,7 +418,6 @@
       "Slug: " (file-name-sans-extension (buffer-name)) "\n"
       "Category: " "\n"
       "Author: " (user-full-name) "\n\n")))
-
 
 (setq locale-coding-system 'utf-8)
 (set-terminal-coding-system 'utf-8)

@@ -1,7 +1,10 @@
+;;; package --- Org-Mode config file
+;;;
+;;; Commentary:
+;;;
 ;;; http://doc.norang.ca/org-mode.html
 ;;;
-;;; Org Mode
-;;;
+;;; Code:
 (use-package org
   :mode ("\\.org\\'" . org-mode)
   :config
