@@ -175,6 +175,7 @@
 (setq org-export-with-smart-quotes t)
 
 (setq org-html-validation-link nil)
+(setq org-html-doctype "html5")
 
 ;; 17.38 Remove Multiple State Change Log Details From The Agenda
 (setq org-agenda-skip-additional-timestamps-same-entry t)
