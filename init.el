@@ -166,10 +166,6 @@
         `((".*" ,temporary-file-directory t)))
   (setq tramp-temp-name-prefix
         (concat (getenv "TMPDIR") "tramp."))
-  ;; HTTP Error Messages
-  (use-package httpcode
-    :ensure t)
-
   ;;; ESS mode
 ;;   (use-package ess
 ;;      :ensure t
@@ -412,3 +408,8 @@
 (when (display-graphic-p)
    (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING)))
 (setq default-directory "~/")
+
+;; HTTP Error Messages
+(use-package httpcode
+  :ensure t)
+
