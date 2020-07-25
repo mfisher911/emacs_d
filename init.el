@@ -286,6 +286,7 @@
 
 ;; Do not use gpg agent when runing in terminal
 (defadvice epg--start (around advice-epg-disable-agent activate)
+  "Check for a graphic display and only use EPG if we have one."
   (let ((agent (getenv "GPG_AGENT_INFO")))
     (when (not (display-graphic-p))
       (setenv "GPG_AGENT_INFO" nil))
