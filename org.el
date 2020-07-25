@@ -6,11 +6,7 @@
 ;;;
 ;;; Code:
 (use-package org
-  :mode ("\\.org\\'" . org-mode)
-  :config
-  (global-set-key "\C-cl" 'org-store-link)
-  (global-set-key "\C-ca" 'org-agenda)
-  (global-set-key "\C-cb" 'org-iswitchb))
+  :mode ("\\.org\\'" . org-mode))
 
 ;; org-checklist provides checklist handling tools
 ;; http://orgmode.org/worg/org-contrib/org-checklist.html
