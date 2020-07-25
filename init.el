@@ -226,14 +226,6 @@
     :init
     (exec-path-from-shell-initialize)))
 
-(use-package jedi
-  :ensure t
-  :init
-  (setq jedi:setup-keys t)
-  (add-hook 'python-mode-hook 'jedi:setup)
-  :config
-  (jedi:setup))
-
 ;; python stuff from http://www.emacswiki.org/cgi-bin/wiki/PythonMode
 (add-hook 'python-mode-hook
           '(lambda ()
