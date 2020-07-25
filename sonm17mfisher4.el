@@ -166,7 +166,7 @@
     (while (and (eq (process-status process) 'run)
 		(not (progn
 		       (goto-char (point-max))
-		       (looking-back "^\\(OK\\|ERR .*\\)\n"))))
+		       (looking-back "^\\(OK\\|ERR .*\\)\n" nil))))
       (accept-process-output process 0.1))))
 
 (defun pinentry-curses-test ()
