@@ -20,11 +20,12 @@
 (require 'org-mac-link)
 (require 'org-secretary)
 
-;; This also comes from org-mode/contrib
-(require 'org-mime)
-(add-hook 'message-mode-hook
-          (lambda ()
-            (local-set-key "\C-c\M-o" 'org-mime-htmlize)))
+(use-package org-mime
+  :ensure t
+  :config
+  (add-hook 'message-mode-hook
+            (lambda ()
+              (local-set-key "\C-c\M-o" 'org-mime-htmlize))))
 
 ;; (use-package htmlize
 ;;   :ensure t)
