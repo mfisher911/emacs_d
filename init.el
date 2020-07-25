@@ -166,11 +166,6 @@
         `((".*" ,temporary-file-directory t)))
   (setq tramp-temp-name-prefix
         (concat (getenv "TMPDIR") "tramp."))
-  ;;; ESS mode
-;;   (use-package ess
-;;      :ensure t
-;;      :config
-;;      (load "ess-site"))
 
   ;; LaTeX additions
   (add-hook 'latex-mode-hook
