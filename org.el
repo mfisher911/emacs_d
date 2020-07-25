@@ -32,6 +32,7 @@
 
 ;; http://wenshanren.org/?p=781
 (defun org-font-lock-ensure ()
+  "Ensure that 'font-lock-mode' is turned on in 'org-mode' buffers."
   (font-lock-fontify-buffer))
 
 (add-hook 'org-mode-hook 'turn-on-font-lock)  ; Org buffers only
