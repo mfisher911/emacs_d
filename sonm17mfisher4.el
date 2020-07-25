@@ -114,10 +114,10 @@
   (delete-frame))
 
 ;; Language/Config specific modes
-(autoload 'visual-basic-mode "visual-basic-mode" "Visual Basic mode." t)
-(setq auto-mode-alist (append '(("\\.\\(frm\\|bas\\|cls\\|vbs\\)$" .
-                                 visual-basic-mode)) auto-mode-alist))
-(setq visual-basic-mode-indent 4)
+(use-package visual-basic-mode
+  :config
+  (setq auto-mode-alist (append '(("\\.\\(frm\\|bas\\|cls\\|vbs\\)$" .
+                                   visual-basic-mode)) auto-mode-alist)))
 
 (use-package apache-mode
   :ensure t)
