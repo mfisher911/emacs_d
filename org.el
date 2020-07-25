@@ -50,14 +50,14 @@
                                "~/org/team.org.gpg"
                                )))
 
-(setq org-mobile-directory "~/Dropbox/Apps/MobileOrg")
-(setq org-mobile-inbox-for-pull "~/Dropbox/Apps/MobileOrg/from-mobile.org")
-(setq org-mobile-files (nconc '("~/org/work-notes.org.gpg"
+(setq org-mobile-directory "~/org/inbox.org")
+(setq org-mobile-inbox-for-pull "~/org/from-mobile.org")
+(setq org-mobile-files (nconc '("~/org/work-notes.org"
                                 "~/org/status-updates.org"
                                 "~/org/notes.org")
                               org-agenda-files))
 (setq org-mobile-force-id-on-agenda-items t)
-(setq org-directory "~/Dropbox/org")
+(setq org-directory "~/org")
 (setq org-publish-timestamp-directory "~/org/.org-timestamps/")
 (setq org-default-notes-file "~/org/refile.org")
 
