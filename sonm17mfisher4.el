@@ -200,30 +200,11 @@
   (add-to-list 'auto-mode-alist '("\\.html$" . web-mode))
   (setq web-mode-code-indent-offset 2))
 
-;; (use-package ein
-;;   :ensure t)
-
-;; (setq python-shell-interpreter "frameworkpython"
-;;       python-shell-interpreter-args "-im IPython")
-
-;; (setq python-shell-interpreter "python"
-;;       python-shell-interpreter-args "")
-
-; (add-hook 'markdown-mode-hook #'flycheck-mode)
-; (add-hook 'text-mode-hook #'flycheck-mode)
-
 (use-package blacken
   :ensure t
   :config
   (add-hook 'python-mode-hook 'blacken-mode)
   (setq blacken-line-length 78))
-
-(use-package projectile
-  :ensure t
-  :config
-  (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
-  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
-  (projectile-mode +1))
 
 ;; (use-package isortify
 ;;   :ensure t
