@@ -25,8 +25,9 @@
 
 (use-package flycheck
   :ensure t
+  :init (global-flycheck-mode)
   :config
-  (add-hook 'after-init-hook #'global-flycheck-mode))
+  (setq flycheck-display-errors-delay 3))
 
 (use-package pyvenv
   :ensure t)
