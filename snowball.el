@@ -10,24 +10,12 @@
 ;;; org mode
 (load "~/.emacs.d/org.el" 'noerror)
 
-;; Twitter
-;; (require 'twittering-mode)
-;; (setq twittering-use-master-password t)
-
 (defalias 'list-buffers 'ibuffer)
-(use-package gist
-  :ensure t)
 
 (load-theme 'leuven)
 
 (use-package yaml-mode
   :ensure t)
-
-;;; https://gist.github.com/arnested/afd421c89a68b874e1c0
-;; Use align-left icon for `auto-fill-mode'.
-;; (use-package diminish
-;;   :config
-;;   (diminish 'auto-fill-function (concat " " [#xF036])))
 
 (use-package flycheck
   :ensure t
