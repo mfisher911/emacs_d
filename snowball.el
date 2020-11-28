@@ -14,6 +14,9 @@
 
 (load-theme 'leuven)
 
+(use-package yaml-mode
+  :ensure t)
+
 ;;; https://gist.github.com/arnested/afd421c89a68b874e1c0
 ;; Use align-left icon for `auto-fill-mode'.
 ;; (use-package diminish
