@@ -369,18 +369,6 @@
   :config
   (add-hook 'markdown-mode-hook 'turn-on-flyspell))
 
-(use-package autoinsert
-  :config
-  (define-auto-insert
-    '("\\.md\\'" . "Markdown skeleton")
-    '("Pelican blog headers: "
-      "Title: " _ "\n"
-      "Date: " (format-time-string "%Y-%m-%d %H:%M") "\n"
-      "Tags: " "\n"
-      "Slug: " (file-name-sans-extension (buffer-name)) "\n"
-      "Category: " "\n"
-      "Author: " (user-full-name) "\n\n")))
-
 (setq locale-coding-system 'utf-8)
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
