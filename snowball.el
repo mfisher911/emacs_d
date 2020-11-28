@@ -9,7 +9,6 @@
 ;; (setq twittering-use-master-password t)
 
 (defalias 'list-buffers 'ibuffer)
-(ido-mode 1)
 (use-package gist
   :ensure t)
 
