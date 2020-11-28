@@ -38,10 +38,6 @@
   (elpy-enable)
   (defalias 'workon 'pyvenv-workon))
 
-;; (setq python-shell-interpreter "frameworkpython"
-;;       python-shell-interpreter-args "-m IPython")
-
-
 ;; chmod +x
 ;; ref. http://th.nao.ac.jp/MEMBER/zenitani/elisp-j.html#chmod
 (add-hook 'after-save-hook
