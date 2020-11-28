@@ -28,11 +28,6 @@
   :config
   (add-hook 'after-init-hook #'global-flycheck-mode))
 
-(use-package py-autopep8
-  :ensure t
-  :config
-  (add-hook 'python-mode-hook 'py-autopep8-enable-on-save))
-
 (use-package pyvenv
   :ensure t)
 
