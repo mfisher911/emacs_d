@@ -4,6 +4,10 @@
 (require 'erc-join)
 (require 'erc-goodies)
 
+(use-package erc-hl-nicks
+  :ensure t
+  :init (erc-hl-nicks-mode))
+
 (setq erc-keywords '("mfisher" "spudnuts"))
 (setq erc-hide-list '("JOIN" "NICK" "PART" "QUIT" "MODE"))
 (setq erc-track-exclude-types (append erc-hide-list
