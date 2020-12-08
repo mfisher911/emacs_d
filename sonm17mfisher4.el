@@ -131,6 +131,11 @@
 ;;                '("\\.py\\'" flymake-pylint-init)))
 
 
+(use-package which-key
+  :ensure t
+  :config
+  (which-key-mode))
+
 (use-package ansible
   :ensure t)
 
