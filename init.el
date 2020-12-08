@@ -117,7 +117,6 @@
 
 ;; Always add a final newline
 (setq require-final-newline t)
-(setq-default show-trailing-whitespace nil)
 (setq default-indicate-empty-lines t)
 (savehist-mode 1)
 
@@ -256,6 +255,11 @@
   (setq uniquify-buffer-name-style 'forward)
   (setq uniquify-separator "/")
   (setq uniquify-after-kill-buffer-p t))
+
+(use-package ws-butler
+  :ensure t
+  :init
+  (ws-butler-global-mode))
 
 ;; conditional loads; try to get "~/.emacs.d/" + hostname + ".el"
 ;; (hostname is trimmed after first dot)
