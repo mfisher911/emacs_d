@@ -298,7 +298,7 @@
 (use-package prettier-js
   :ensure t
   :config
-  (add-hook 'js2-mode-hook 'prettier-js-mode)
-  (add-hook 'web-mode-hook 'prettier-js-mode))
+  (add-hook 'js2-mode-hook 'prettier-js-mode))
+
 
 ;;; sonm17mfisher4.el ends here
