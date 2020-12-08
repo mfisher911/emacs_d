@@ -263,8 +263,6 @@
 	(kill-process process))
     (redraw-frame (selected-frame))))
 
-(setq w3m-default-display-inline-images t)
-
 (use-package elpy
   :ensure t
   :config
