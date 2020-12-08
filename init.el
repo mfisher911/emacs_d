@@ -281,8 +281,8 @@
                          ".el"))
       (hostname (system-name)))
   (cond
-   ((equal hostname "SONNYCORLEONE")
-    (load "~/.emacs.d/sonnycorleone.el" 'noerror))
+   ((string-match "vpn-client-.*" hostname)
+    (load "~/.emacs.d/sonm17mfisher4.el" 'noerror))
    (t (load conf-file 'noerror))
 ))
 
