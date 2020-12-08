@@ -91,6 +91,18 @@
               (local-set-key (kbd "C-c C-z") 'maf-delete-to-sigdashes)
               (local-set-key (kbd "C-c C-c") 'maf-close-iat))))
 
+;; Eshell + sudo + tramp help
+;; https://emacs.stackexchange.com/a/5619
+;; at some point, need to do: ```alias sudo 'eshell/sudo $*'```
+(use-package esh-autosuggest
+  :hook (eshell-mode . esh-autosuggest-mode)
+  :ensure t)
+(require 'em-tramp)
+(require 'em-alias)
+(setq eshell-prefer-lisp-functions t)
+(setq password-cache t)
+(setq password-cache-expiry 600)
+
 ;; Add flyspell pychecker for Python.
 ;; http://www.plope.com/Members/chrism/flymake-mode
 ;; (require 'flymake)
