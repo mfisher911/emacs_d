@@ -223,7 +223,17 @@
   (use-package exec-path-from-shell
     :ensure t
     :init
-    (exec-path-from-shell-initialize)))
+    (exec-path-from-shell-initialize))
+
+  ;; https://codeisgreat.org/articles/emacs-macos-contacts.html
+  (eval-and-compile (require 'eudcb-macos-contacts))
+  (eudc-macos-contacts-set-server "localhost")
+  (eval-when-compile (require 'message))
+  (define-key message-mode-map
+    [(control ?c) (tab)] 'eudc-expand-inline)
+  (eval-when-compile (require 'sendmail))
+  (define-key mail-mode-map
+    [(control ?c) (tab)] 'eudc-expand-inline))
 
 ;; python stuff from http://www.emacswiki.org/cgi-bin/wiki/PythonMode
 (add-hook 'python-mode-hook
