@@ -117,7 +117,6 @@
 
 ;; Always add a final newline
 (setq require-final-newline t)
-(setq-default show-trailing-whitespace nil)
 (setq default-indicate-empty-lines t)
 (savehist-mode 1)
 
@@ -224,7 +223,17 @@
   (use-package exec-path-from-shell
     :ensure t
     :init
-    (exec-path-from-shell-initialize)))
+    (exec-path-from-shell-initialize))
+
+  ;; https://codeisgreat.org/articles/emacs-macos-contacts.html
+  (eval-and-compile (require 'eudcb-macos-contacts))
+  (eudc-macos-contacts-set-server "localhost")
+  (eval-when-compile (require 'message))
+  (define-key message-mode-map
+    [(control ?c) (tab)] 'eudc-expand-inline)
+  (eval-when-compile (require 'sendmail))
+  (define-key mail-mode-map
+    [(control ?c) (tab)] 'eudc-expand-inline))
 
 ;; python stuff from http://www.emacswiki.org/cgi-bin/wiki/PythonMode
 (add-hook 'python-mode-hook
@@ -257,6 +266,11 @@
   (setq uniquify-separator "/")
   (setq uniquify-after-kill-buffer-p t))
 
+(use-package ws-butler
+  :ensure t
+  :init
+  (ws-butler-global-mode))
+
 ;; conditional loads; try to get "~/.emacs.d/" + hostname + ".el"
 ;; (hostname is trimmed after first dot)
 ;; Silently continues if the local file doesn't exist.
@@ -267,8 +281,8 @@
                          ".el"))
       (hostname (system-name)))
   (cond
-   ((equal hostname "SONNYCORLEONE")
-    (load "~/.emacs.d/sonnycorleone.el" 'noerror))
+   ((string-match "vpn-client-.*" hostname)
+    (load "~/.emacs.d/sonm17mfisher4.el" 'noerror))
    (t (load conf-file 'noerror))
 ))
 
