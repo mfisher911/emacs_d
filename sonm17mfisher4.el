@@ -345,5 +345,17 @@
     (search-forward "RT Tickets:\n")
     (yank)))
 
+(defun update-attendance ()
+  "Update the attendance list."
+  (interactive)
+  (save-excursion
+    (let (start end)
+      (org-beginning-of-item)
+      (setq start (point-marker))
+      (org-end-of-item)
+      (setq end (point-marker))
+      (call-process-region start end "sort_attendees.py" nil t)
+      (kill-region start end nil)))
+  (org-fill-paragraph t t))
 
 ;;; sonm17mfisher4.el ends here
