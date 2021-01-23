@@ -59,11 +59,8 @@
 
 (erc-autojoin-mode 1)
 (setq erc-autojoin-channels-alist
-      '(("freenode.net" "#emacs" "#org-mode" "#conkeror")
-        ;; ("perl.org" "#catalyst")
+      '(("freenode.net" "#emacs" "#org-mode")
         ))
-;; (erc :server "irc.efnet.net" :port 6669 :nick "mfisher")
-;; (erc :server "irc.arstechnica.com" :port 6667 :nick "Spudnuts")
 
 ;; http://www.emacswiki.org/emacs/UnwrapLine
 (defun unwrap-line ()
@@ -102,14 +99,3 @@
 (setq erc-kill-queries-on-quit t)
 ;; Kill buffers for server messages after quitting the server
 (setq erc-kill-server-buffer-on-quit t)
-
-;; http://www.emacswiki.org/cgi-bin/wiki?BitlBee 
-(add-hook 'erc-join-hook 'bitlbee-identify)
-(defun bitlbee-identify ()
-  "If we're on the bitlbee server, send the identify command to the 
- &bitlbee channel."
-  (when (and (string= "localhost" erc-session-server)
-             (string= "&bitlbee" (buffer-name)))
-    (erc-message "PRIVMSG" (format "%s identify %s" 
-                                   (erc-default-target) 
-                                   bitlbee-password))))
