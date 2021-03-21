@@ -10,19 +10,29 @@
 (add-to-list 'custom-theme-load-path "~/el/zenburn-emacs" t)
 (add-to-list 'custom-theme-load-path "~/el/calmer-forest-theme" t)
 (add-to-list 'custom-theme-load-path "~/el/soft-morning-theme" t)
+(require 'package)
+(setq package-enable-at-startup nil)
+(add-to-list 'package-archives
+             '("melpa" . "http://melpa.org/packages/") t)
+(package-initialize)
 
 ;; Include version control -- needed for xemacs >= 21
 (cond
  ((string-match "XEmacs" emacs-version)
   (require 'vc-hooks)
   ))
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+(require 'use-package)
 
 (server-start)
 
 ;; turn on the clock
-(load "time")
-(setq display-time-24hr-format t)
-(display-time)
+(use-package time
+  :config
+  (setq display-time-24hr-format t)
+  (display-time))
 
 ;; Prevent the annoying beep on errors
 (setq visible-bell t)
@@ -174,18 +184,15 @@
   (push "/usr/local/bin" exec-path)
   (push "/usr/texbin" exec-path)
 
-  ;; Send appointment notices through Growl
-  (require 'growl)
-  (defun growl-appt-display (min-to-app new-time msg)
-    (growl (format "Appointment in %s min." min-to-app)
-           (format "Time: %s\n%s" new-time msg)))
-  (setq appt-disp-window-function (function growl-appt-display))
-
   ;; HTTP Error Messages
-  (require 'httpcode)
+  (use-package httpcode
+    :ensure t)
 
   ;;; ESS mode
-  (load "ESS/lisp/ess-site.el")
+  (use-package ess
+     :ensure t
+     :defer t
+     :idle (load "ess-site"))
 
   ;; LaTeX additions
   (add-hook 'latex-mode-hook
@@ -223,6 +230,13 @@
 ;; And for FreeBSD -- if needed
 ;; (when (equal system-type 'berkeley-unix))
 
+(use-package jedi
+  :ensure t
+  :idle (jedi:setup)
+  :init
+  (setq jedi:setup-keys t)
+  (add-hook 'python-mode-hook 'jedi:setup))
+
 ;; python stuff from http://www.emacswiki.org/cgi-bin/wiki/PythonMode
 (add-hook 'python-mode-hook 
           '(lambda ()
@@ -248,10 +262,11 @@
   (insert initial-scratch-message))
 
 ;; http://trey-jackson.blogspot.com/2008/01/emacs-tip-11-uniquify.html
-(require 'uniquify)
-(setq uniquify-buffer-name-style 'forward)
-(setq uniquify-separator "/")
-(setq uniquify-after-kill-buffer-p t) ; rename after killing uniquified
+(use-package uniquify
+  :config
+  (setq uniquify-buffer-name-style 'forward)
+  (setq uniquify-separator "/")
+  (setq uniquify-after-kill-buffer-p t))
 
 ;; conditional loads; try to get "~/.emacs.d/" + hostname + ".el"
 ;; (hostname is trimmed after first dot)
@@ -281,9 +296,11 @@
       (setenv "GPG_AGENT_INFO" agent))))
 
 ;;; Magit
-(require 'magit)
-(global-set-key (kbd "C-x v \\") 'magit-status)
-(define-key magit-status-mode-map (kbd "q") 'magit-quit-session)
+(use-package magit
+  :ensure t
+  :config
+  (global-set-key (kbd "C-x v \\") 'magit-status)
+  (define-key magit-status-mode-map (kbd "q") 'magit-quit-session))
 
 ;; http://whattheemacsd.com/setup-magit.el-01.html
 (defadvice magit-status (around magit-fullscreen activate)
@@ -332,7 +349,12 @@
      '(defadvice ,mode (after rename-modeline activate)
         (setq mode-name ,new-name))))
 
-(rename-modeline "js2-mode" js2-mode "JS2")
+;; Javascript2 mode.
+(use-package js2-mode
+  :ensure t
+  :mode "\\.js\\'"
+  :config
+  (rename-modeline "js2-mode" js2-mode "JS2"))
 
 ;;; http://superuser.com/a/604264/14385
 (defun replace-smart-quotes (beg end)
@@ -347,17 +369,19 @@
                             ("”" . "''"))
                           nil beg end))
 
-(autoload 'markdown-mode "markdown-mode"
-  "Major mode for editing Markdown files" t)
-(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
-(add-hook 'markdown-mode-hook 'turn-on-flyspell)
-(eval-after-load 'autoinsert
-  '(define-auto-insert
-     '("\\.md\\'" . "Markdown skeleton")
-     '("Pelican blog headers: "
-       "Title: " _ "\n"
-       "Date: " (format-time-string "%Y-%m-%d %H:%M") "\n"
-       "Tags: " "\n"
-       "Slug: " (file-name-sans-extension (buffer-name)) "\n"
-       "Category: " "\n"
-       "Author: " (user-full-name) "\n\n")))
+(use-package markdown-mode
+  :ensure t
+  :mode "\\.md\\'"
+  :config
+  (add-hook 'markdown-mode-hook 'turn-on-flyspell))
+(use-package autoinsert
+  :config
+  (define-auto-insert
+    '("\\.md\\'" . "Markdown skeleton")
+    '("Pelican blog headers: "
+      "Title: " _ "\n"
+      "Date: " (format-time-string "%Y-%m-%d %H:%M") "\n"
+      "Tags: " "\n"
+      "Slug: " (file-name-sans-extension (buffer-name)) "\n"
+      "Category: " "\n"
+      "Author: " (user-full-name) "\n\n")))
