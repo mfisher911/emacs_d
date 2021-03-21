@@ -1,3 +1,7 @@
+;;; package mode
+(require 'package)
+(package-initialize)
+
 ;; Stuff for TNT 
 ;; (load "tnt") 
 (setq tnt-default-username "mfuXup") 
