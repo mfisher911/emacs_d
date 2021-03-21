@@ -45,6 +45,19 @@
 (defalias 'perl-mode 'cperl-mode)
 (add-to-list 'auto-mode-alist '("\\.cgi" . cperl-mode))
 
+;; From Peter.Weiss@Informatik.Uni-Oldenburg.DE (Peter Weiss)
+;; Sun Nov 12 1995
+(defun match-paren (arg)
+  "Go to the matching parenthesis if on parenthesis otherwise insert %."
+  (interactive "p")
+  (cond ((looking-at "\\s\(")
+         (forward-list 1) (backward-char 1))
+        ((looking-at "\\s\)")
+         (forward-char 1) (backward-list 1))
+        (t
+         (self-insert-command (or arg 1)))))
+(global-set-key "%" 'match-paren)
+
 ;; http://www.perlmonks.org/?abspart=1;displaytype=displaycode;node_id=516539;part=1
 (defun perltidy-buffer ()
   "Runs an entire buffer through perltidy."
