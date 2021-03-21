@@ -3,6 +3,14 @@
 (load custom-file 'noerror)
 (setq require-final-newline t)
 
+;;; Load theme paths -- need to be before the host-specific load sections.
+(add-to-list 'custom-theme-load-path "~/el/replace-colorthemes" t)
+(add-to-list 'custom-theme-load-path "~/el/mustang-theme" t)
+(add-to-list 'custom-theme-load-path "~/el/emacs-color-theme-solarized" t)
+(add-to-list 'custom-theme-load-path "~/el/zenburn-emacs" t)
+(add-to-list 'custom-theme-load-path "~/el/calmer-forest-theme" t)
+(add-to-list 'custom-theme-load-path "~/el/soft-morning-theme" t)
+
 ;; Include version control -- needed for xemacs >= 21
 (cond
  ((string-match "XEmacs" emacs-version)
@@ -331,10 +339,10 @@
                             ("\x2018" . "`")
                             ("\x2019" . "'"))
                           nil beg end))
+
 (autoload 'markdown-mode "markdown-mode"
   "Major mode for editing Markdown files" t)
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
-
 (add-hook 'markdown-mode-hook 'turn-on-flyspell)
 (eval-after-load 'autoinsert
   '(define-auto-insert
@@ -346,11 +354,3 @@
        "Slug: " (file-name-sans-extension (buffer-name)) "\n"
        "Category: " "\n"
        "Author: " (user-full-name) "\n\n")))
-
-;;; Load theme paths.
-(add-to-list 'custom-theme-load-path "~/el/replace-colorthemes" t)
-(add-to-list 'custom-theme-load-path "~/el/mustang-theme" t)
-(add-to-list 'custom-theme-load-path "~/el/emacs-color-theme-solarized" t)
-(add-to-list 'custom-theme-load-path "~/el/zenburn-emacs" t)
-(add-to-list 'custom-theme-load-path "~/el/calmer-forest-theme" t)
-(add-to-list 'custom-theme-load-path "~/el/soft-morning-theme" t)
