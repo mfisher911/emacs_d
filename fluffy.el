@@ -33,4 +33,6 @@
 (require 'w3m)
 (setq newsticker-html-renderer 'w3m-region)
 
-(load-theme 'deeper-blue t)
+(autoload 'markdown-mode "markdown-mode"
+  "Major mode for editing Markdown files" t)
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
