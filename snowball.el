@@ -1,3 +1,9 @@
+;;; package -- Summary
+;;; Commentary:
+;;
+;; Computer-specific configuration items
+;;
+;;; Code:
 (setq user-full-name "Mike Fisher"
       user-mail-address "mfisher911@gmail.com")
 
@@ -59,3 +65,6 @@
   :config
   (add-hook 'python-mode-hook 'blacken-mode)
   (setq blacken-line-length 78))
+
+(provide 'snowball)
+;;; snowball.el ends here
