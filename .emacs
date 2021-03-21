@@ -175,6 +175,9 @@
   ;; HTTP Error Messages
   (require 'httpcode)
 
+  ;; full-screen mode
+  (global-set-key (kbd "M-F") 'ns-toggle-fullscreen)
+
   ;; (add-to-list 'Info-default-directory-list
   ;;              "/usr/local/texlive/2011/texmf/doc/info/")
 
