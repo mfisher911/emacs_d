@@ -1,12 +1,10 @@
 (setq user-mail-address "Michael_Fisher@URMC.Rochester.edu")
 
-(require 'color-theme)
-(require 'color-theme-solarized)
-(color-theme-initialize)
-; (color-theme-select)
-(setq color-theme-is-global t)
-;; (color-theme-billw)
-(color-theme-solarized-dark)
+(setq calendar-location-name "Rochester, NY")
+(setq calendar-latitude 43.120031)
+(setq calendar-longitude -77.626047)
+(require 'theme-changer)
+(change-theme 'solarized-light 'solarized-dark)
 
 ;; Add flyspell mode for "itsalltext" buffers.
 (add-hook 'find-file-hooks
