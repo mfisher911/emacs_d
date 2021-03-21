@@ -324,6 +324,7 @@
   (define-key latex-mode-map (kbd "C-c C-w") 'latex-word-count)
 )
 (add-hook 'latex-mode-hook 'texcount-setup t)
+(setq compilation-ask-about-save nil)
 
 ;;; http://whattheemacsd.com/appearance.el-01.html
 (defmacro rename-modeline (package-name mode new-name)
