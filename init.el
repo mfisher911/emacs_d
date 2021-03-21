@@ -84,11 +84,6 @@
   (let ((manual-program "perldoc"))
     (manual-entry man-args)))
 
-;; Set up W3 for SSL?
-(setq ssl-program-name "openssl")
-(setq ssl-program-arguments '("s_client" "-host" host "-port" service "-verify"
-                                   "0" "-CApath" "/usr/lib/ssl/certs" "-quiet"))
-
 ;; Make all "yes or no" prompts show "y or n" instead
 ;; http://www.dotemacs.de/dotfiles/AlexanderMikhailian.emacs.html
 (fset 'yes-or-no-p 'y-or-n-p)
