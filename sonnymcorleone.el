@@ -13,10 +13,12 @@
 (setq x-select-enable-clipboard t)
 (setq mac-tool-bar-display-mode 'icons)
 
+;; Add flyspell mode for "itsalltext" buffers.
 (add-hook 'find-file-hooks
           (lambda ()
-            (if (equal "itsalltext"
-                       (substring buffer-file-name 84 94))
+            (if (and (>= (length buffer-file-name) 94)
+                     (equal "itsalltext"
+                            (substring buffer-file-name 84 94)))
                 (flyspell-mode))))
 
 ;; http://emacs-fu.blogspot.com/2009/04/dot-emacs-trickery.html
