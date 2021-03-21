@@ -56,6 +56,12 @@
 ;;                '("\\.py\\'" flymake-pylint-init)))
 
 
+(use-package sqlformat
+  :ensure t
+  :config
+  (setq sqlformat-command 'pgformatter)
+  (setq sqlformat-args '("-b" "-w64")))
+
 (use-package yaml-mode
   :ensure t
   :config
