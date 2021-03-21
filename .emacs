@@ -141,6 +141,15 @@
   (unless (file-exists-p (getenv "TMPDIR"))
     (progn (make-directory (getenv "TMPDIR"))
       (set-file-modes (getenv "TMPDIR") ?\700)))
+  (setq temporary-file-directory "~/.tmp/")
+  (setq backup-by-copying t)
+  (setq backup-directory-alist
+        `(("." . ,temporary-file-directory)
+          (,tramp-file-name-regexp nil)))
+  (setq auto-save-list-file-prefix
+        (concat temporary-file-directory ".auto-saves-"))
+  (setq auto-save-file-name-transforms
+        `((".*" ,temporary-file-directory t)))
   (setq tramp-temp-name-prefix
         (concat (getenv "TMPDIR") "tramp."))
   (setenv "PATH" (concat "/opt/local/bin:/usr/local/bin:" (getenv "PATH")))
