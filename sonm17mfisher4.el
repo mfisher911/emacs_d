@@ -125,6 +125,13 @@
 ;;                '("\\.py\\'" flymake-pylint-init)))
 
 
+(use-package ansible
+  :ensure t)
+
+(use-package ansible-doc
+  :ensure t)
+
+
 (use-package sqlup-mode
   :ensure t
   :config
