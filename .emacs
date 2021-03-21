@@ -33,6 +33,19 @@
 (setq default-major-mode 'text-mode)
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 
+;;; From http://www.perlmonks.org/?node_id=650413
+;; Use cperl-mode instead of the default perl-mode
+(defalias 'perl-mode 'cperl-mode)
+
+;; Use 4 space indents via cperl mode
+(custom-set-variables
+  '(cperl-close-paren-offset -4)
+  '(cperl-continued-statement-offset 4)
+  '(cperl-indent-level 4)
+  '(cperl-indent-parens-as-block t)
+  '(cperl-tab-always-indent t)
+)
+
 ;; Got this from Kai, who may have gotten it from Tom Christiansen
 (defun perldoc (man-args)
   "Launches perldoc for a given item."
