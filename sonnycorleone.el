@@ -1,9 +1,11 @@
+(setq user-mail-address "Michael_Fisher@URMC.Rochester.edu")
+
 (require 'color-theme)
+(require 'color-theme-solarized)
+
 (color-theme-initialize)
-; (color-theme-select)
 (setq color-theme-is-global t)
-;(color-theme-renegade)
-(color-theme-billw)
+(color-theme-solarized-light)
 
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 (add-hook 'text-mode-hook (lambda() (set-fill-column 65)))

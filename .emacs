@@ -209,8 +209,8 @@
    ((equal hostname "edison.homeunix.org")
     (setq erc-system-name "edison.homeunix.org")
     (load "~/.emacs.d/edison.el" 'noerror))
-   ((equal hostname "SONNYCHIBA")
-    (load "~/emacs_d/sonnychiba.el" 'noerror))
+   ((equal hostname "SONNYCORLEONE")
+    (load "~/.emacs.d/sonnycorleone.el" 'noerror))
    (t (load conf-file 'noerror))
 ))
 
