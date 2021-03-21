@@ -50,7 +50,11 @@
 (add-hook 'org-finalize-agenda-hook 'org-agenda-to-appt)
 (require 'google-weather)
 (require 'org-google-weather)
-(add-to-list 'org-agenda-files '"~/org/weather.org")
+(setq org-agenda-files (quote ("~/org/work.org"
+                               "~/org/phone-messages.org"
+                               "~/org/refile.org"
+                               "~/org/weather.org"
+                               )))
 
 ;;; YASnippet
 (require 'yasnippet) ;; not yasnippet-bundle
