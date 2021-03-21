@@ -1,11 +1,31 @@
+;;; package --- Org-Mode config file
+;;;
+;;; Commentary:
+;;;
 ;;; http://doc.norang.ca/org-mode.html
 ;;;
-;;; Org Mode
-;;;
+;;; Code:
 (use-package org
   :mode ("\\.org\\'" . org-mode))
 
-(use-package org-checklist)
+;; org-checklist provides checklist handling tools
+;; http://orgmode.org/worg/org-contrib/org-checklist.html
+;; it has to be installed specially -- it's not part of the ELPA package
+;; mkdir ~/el     # note -- it's in the load path already
+;; cd el; git clone https://code.orgmode.org/bzg/org-mode.git
+(require 'org-checklist)
+(require 'org-choose)
+(require 'ol-git-link)
+(require 'org-mac-iCal)
+(require 'org-mac-link)
+(require 'org-secretary)
+
+(use-package org-mime
+  :ensure t
+  :config
+  (add-hook 'message-mode-hook
+            (lambda ()
+              (local-set-key "\C-c\M-o" 'org-mime-htmlize))))
 
 (use-package htmlize
   :ensure t)
@@ -21,27 +41,25 @@
             ;; flyspell mode to spell check everywhere
             (flyspell-mode 1)))
 
-;; Coerce the Org Agenda to Appt mode (mainly for Growl notices).
+;; Coerce the Org Agenda to Appt mode
 (add-hook 'org-finalize-agenda-hook 'org-agenda-to-appt)
 
-(setq org-agenda-files (quote ("~/Dropbox/org/work.org.gpg"
-                               "~/Dropbox/org/misc.org.gpg"
-                               "~/Dropbox/org/phone-messages.org.gpg"
-                               "~/Dropbox/org/personal.org"
-                               "~/Dropbox/org/emp-hlth.org.gpg"
-                               "~/Dropbox/org/caps.org.gpg"
+(setq org-agenda-files (quote ("~/org/work.org.gpg"
+                               "~/org/personal.org"
+                               "~/org/caps.org"
+                               "~/org/team.org.gpg"
                                )))
 
-(setq org-mobile-directory "~/Dropbox/Apps/MobileOrg")
-(setq org-mobile-inbox-for-pull "~/Dropbox/Apps/MobileOrg/from-mobile.org")
-(setq org-mobile-files (nconc '("~/Dropbox/org/work-notes.org.gpg"
-                                "~/Dropbox/org/status-updates.org"
-                                "~/Dropbox/org/notes.org")
+(setq org-mobile-directory "~/org/inbox.org")
+(setq org-mobile-inbox-for-pull "~/org/from-mobile.org")
+(setq org-mobile-files (nconc '("~/org/work-notes.org"
+                                "~/org/status-updates.org"
+                                "~/org/notes.org")
                               org-agenda-files))
 (setq org-mobile-force-id-on-agenda-items t)
-(setq org-directory "~/Dropbox/org")
-(setq org-publish-timestamp-directory "~/Dropbox/org/.org-timestamps/")
-(setq org-default-notes-file "~/Dropbox/org/refile.org")
+(setq org-directory "~/org")
+(setq org-publish-timestamp-directory "~/org/.org-timestamps/")
+(setq org-default-notes-file "~/org/refile.org")
 
 (setq org-enforce-todo-dependencies t)
 (setq org-agenda-dim-blocked-tasks t)
@@ -72,8 +90,8 @@
   (file "refile.org")
   "* %?                                        :NOTE:\n  %u\n  %a")
  ("p" "phone" entry
-  (file+headline "phone-messages.org.gpg" "Phone Messages")
-  "\n** PHONE %^{name} - %^{company|University of Rochester} -                :PHONE:\n  Contact Info: %^{phone}\n  %u\n\n  %?\n" 
+  (file+headline "phone.org.gpg" "Phone Messages")
+  "\n** PHONE %^{name} - %^{company|University of Rochester} -                :PHONE:\n  Contact Info: %^{phone}\n  %u\n\n  %?\n"
   :clock-in t :clock-resume t)
  ("k" "ticket" entry
   (file+headline "work.org.gpg" "Request Tracker Tickets")
@@ -123,24 +141,36 @@
 
 (setq org-export-with-smart-quotes t)
 
+(setq org-html-validation-link nil)
+(setq org-html-doctype "html5")
+
 ;; 17.38 Remove Multiple State Change Log Details From The Agenda
 (setq org-agenda-skip-additional-timestamps-same-entry t)
-
-;; Automatic Org Mobile Pull/Push
-;; http://permalink.gmane.org/gmane.emacs.orgmode/71467
-;; (add-hook 'after-init-hook 'org-mobile-pull)
-;; (add-hook 'kill-emacs-hook 'org-mobile-push) 
 
 ;; fontify code in code blocks
 (setq org-src-fontify-natively t)
 
 ;; Load Org Babel mode for Graphviz.
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((R . t) (dot . t) (sql . t) (python . t))) ; this line activates dot
+(require 'ob-python)
 
 ;; Minted -- better LaTeX source listings
 (setq org-latex-pdf-process (quote ("latexmk -g -pdf %f")))
 (require 'ox-latex)
 (add-to-list 'org-latex-packages-alist '("" "minted"))
 (setq org-latex-listings 'minted)
+
+;; Use MathJax from their CDN instead of the old version on the Org
+;; servers.
+(setq org-html-mathjax-options
+      '((path "http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML")
+        (scale "100")(align "center")(indent "2em")(mathml t)))
+
+(defun nmd-timestamp-definition ()
+  "Add timestamp definition entry '- [TIMESTAMP] :: ' for logging meeting minutes."
+  (interactive)
+  (org-insert-heading)
+  (org-time-stamp-inactive 1)
+  (move-end-of-line 1))
+
+;(provide 'org)
+;;; org.el ends here
