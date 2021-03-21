@@ -52,6 +52,18 @@
 (defalias 'perl-mode 'cperl-mode)
 (add-to-list 'auto-mode-alist '("\\.cgi" . cperl-mode))
 
+;; http://www.perlmonks.org/?abspart=1;displaytype=displaycode;node_id=516539;part=1
+(defun perltidy-buffer ()
+  "Runs an entire buffer through perltidy."
+  (interactive)
+  (let ((orig-point (point)))
+    (shell-command-on-region
+     (point-min) (point-max)
+     "perltidy -pbp" nil t shell-command-default-error-buffer)
+    (goto-char (if (<= orig-point (point-max))
+                   orig-point
+                 (point-max)))))
+
 ;; Use 4 space indents via cperl mode
 (custom-set-variables
   '(cperl-close-paren-offset -4)
