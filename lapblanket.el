@@ -20,7 +20,7 @@
 
 ;; http://emacs-fu.blogspot.com/2009/11/showing-pop-ups.html
 (setq
-  appt-message-warning-time 12 ;; warn 15 min in advance
+  appt-message-warning-time 15 ;; warn 15 min in advance
   appt-display-mode-line t     ;; show in the modeline
   appt-display-format 'window) ;; use our func
 (appt-activate 1)              ;; active appt (appointment notification)
