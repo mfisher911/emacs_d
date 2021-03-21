@@ -24,3 +24,7 @@
 (require 'gist)
 
 (load-theme 'mustang)
+
+(setq jedi:setup-keys t)
+(add-hook 'python-mode-hook 'jedi:setup)
+(autoload 'jedi:setup "jedi" nil t)
