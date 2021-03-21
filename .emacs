@@ -1,6 +1,7 @@
 ;; This needs to live in ~/.emacs .
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file 'noerror)
+(setq require-trailing-newline t)
 
 ;; Include version control -- needed for xemacs >= 21 
 (cond 
