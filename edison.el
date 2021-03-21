@@ -41,19 +41,6 @@
 (load "~/.emacs.d/org.el" 'noerror)
 (add-hook 'org-finalize-agenda-hook 'org-agenda-to-appt)
 
-;; enable twitter.el (http://www.busydoingnothing.co.uk/twitter-el/)
-(autoload 'twitter-get-friends-timeline "twitter" nil t)
-(autoload 'twitter-status-edit "twitter" nil t)
-(global-set-key "\C-xw" 'twitter-get-friends-timeline)
-(add-hook 'twitter-status-edit-mode-hook 'longlines-mode)
-;; trying to help refresh the twitter timeline
-;; (add-hook 'twitter-timeline-view-mode-hook
-;;           (lambda ()
-;;             (define-key twitter-timeline-view-mode-map (kbd "g")
-;;               'twitter-get-friends-timeline)))
-;; ;            (local-unset-key "g")
-;; ;            (local-set-key "g" 'twitter-get-friends-timeline)))
-
 ;; Font lock for (Al)pine/pico buffers:
 ;; http://snarfed.org/space/emacs%20font-lock%20faces%20for%20composing%20email
 (require 'u-vm-color)
