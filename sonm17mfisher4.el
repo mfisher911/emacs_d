@@ -125,11 +125,21 @@
 ;;                '("\\.py\\'" flymake-pylint-init)))
 
 
+(use-package sqlup-mode
+  :ensure t
+  :config
+  ;; Set a global keyword to use sqlup on a region
+  ;; (global-set-key (kbd "C-c u") 'sqlup-capitalize-keywords-in-region)
+  ;; Capitalize keywords in SQL mode
+  (add-hook 'sql-mode-hook 'sqlup-mode)
+  ;; Capitalize keywords in an interactive session (e.g. psql)
+  (add-hook 'sql-interactive-mode-hook 'sqlup-mode))
+
 (use-package sqlformat
   :ensure t
   :config
   (setq sqlformat-command 'pgformatter)
-  (setq sqlformat-args '("-b" "-w64")))
+  (setq sqlformat-args '("-w64")))
 
 (use-package yaml-mode
   :ensure t
