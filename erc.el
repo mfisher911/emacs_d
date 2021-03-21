@@ -16,6 +16,9 @@
           '(lambda ()
              (setq erc-fill-column (- (window-width) 2))))
 (add-hook 'erc-text-matched-hook 'my-notify-erc)
+
+;; note: requires mfisher-freenode-nickserv to be defined, ie in
+;; custom.el
 (add-hook 'erc-after-connect
     	  '(lambda (SERVER NICK)
     	     (cond
