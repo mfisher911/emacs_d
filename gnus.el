@@ -106,3 +106,12 @@
   (message-tab)
   (message-goto-subject))
 (define-key gnus-group-mode-map (kbd "C-c m") 'maf-mail-maria)
+
+(add-hook 'gnus-summary-exit-hook 'gnus-summary-bubble-group)
+(setq gnus-group-sort-function 'gnus-group-sort-by-score)
+
+;;; (info "(gnus) Group Timestamp")
+(setq gnus-permanently-visible-groups ":INBOX\$")
+(add-hook 'gnus-select-group-hook 'gnus-group-set-timestamp)
+(setq gnus-group-line-format
+      "%M\%S\%p\%P\%5y: %(%-40,40g%) %6,8d\n")
