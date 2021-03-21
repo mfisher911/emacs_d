@@ -1,26 +1,13 @@
 ;; This needs to live in ~/.emacs .
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file 'noerror)
-(setq require-final-newline t)
 
-;;; Load theme paths -- need to be before the host-specific load sections.
-(add-to-list 'custom-theme-load-path "~/el/replace-colorthemes" t)
-(add-to-list 'custom-theme-load-path "~/el/mustang-theme" t)
-(add-to-list 'custom-theme-load-path "~/el/emacs-color-theme-solarized" t)
-(add-to-list 'custom-theme-load-path "~/el/zenburn-emacs" t)
-(add-to-list 'custom-theme-load-path "~/el/calmer-forest-theme" t)
-(add-to-list 'custom-theme-load-path "~/el/soft-morning-theme" t)
 (require 'package)
 (setq package-enable-at-startup nil)
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/") t)
 (package-initialize)
 
-;; Include version control -- needed for xemacs >= 21
-(cond
- ((string-match "XEmacs" emacs-version)
-  (require 'vc-hooks)
-  ))
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
@@ -130,7 +117,7 @@
 (setq comment-style '(indent multi))
 
 ;; Always add a final newline
-(setq require-trailing-newline t)
+(setq require-final-newline t)
 (setq-default show-trailing-whitespace nil)
 (setq default-indicate-empty-lines t)
 (savehist-mode 1)
@@ -278,9 +265,6 @@
                          ".el"))
       (hostname (system-name)))
   (cond
-   ((equal hostname "edison.homeunix.org")
-    (setq erc-system-name "edison.homeunix.org")
-    (load "~/.emacs.d/edison.el" 'noerror))
    ((equal hostname "SONNYCORLEONE")
     (load "~/.emacs.d/sonnycorleone.el" 'noerror))
    (t (load conf-file 'noerror))
