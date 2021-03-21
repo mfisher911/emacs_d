@@ -147,5 +147,15 @@
 (setq org-mobile-use-encryption t)
 (setq org-export-latex-href-format "\\url{%s}")
 
+(setq org-export-with-smart-quotes t)
+
 ;; 17.38 Remove Multiple State Change Log Details From The Agenda
 (setq org-agenda-skip-additional-timestamps-same-entry t)
+
+;; Automatic Org Mobile Pull/Push
+;; http://permalink.gmane.org/gmane.emacs.orgmode/71467
+;; (add-hook 'after-init-hook 'org-mobile-pull)
+;; (add-hook 'kill-emacs-hook 'org-mobile-push) 
+
+;; fontify code in code blocks
+(setq org-src-fontify-natively t)
