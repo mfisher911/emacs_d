@@ -1,8 +1,6 @@
-;; enable twitter.el (http://www.busydoingnothing.co.uk/twitter-el/)
-;; (autoload 'twitter-get-friends-timeline "twitter" nil t)
-;; (autoload 'twitter-status-edit "twitter" nil t)
-;; (global-set-key "\C-xw" 'twitter-get-friends-timeline)
-;; (add-hook 'twitter-status-edit-mode-hook 'longlines-mode)
+;;; package mode
+(require 'package)
+(package-initialize)
 
 (setq user-mail-address "mfisher@csh.rit.edu")
 
@@ -56,6 +54,6 @@
 
 (server-mode 1)
 
-;;; package mode
-(require 'package)
-(package-initialize)
+;; Twitter
+(require 'twittering-mode)
+(setq twittering-use-master-password t)
