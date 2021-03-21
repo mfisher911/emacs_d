@@ -27,19 +27,33 @@
 
 ;; Add flyspell pychecker for Python.
 ;; http://www.plope.com/Members/chrism/flymake-mode
+;; (require 'flymake)
 ;; (when (load "flymake" t)
-;;   (defun flymake-pyflakes-init ()
+;;   (defun flymake-pyflakes-init () ; Make sure it's not a remote buffer or flymake would not work
+;;     (when (not (subsetp (list (current-buffer)) (tramp-list-remote-buffers)))
+;;       (let* ((temp-file (flymake-init-create-temp-buffer-copy
+;;                          'flymake-create-temp-inplace))
+;;              (local-file (file-relative-name
+;;                           temp-file
+;;                           (file-name-directory buffer-file-name))))
+;;         (list "pyflakes" (list local-file)))))
+;;   (add-to-list 'flymake-allowed-file-name-masks
+;;                '("\\.py\\'" flymake-pyflakes-init)))
+
+;; (when (load "flymake" t)
+;;   (defun flymake-pylint-init ()
 ;;     (let* ((temp-file (flymake-init-create-temp-buffer-copy
 ;;                        'flymake-create-temp-inplace))
 ;;            (local-file (file-relative-name
 ;;                         temp-file
 ;;                         (file-name-directory buffer-file-name))))
-;;       (list "pyflakes" (list local-file))))
+;;       (list "epylint" (list local-file))))
 
 ;;   (add-to-list 'flymake-allowed-file-name-masks
-;;                '("\\.py\\'" flymake-pyflakes-init)))
+;;                '("\\.py\\'" flymake-pylint-init)))
 
-;; (add-hook 'find-file-hook 'flymake-find-file-hook)
+(require 'flycheck)
+(add-hook 'after-init-hook #'global-flycheck-mode)
 
 ;; http://emacs-fu.blogspot.com/2009/04/dot-emacs-trickery.html
 ; Make scripts executable on save
@@ -88,6 +102,8 @@
 ;; (define-key csv-mode-map (kbd "C-M-n") 'next-logical-line)
 ;; (define-key csv-mode-map (kbd "C-M-p") 'previous-logical-line)
 
+(load "ESS/lisp/ess-site.el")
+
 (autoload 'graphviz-dot-mode "graphviz-dot-mode"
   "Major mode for editing Graphviz DOT files." t)
 (add-to-list 'auto-mode-alist '("\\.[Dd][Oo][Tt]\\'" . graphviz-dot-mode))
@@ -107,3 +123,43 @@
               dired-texinfo-unclean-extensions)) 
 (add-hook 'dired-mode-hook (lambda () (dired-omit-mode 1))) 
 (put 'dired-find-alternate-file 'disabled nil)
+
+(iswitchb-mode 1)
+
+(setq flymake-perlcritic-command
+      "~/el/emacs-flymake-perlcritic/bin/flymake_perlcritic")
+(setq flymake-perlcritic-severity 1)
+(setq flymake-run-in-place nil)
+(require 'flymake-perlcritic)
+
+(defun pinentry-curses-send-command (process command)
+  (save-excursion
+    (set-buffer buffer)
+    (erase-buffer)
+    (process-send-string process command)
+    (while (and (eq (process-status process) 'run)
+		(not (progn
+		       (goto-char (point-max))
+		       (looking-back "^\\(OK\\|ERR .*\\)\n"))))
+      (accept-process-output process 0.1))))
+
+(defun pinentry-curses-test ()
+  (interactive)
+  (unwind-protect
+      (let* ((buffer (generate-new-buffer "pinentry"))
+	     (process (start-process "pinentry" buffer "pinentry-curses"))
+	     (inhibit-redisplay t))
+	(pinentry-curses-send-command process
+				      (format "OPTION ttyname=%s\n"
+					      (terminal-name)))
+	(pinentry-curses-send-command process
+				      (format "OPTION ttytype=%s\n"
+					      (tty-type)))
+	(pinentry-curses-send-command process "GETPIN\n")
+	(kill-process process))
+    (redraw-frame (selected-frame))))
+
+(setq jedi:setup-keys t)
+(add-hook 'python-mode-hook 'jedi:setup)
+(autoload 'jedi:setup "jedi" nil t)
+
