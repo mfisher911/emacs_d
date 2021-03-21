@@ -53,6 +53,7 @@
 (setq org-agenda-files (quote ("~/Dropbox/org/work.org"
                                "~/Dropbox/org/phone-messages.org"
                                "~/Dropbox/org/refile.org"
+                               "~/Dropbox/org/misc.org"
                                "~/Dropbox/org/weather.org"
                                )))
 
@@ -109,3 +110,12 @@
 (add-to-list 'auto-mode-alist '("\\.[Cc][Ss][Vv]\\'" . csv-mode))
 (autoload 'csv-mode "csv-mode"
   "Major mode for editing comma-separated value files." t)
+
+;; RT Liberation
+(require 'rt-liberation)
+(require 'rt-liberation-update)
+(setq rt-liber-rt-binary "~/rt-3.8.9/bin/rt"
+      rt-liber-rt-version "3.8.9"
+      rt-liber-username "mfisher"
+      rt-liber-base-url "https://rt.son.rochester.edu/"
+      rt-liber-update-default-queue "SONHelp")
