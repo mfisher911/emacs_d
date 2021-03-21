@@ -48,3 +48,16 @@
 (appt-activate 1)              ;; active appt (appointment notification)
 (display-time)                 ;; time display is required for this...
  ;; update appt each time agenda opened
+
+;; Work around RT noise and throw out email reply threads.
+(defun maf-delete-to-sigdashes ()
+  "Clear out signatures and noise in RT tickets."
+  (interactive)
+  (save-excursion 
+    (let ((beg (point)))
+      (re-search-forward "^-- " nil t)
+      (backward-char 3)
+      (delete-region beg (point)))
+     (insert "\n\n\n"))
+  (forward-char 1))
+(global-set-key (kbd "C-c \\") 'maf-delete-to-sigdashes)
