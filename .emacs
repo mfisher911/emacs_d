@@ -17,7 +17,7 @@
   (require 'vc-hooks)
   ))
 
-(server-mode 1)
+(server-start)
 
 ;; turn on the clock
 (load "time")
