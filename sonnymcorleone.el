@@ -28,6 +28,7 @@
 (yas/load-directory "~/el/yasnippet-read-only/snippets")
 
 (load "~/.emacs.d/org.el" 'noerror)
+(load "~/.eamcs.d/erc.el" 'noerror)
 
 (require 'growl)
 (defun growl-appt-display (min-to-app new-time msg)
@@ -46,28 +47,3 @@
 
 (add-hook 'org-finalize-agenda-hook 'org-agenda-to-appt)
 
-;; ERC
-(require 'erc)
-(require 'erc-match)
-(setq erc-keywords '("mfisher" "spudnuts"))
-(setq erc-track-exclude-types '("JOIN" "NICK" "PART" "QUIT"))
-(add-hook 'window-configuration-change-hook 
-          '(lambda ()
-             (setq erc-fill-column (- (window-width) 2))))
-(setq erc-email-userid "mfisher@csh.rit.edu")
-(setq erc-nick "mfisher")
-(setq erc-prompt-for-password nil)
-(setq erc-system-name "sonnycorleone")
-(setq erc-user-full-name "Mike Fisher")
-(setq erc-user-mode "+iw")
-(setq erc-max-buffer-size 20000)
-(defun my-notify-erc (match-type nickuserhost message)
-  "Notify when a message is received."
-  (growl (format "%s in %s"
-                 ;; Username of sender
-                 (car (split-string nickuserhost "!"))
-                 ;; Channel
-                 (or (erc-default-target) "#unknown"))
-         ;; Remove duplicate spaces
-         (replace-regexp-in-string " +" " " message)))
-(add-hook 'erc-text-matched-hook 'my-notify-erc)
