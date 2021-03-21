@@ -17,7 +17,9 @@
                                     (height . 43))))
   (setenv "PATH" (concat "/opt/local/bin:/usr/local/bin:" (getenv "PATH")))
   (push "/usr/local/bin" exec-path)
-  (push "/opt/local/bin" exec-path))
+  (push "/opt/local/bin" exec-path)
+  (if (file-exists-p "/usr/local/share/emacs/site-lisp/")
+      (setq load-path (cons "/usr/local/share/emacs/site-lisp/" load-path))))
 
 ;; turn on the clock
 (load "time")
