@@ -178,8 +178,8 @@
   ;;; ESS mode
   (use-package ess
      :ensure t
-     :defer t
-     :idle (load "ess-site"))
+     :config
+     (load "ess-site"))
 
   ;; LaTeX additions
   (add-hook 'latex-mode-hook
@@ -219,10 +219,11 @@
 
 (use-package jedi
   :ensure t
-  :idle (jedi:setup)
   :init
   (setq jedi:setup-keys t)
-  (add-hook 'python-mode-hook 'jedi:setup))
+  (add-hook 'python-mode-hook 'jedi:setup)
+  :config
+  (jedi:setup))
 
 ;; python stuff from http://www.emacswiki.org/cgi-bin/wiki/PythonMode
 (add-hook 'python-mode-hook 
