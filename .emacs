@@ -151,25 +151,20 @@
 (setq uniquify-separator "/")
 (setq uniquify-after-kill-buffer-p t) ; rename after killing uniquified
 
-;; conditional hostname stuff modeled from
-;; http://www.ibm.com/developerworks/cn/linux/l-plset/emacs.dat 
-;; could probably make this easier
-(let ((hostname (system-name)))
+;; conditional loads; try to get "~/.emacs.d/" + hostname + ".el"
+;; (hostname is trimmed after first dot)
+;; Silently continues if the local file doesn't exist.
+(let ((conf-file (concat "~/.emacs.d/"
+                         (car (split-string
+                               (downcase (system-name))
+                               "\\."))
+                         ".el"))
+      (hostname (system-name)))
   (cond
    ((equal hostname "edison.homeunix.org")
     (setq erc-system-name "edison.homeunix.org")
     (load "~/.emacs.d/edison.el" 'noerror))
-   ((equal hostname "lapblanket.local")
-    (load "~/.emacs.d/lapblanket.el" 'noerror))
-   ((equal hostname "MacDVR.local")
-    (load "~/.emacs.d/macdvr.el" 'noerror))
-   ((equal hostname "sonhouse.son.rochester.edu")
-    (load "~/.emacs.d/sonhouse.el" 'noerror))
-   ((equal hostname "SONNYCORLEONE")
-    (setq erc-system-name "sonnycorleone")
-    (load "~/.emacs.d/sonnycorleone.el" 'noerror))
-   ((equal hostname "sonnymcorleone.urmc-sh.rochester.edu")
-    (load "~/.emacs.d/sonnymcorleone.el" 'noerror))
    ((equal hostname "SONNYCHIBA")
-    (load "~/.emacs.d/sonnychiba.el" 'noerror))
-   (t (message "Unknown host %s" hostname))))
+    (load "~/emacs_d/sonnychiba.el" 'noerror))
+   (t (load conf-file 'noerror))
+))
