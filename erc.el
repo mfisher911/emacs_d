@@ -55,7 +55,7 @@
 
 (erc-autojoin-mode 1)
 (setq erc-autojoin-channels-alist
-      '(("freenode.net" "#emacs" "#org-mode")
+      '(("freenode.net" "#emacs" "#org-mode" "#conkeror")
         ;; ("perl.org" "#catalyst")
         ))
 ;; (erc :server "irc.efnet.net" :port 6669 :nick "mfisher")
