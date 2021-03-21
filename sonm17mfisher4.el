@@ -189,10 +189,6 @@
 (use-package apache-mode
   :ensure t)
 
-(use-package puppet-mode
-  :ensure t
-  :mode "\\.pp\\'")
-
 (autoload 'nagios-mode "nagios-mode" nil t)
 
 (autoload 'icinga2-mode "icinga2-mode" nil t)
