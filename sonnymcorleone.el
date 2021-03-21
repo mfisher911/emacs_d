@@ -4,13 +4,7 @@
 (color-theme-initialize)
 ; (color-theme-select)
 (setq color-theme-is-global t)
-;(color-theme-renegade)
 (color-theme-billw)
-
-(autoload 'visual-basic-mode "visual-basic-mode" "Visual Basic mode." t)
-(setq auto-mode-alist (append '(("\\.\\(frm\\|bas\\|cls\\|vbs\\)$" .
-                                 visual-basic-mode)) auto-mode-alist))
-(setq visual-basic-mode-indent 4)
 
 ;; Add flyspell mode for "itsalltext" buffers.
 (add-hook 'find-file-hooks
@@ -39,8 +33,6 @@
 ;; http://emacs-fu.blogspot.com/2009/04/dot-emacs-trickery.html
 ; Make scripts executable on save
 (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
-; Easy buffer switching by holding down shift and press any arrow key.
-(windmove-default-keybindings 'shift)
 
 ;;; org mode
 (load "~/.emacs.d/org.el" 'noerror)
@@ -67,23 +59,6 @@
   (forward-char 1))
 (global-set-key (kbd "C-c \\") 'maf-delete-to-sigdashes)
 
-;; Disable the Chrome Edit server
-;; (require 'edit-server)
-;; (edit-server-start)
-;; (setq edit-server-new-frame nil)
-
-;; Puppet-mode
-(autoload 'puppet-mode "puppet-mode"
-  "Major mode for editing puppet manifests")
-(add-to-list 'auto-mode-alist '("\\.pp$" . puppet-mode))
-
-;; Nagios mode
-(autoload 'nagios-mode "nagios-mode" nil t)
-
-(add-to-list 'auto-mode-alist '("\\.[Cc][Ss][Vv]\\'" . csv-mode))
-(autoload 'csv-mode "csv-mode"
-  "Major mode for editing comma-separated value files." t)
-
 ;; RT Liberation
 (require 'rt-liberation)
 (require 'rt-liberation-update)
@@ -93,5 +68,18 @@
       rt-liber-base-url "https://rt.son.rochester.edu/"
       rt-liber-update-default-queue "SONHelp")
 
-;; Apache mode.
+;; Language/Config specific modes
+(autoload 'visual-basic-mode "visual-basic-mode" "Visual Basic mode." t)
+(setq auto-mode-alist (append '(("\\.\\(frm\\|bas\\|cls\\|vbs\\)$" .
+                                 visual-basic-mode)) auto-mode-alist))
+(setq visual-basic-mode-indent 4)
+
 (autoload 'apache-mode "apache-mode" nil t)
+
+(autoload 'puppet-mode "puppet-mode" "Puppet manifests-editing mode")
+(add-to-list 'auto-mode-alist '("\\.pp$" . puppet-mode))
+
+(autoload 'nagios-mode "nagios-mode" nil t)
+
+(autoload 'csv-mode "csv-mode" "Major mode for editing CSV files." t)
+(add-to-list 'auto-mode-alist '("\\.[Cc][Ss][Vv]\\'" . csv-mode))
