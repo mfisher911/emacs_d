@@ -208,9 +208,5 @@
 ; (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
 (add-to-list 'default-frame-alist '(ns-appearance . dark))
 
-(fset 'add-el-email
-   (lambda (&optional arg)
-     "Convert paste buffer for EL@UR list membership"
-     (interactive "p") (kmacro-exec-ring-item '([25 67108916 16 11 11 escape 32 backspace 5 67108896 14 14 134217826 1 134217830 134217826 23 32 60 5 62 return] 0 "%d") arg)))
 
 ;;; sonm17mfisher4.el ends here
