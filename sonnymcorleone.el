@@ -61,3 +61,8 @@
      (insert "\n\n\n"))
   (forward-char 1))
 (global-set-key (kbd "C-c \\") 'maf-delete-to-sigdashes)
+
+;; Disable the Chrome Edit server
+;; (require 'edit-server)
+;; (edit-server-start)
+;; (setq edit-server-new-frame nil)
