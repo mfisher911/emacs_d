@@ -54,8 +54,8 @@
 ;;   (add-to-list 'flymake-allowed-file-name-masks
 ;;                '("\\.py\\'" flymake-pylint-init)))
 
-;; (require 'flycheck)
-;; (add-hook 'after-init-hook #'global-flycheck-mode)
+(require 'flycheck)
+(add-hook 'after-init-hook #'global-flycheck-mode)
 
 ;; http://emacs-fu.blogspot.com/2009/04/dot-emacs-trickery.html
 ; Make scripts executable on save
