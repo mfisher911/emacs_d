@@ -148,9 +148,11 @@
 
 (use-package flycheck
   :ensure t
-  :init (global-flycheck-mode))
-;;   :config
-;;   (add-hook 'after-init-hook #'global-flycheck-mode))
+  :init (global-flycheck-mode)
+  :config
+  (setq flycheck-display-errors-delay 3))
+; (add-hook 'markdown-mode-hook #'flycheck-mode)
+; (add-hook 'text-mode-hook #'flycheck-mode)
 
 ;; http://emacs-fu.blogspot.com/2009/04/dot-emacs-trickery.html
 ; Make scripts executable on save
