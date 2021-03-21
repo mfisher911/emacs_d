@@ -18,6 +18,7 @@
                                     (height . 43))))
   (when (equal system-type 'darwin)
     (setenv "PATH" (concat "/opt/local/bin:/usr/local/bin:" (getenv "PATH")))
+    (push "/usr/local/bin" exec-path)
     (push "/opt/local/bin" exec-path))
   ))
 (cond
