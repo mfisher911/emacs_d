@@ -3,11 +3,7 @@
 ;;; Org Mode
 ;;;
 (use-package org
-  :mode ("\\.org\\'" . org-mode)
-  :config
-  (global-set-key "\C-cl" 'org-store-link)
-  (global-set-key "\C-ca" 'org-agenda)
-  (global-set-key "\C-cb" 'org-iswitchb))
+  :mode ("\\.org\\'" . org-mode))
 
 (use-package org-checklist)
 
