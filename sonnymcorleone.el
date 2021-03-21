@@ -91,6 +91,8 @@
 (autoload 'csv-mode "csv-mode" "Major mode for editing CSV files." t)
 (add-to-list 'auto-mode-alist '("\\.[Cc][Ss][Vv]\\'" . csv-mode))
 
+(load "ESS/lisp/ess-site.el")
+
 ;; omit files <http://www.20seven.org/journal/2008/11/emacs-dired-directory-management.html>
 (require 'dired-x) 
 (setq dired-omit-files 
