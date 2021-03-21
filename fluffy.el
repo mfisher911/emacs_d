@@ -23,5 +23,4 @@
 (ido-mode 1)
 (require 'gist)
 
-(require 'w3m)
-(setq newsticker-html-renderer 'w3m-region)
+(load-theme 'mustang)
