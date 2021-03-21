@@ -12,13 +12,6 @@
 (menu-bar-mode -1)
 (server-mode)
 
-; (add-to-list 'load-path "~/el/color-theme-6.6.0/")
-;(require 'color-theme)
-;(eval-after-load "color-theme"
-;  '(progn
-;     (color-theme-initialize)
-;     (color-theme-renegade)))
-
 ;; Stuff for LiveJournal 
 (setq load-path (cons "/home/mfisher/emacs/ljupdate/lisp" load-path)) 
 ;(setq coding-system-p "utf-8") 
@@ -124,9 +117,6 @@
   (require 'xterm-title)
   (xterm-title-mode 1))
 
-;; use magit
-(require 'magit)
-
 ;; markdown mode
 (autoload 'markdown-mode "markdown-mode.el"
    "Major mode for editing Markdown files" t)
@@ -134,6 +124,7 @@
    (cons '("\\.mkdn" . markdown-mode) auto-mode-alist))
 
 (require 'twittering-mode)
+(setq twittering-use-master-password t)
 
 ;; ruby port
 ;; (autoload 'ruby-mode "ruby-mode" "Mode for editing ruby source files")

@@ -125,6 +125,10 @@
       (setq load-path (cons my-lisp-dir load-path))
       (normal-top-level-add-subdirs-to-load-path)))
 
+;; Magit
+(require 'magit)
+(global-set-key (kbd "C-x v \\") 'magit-status)
+
 ;; python stuff from http://www.emacswiki.org/cgi-bin/wiki/PythonMode
 (add-hook 'python-mode-hook '(lambda () (define-key python-mode-map "\C-m" 'newline-and-indent)))
 (defun py-next-block ()
@@ -167,3 +171,12 @@
     (load "~/emacs_d/sonnychiba.el" 'noerror))
    (t (load conf-file 'noerror))
 ))
+
+;; Do not use gpg agent when runing in terminal
+(defadvice epg--start (around advice-epg-disable-agent activate)
+  (let ((agent (getenv "GPG_AGENT_INFO")))
+    (when (not (display-graphic-p))
+      (setenv "GPG_AGENT_INFO" nil))
+    ad-do-it
+    (when (not (display-graphic-p))
+      (setenv "GPG_AGENT_INFO" agent))))
