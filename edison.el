@@ -4,6 +4,7 @@
 (setq tnt-use-timestamps t) 
 ; (set-face-foreground 'tnt-my-name-face "red") 
 
+(setq user-mail-address "mfisher@csh.rit.edu")
 (menu-bar-mode -1)
 (server-mode)
 
