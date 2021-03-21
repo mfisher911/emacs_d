@@ -21,6 +21,7 @@
             (define-key yas/keymap [tab] 'yas/next-field-group)))
 (setq org-agenda-files (quote ("~/org/work.org"
                                "~/org/refile.org"
+                               "~/org/books-read.org"
                                )))
 (setq org-mobile-directory "/sudo::/usr/local/www/apache22/data/org/mobile")
 (setq org-mobile-inbox-for-pull "/sudo::/usr/local/www/apache22/data/org/mobile/from-mobile.org")
@@ -80,16 +81,16 @@
   %a"
          nil bottom nil)
         ("phone" ?p
-         "* PHONE %:name - %:company -                :PHONE:
+         "** PHONE %:name - %:company -                :PHONE:
   Contact Info: %a
   %u
   :CLOCK-IN:
   %?"
-         nil bottom nil)
+         "work.org" "Phone Message Log" nil)
         ("Journal" ?j
          ;; "* %U %?\n\n  %i\n  %a"
          "* %U %? %^g\n\n   %x"
-         "~/org/journal.org" 'date-tree)))
+         "journal.org" 'date-tree)))
 
 (setq org-refile-targets (quote ((org-agenda-files :maxlevel . 5)
                                  (nil :maxlevel . 5))))
