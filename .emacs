@@ -125,6 +125,17 @@
   (py-mark-block nil 't)
   (back-to-indentation))
 
+(setq inhibit-splash-screen t)
+(setq initial-scratch-message
+      (format ";; scratch buffer created %s\n;; happy hacking\n\n"
+              (format-time-string "%Y-%m-%d at %T")))
+(defun create-scratch-buffer nil
+  "create a scratch buffer"
+  (interactive)
+  (switch-to-buffer (get-buffer-create "*scratch*"))
+  (lisp-interaction-mode)
+  (insert initial-scratch-message))
+
 ;; conditional hostname stuff modeled from
 ;; http://www.ibm.com/developerworks/cn/linux/l-plset/emacs.dat 
 ;; could probably make this easier
