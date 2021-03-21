@@ -180,7 +180,7 @@
   (require 'httpcode)
 
   ;; full-screen mode
-  (global-set-key (kbd "M-F") 'ns-toggle-fullscreen)
+  (global-set-key (kbd "M-F") 'toggle-frame-fullscreen)
 
   (add-to-list 'Info-default-directory-list
                 "/usr/local/texlive/2012/texmf/doc/info/")
