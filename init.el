@@ -331,8 +331,9 @@ and subsequent lines as the task note."
 ;;; Magit
 (use-package magit
   :ensure t
+  :bind ("C-x v \\" . magit-status)
   :config
-  (global-set-key (kbd "C-x v \\") 'magit-status)
+  (setq magit-push-always-verify nil)
   (define-key magit-status-mode-map (kbd "q") 'magit-quit-session))
 
 ;; http://whattheemacsd.com/setup-magit.el-01.html
