@@ -1,6 +1,5 @@
 ;; Stuff for Gnus (trimmed down)
 ;; http://www.stat.ufl.edu/~presnell/Links/gnus-brief.org
-(load "~/.emacs.d/custom.el" 'noerror)
 (require 'gnus)
 
 (setq gnus-check-new-newsgroups 'ask-server)
