@@ -102,3 +102,6 @@
 (autoload 'puppet-mode "puppet-mode"
   "Major mode for editing puppet manifests")
 (add-to-list 'auto-mode-alist '("\\.pp$" . puppet-mode))
+
+;; Nagios mode
+(autoload 'nagios-mode "nagios-mode" nil t)
