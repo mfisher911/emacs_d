@@ -165,9 +165,6 @@
   (add-hook 'latex-mode-hook
             (function (lambda () (setq sentence-end-double-space nil))))
 
-  ;; full-screen mode
-  (global-set-key (kbd "M-F") 'toggle-frame-fullscreen)
-
   (add-to-list 'Info-default-directory-list
                 "/usr/local/texlive/2019/texmf-dist/doc/info/")
   (add-hook 'Info-mode-hook (lambda ()
