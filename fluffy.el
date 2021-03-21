@@ -1,4 +1,5 @@
-(setq user-mail-address "mfisher@csh.rit.edu")
+(setq user-full-name "Mike Fisher"
+      user-mail-address "mfisher@csh.rit.edu")
 
 ;; Javascript2 mode.
 (autoload 'js2-mode "js2" nil t)
