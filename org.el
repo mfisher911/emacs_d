@@ -11,6 +11,13 @@
 
 (use-package org-checklist)
 
+(use-package htmlize
+  :ensure t)
+
+;; http://wenshanren.org/?p=781
+(defun org-font-lock-ensure ()
+  (font-lock-fontify-buffer))
+
 (add-hook 'org-mode-hook 'turn-on-font-lock)  ; Org buffers only
 (add-hook 'org-mode-hook
 	(lambda()
