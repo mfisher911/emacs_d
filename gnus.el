@@ -8,11 +8,12 @@
 (setq gnus-save-duplicate-list t)
 (setq gnus-subscribe-newsgroup-method 'gnus-subscribe-interactively)
 (setq nnmail-expiry-wait 'immediate) ;; delete messages immediately
-(setq gnus-select-method
-      '(nntp "news.csh.rit.edu"
-             (nntp-open-connection-function nntp-open-ssl-stream)
-             (nntp-port-number "nntps") ;see /etc/services
-             (nntp-address "news.csh.rit.edu")))
+;; (setq gnus-select-method
+;;       '(nntp "news.csh.rit.edu"
+;;              (nntp-open-connection-function nntp-open-ssl-stream)
+;;              (nntp-port-number "nntps") ;see /etc/services
+;;              (nntp-address "news.csh.rit.edu")))
+(setq gnus-select-method '(nntp "news.gmane.org"))
 
 (setq gnus-secondary-select-methods
       '((nnimap "localhost"
