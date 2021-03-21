@@ -252,11 +252,6 @@
 (require 'magit)
 (global-set-key (kbd "C-x v \\") 'magit-status)
 
-;;; YASnippet
-(require 'yasnippet) ;; not yasnippet-bundle
-(yas/initialize)
-(yas/load-directory "~/el/yasnippet-read-only/snippets")
-
 ;;
 ;; TeXcount setup for TeXcount version 2.3
 ;;
