@@ -16,7 +16,20 @@
 (setq calendar-latitude 43.12)
 (setq calendar-longitude -77.63)
 
-(load-theme 'leuven)
+;; (load-theme 'leuven)
+
+(use-package modus-themes
+  :ensure t
+  :config
+  (modus-themes-load-themes))
+
+(use-package circadian
+  :ensure t
+  :custom
+  (circadian-themes '((:sunrise . modus-operandi)
+                      (:sunset  . modus-vivendi)))
+  :config
+  (circadian-setup))
 
 (use-package yaml-mode
   :ensure t)

@@ -10,6 +10,11 @@
 (setq calendar-latitude 43.120031)
 (setq calendar-longitude -77.626047)
 
+(use-package modus-themes
+  :ensure t
+  :config
+  (modus-themes-load-themes))
+
 (use-package circadian
   :ensure t
   :custom
