@@ -24,6 +24,7 @@
 (add-hook 'org-finalize-agenda-hook 'org-agenda-to-appt)
 
 (setq org-agenda-files (quote ("~/Dropbox/org/work.org.gpg"
+                               "~/Dropbox/org/misc.org.gpg"
                                "~/Dropbox/org/phone-messages.org.gpg"
                                "~/Dropbox/org/movies.org"
                                "~/Dropbox/org/personal.org"
