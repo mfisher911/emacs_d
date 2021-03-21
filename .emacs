@@ -12,12 +12,20 @@
 (cond
  ((string-match "23.1.1" emacs-version)
   (setq mac-command-modifier 'meta)
-  (setq default-frame-alist (quote ((tool-bar-lines . 0) (menu-bar-lines . 1) (width . 25) (height . 43))))
+  (setq default-frame-alist (quote ((tool-bar-lines . 0)
+                                    (menu-bar-lines . 1)
+                                    (width . 25)
+                                    (height . 43))))
   (setenv "PATH" "/Users/mfisher/bin:/opt/local/bin:/opt/local/sbin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/texbin:/usr/local/texlive/2007/bin/i386-darwin/:/opt/local/Library/Frameworks/Python.framework/Versions/2.6/bin/")
   ))
 (cond
- ((string-match "Aquamacs" emacs-version)
-  (text-mode-hook (quote (auto-detect-wrap smart-spacing-mode)))
+ ((and (boundp 'aquamacs-version-id)
+       (> aquamacs-version-id 200))
+  (setq text-mode-hook (quote (auto-detect-wrap smart-spacing-mode)))
+  (setq default-frame-alist (quote ((tool-bar-lines . 0)
+                                    (menu-bar-lines . 1)
+                                    (width . 80)
+                                    (height . 40))))
 ))
 
 ;; turn on the clock
