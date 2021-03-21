@@ -62,7 +62,7 @@
 (setq org-remember-default-headline "Tasks")
 
 ;; 3.1 TODO Keywords
-(setq org-todo-keywords (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d!/!)")
+(setq org-todo-keywords (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d@/!)")
  (sequence "WAITING(w@/!)" "SOMEDAY(s!)" "|" "CANCELLED(c@/!)"))))
 
 (setq org-todo-keyword-faces
