@@ -6,7 +6,6 @@
 
 (setq user-mail-address "mfisher@csh.rit.edu")
 (menu-bar-mode -1)
-(server-mode)
 
 ;; Stuff for LiveJournal 
 (setq load-path (cons "/home/mfisher/emacs/ljupdate/lisp" load-path)) 
@@ -14,11 +13,6 @@
 (require 'ljupdate) 
 (setq lj-default-profile (lj-defprofile 'livejournal "mfisher")) 
 (add-to-list 'auto-mode-alist '("\\.lj$" . lj-update-mode))
-
-;;; yasnippet
-(require 'yasnippet) ;; not yasnippet-bundle
-(yas/initialize)
-(yas/load-directory "~/el/yasnippet-read-only/snippets")
 
 ;; Font lock for (Al)pine/pico buffers:
 ;; http://snarfed.org/space/emacs%20font-lock%20faces%20for%20composing%20email
