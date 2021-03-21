@@ -109,6 +109,7 @@
 
 ;; Always add a final newline
 (setq require-trailing-newline t)
+(savehist-mode 1)
 
 ;; always enable paren mode
 (show-paren-mode t)
