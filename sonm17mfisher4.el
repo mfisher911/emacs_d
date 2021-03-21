@@ -91,7 +91,7 @@
 (defun maf-delete-to-sigdashes ()
   "Clear out signatures and noise in RT tickets."
   (interactive)
-  (save-excursion 
+  (save-excursion
     (let ((beg (point)))
       (re-search-forward "^-- " nil t)
       (backward-char 3)
