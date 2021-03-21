@@ -33,9 +33,6 @@
 (setq default-major-mode 'text-mode)
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 
-;; Include version control -- needed for xemacs >= 21
-; (require 'vc-hooks)
-
 ;; Got this from Kai, who may have gotten it from Tom Christiansen
 (defun perldoc (man-args)
   "Launches perldoc for a given item."
@@ -65,6 +62,13 @@
 ;; comment-handling
 (setq comment-style '(indent multi))
 
+;; slurp in other code
+(if (fboundp 'normal-top-level-add-subdirs-to-load-path)
+    (let* ((my-lisp-dir "~/el/")
+           (default-directory my-lisp-dir))
+      (setq load-path (cons my-lisp-dir load-path))
+      (normal-top-level-add-subdirs-to-load-path)))
+
 ;; conditional hostname stuff modeled from
 ;; http://www.ibm.com/developerworks/cn/linux/l-plset/emacs.dat 
 ;; could probably make this easier
@@ -78,6 +82,9 @@
     )
    ((equal hostname "MacDVR.local")
     (load "~/.emacs.d/macdvr.el" 'noerror)
+    )
+   ((equal hostname "SONNYCORLEONE")
+    (load "~/.emacs.d/sonnycorleone.el" 'noerror)
     )
    (t (message "Unknown host %s" hostname))
    )
