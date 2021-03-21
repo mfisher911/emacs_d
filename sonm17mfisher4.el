@@ -305,5 +305,38 @@
   :config
   (add-hook 'js2-mode-hook 'prettier-js-mode))
 
+(defun refresh-rt ()
+  "Perform the RT Ticket refresh."
+  (interactive)
+  (save-excursion
+    (let (start end shell-command-dont-erase-buffer)
+      (setq shell-command-dont-erase-buffer t)
+      (search-forward "RT Tickets:\n")
+      (setq start (point-marker))
+      (forward-line 4)
+      (shell-command "rt_summary_load.py" (current-buffer))
+      (forward-line 4)
+      (setq end (point-marker))
+      (kill-region start end nil)
+      (shell-command "rt_history.py" (current-buffer)))))
+
+(defun weekend-update ()
+  "Grab the new details of RT tickets and make a summary comparison."
+  (interactive)
+  (refresh-rt)
+  (save-excursion
+    (let (start end)
+      (search-forward "RT Tickets:\n")
+      (setq start (point-marker))
+      (forward-line 4)
+      (setq end (point-marker))
+      (copy-region-as-kill start end nil)))
+  (save-excursion
+    (org-capture nil "w")
+    (org-capture-finalize))
+  (save-excursion
+    (search-forward "RT Tickets:\n")
+    (yank)))
+
 
 ;;; sonm17mfisher4.el ends here
