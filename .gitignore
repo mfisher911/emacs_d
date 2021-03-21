@@ -3,4 +3,5 @@ url/
 auto-save-list/
 custom.el
 tramp
-
+history
+.org-id-locations
