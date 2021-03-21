@@ -151,12 +151,6 @@
         `((".*" ,temporary-file-directory t)))
   (setq tramp-temp-name-prefix
         (concat (getenv "TMPDIR") "tramp."))
-  (setenv "PATH" (concat "~/bin:/usr/local/bin:"
-                         (getenv "PATH")
-                         ":/Library/TeX/texbin"))
-  (push "/usr/local/bin" exec-path)
-  (push "/usr/texbin" exec-path)
-
   ;; HTTP Error Messages
   (use-package httpcode
     :ensure t)
@@ -175,7 +169,7 @@
   (global-set-key (kbd "M-F") 'toggle-frame-fullscreen)
 
   (add-to-list 'Info-default-directory-list
-                "/usr/local/texlive/2015/texmf-dist/doc/info/")
+                "/usr/local/texlive/2019/texmf-dist/doc/info/")
   (add-hook 'Info-mode-hook (lambda ()
                               (setq Info-additional-directory-list
                                     Info-default-directory-list)))
@@ -247,6 +241,11 @@ and subsequent lines as the task note."
    appt-display-mode-line t     ;; show in the modeline
    appt-display-format 'window) ;; use our func
   (appt-activate 1))
+  (use-package exec-path-from-shell
+    :ensure t
+    :init
+    (exec-path-from-shell-initialize)))
+
 
 ;; And for FreeBSD -- if needed
 ;; (when (equal system-type 'berkeley-unix))
