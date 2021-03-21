@@ -8,6 +8,18 @@
   (require 'vc-hooks) 
   ))
 
+;;; try to version sniff a bit
+(cond
+ ((string-match "23.1.1" emacs-version)
+  (setq mac-command-modifier 'meta)
+  (setq default-frame-alist (quote ((tool-bar-lines . 0) (menu-bar-lines . 1) (width . 25) (height . 43))))
+  (setenv "PATH" "/Users/mfisher/bin:/opt/local/bin:/opt/local/sbin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/texbin:/usr/local/texlive/2007/bin/i386-darwin/:/opt/local/Library/Frameworks/Python.framework/Versions/2.6/bin/")
+  ))
+(cond
+ ((string-match "Aquamacs" emacs-version)
+  (text-mode-hook (quote (auto-detect-wrap smart-spacing-mode)))
+))
+
 ;; turn on the clock
 (load "time")
 (setq display-time-24hr-format t)
@@ -91,6 +103,14 @@
            (default-directory my-lisp-dir))
       (setq load-path (cons my-lisp-dir load-path))
       (normal-top-level-add-subdirs-to-load-path)))
+
+;; python stuff from http://www.emacswiki.org/cgi-bin/wiki/PythonMode
+(add-hook 'python-mode-hook '(lambda () (define-key python-mode-map "\C-m" 'newline-and-indent)))
+(defun py-next-block ()
+  "go to the next block.  Cf. `forward-sexp' for lisp-mode"
+  (interactive)
+  (py-mark-block nil 't)
+  (back-to-indentation))
 
 ;; conditional hostname stuff modeled from
 ;; http://www.ibm.com/developerworks/cn/linux/l-plset/emacs.dat 
