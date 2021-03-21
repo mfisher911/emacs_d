@@ -130,7 +130,7 @@
   (global-set-key (kbd "M-h") 'ns-do-hide-emacs)
   ;; http://slashusr.wordpress.com/2009/08/09/using-m-from-switching-emacs-frames-on-osx/
   (global-set-key (kbd "M-`") 'other-frame) ; # This sets the key binding
-  (setq x-select-enable-clipboard t)
+  (setq select-enable-clipboard t)
   (setq mac-tool-bar-display-mode 'icons)
   (setq default-frame-alist (quote ((tool-bar-lines . 0)
                                     (width . 80)
