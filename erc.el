@@ -3,12 +3,12 @@
 (require 'erc-match)
 (require 'erc-join)
 (require 'erc-goodies)
-(setq erc-modules (quote(autojoin button completion fill irccontrols
-                                   keep-place list match menu
-                                   move-to-prompt netsplit networks
-                                   noncommands readonly ring
-                                   scrolltobottom
-                                   stamp spelling track)))
+(setq erc-modules (quote(autojoin completion fill irccontrols
+                                  keep-place list match menu
+                                  move-to-prompt netsplit networks
+                                  noncommands readonly ring
+                                  scrolltobottom
+                                  stamp spelling track)))
 
 (setq erc-keywords '("mfisher" "spudnuts"))
 (setq erc-hide-list '("JOIN" "NICK" "PART" "QUIT" "MODE"))
@@ -62,3 +62,41 @@
       '(("freenode.net" "#emacs")
         ("perl.org" "#catalyst")))
 ;; (erc :server "chat.us.freenode.net" :port 6667 :nick "mfisher")
+
+;; http://www.emacswiki.org/emacs/UnwrapLine
+(defun unwrap-line ()
+  "Remove all newlines until we get to two consecutive ones.
+    Or until we reach the end of the buffer.
+    Great for unwrapping quotes before sending them on IRC."
+  (interactive)
+  (let ((start (point))
+        (end (copy-marker (or (search-forward "\n\n" nil t)
+                              (point-max))))
+        (fill-column (point-max)))
+    (fill-region start end)
+    (goto-char end)
+    (newline)
+    (goto-char start)))
+(define-key erc-mode-map (kbd "M-q") 'unwrap-line)
+
+;; http://www.emacswiki.org/emacs/ErcModeline
+(define-minor-mode ncm-mode "" nil
+  (:eval
+   (let ((ops 0)
+         (voices 0)
+         (members 0))
+     (maphash (lambda (key value)
+                (when (erc-channel-user-op-p key)
+                  (setq ops (1+ ops)))
+                (when (erc-channel-user-voice-p key)
+                  (setq voices (1+ voices)))
+                (setq members (1+ members)))
+              erc-channel-users)
+     (format " %S/%S/%S" ops voices members))))
+
+;; Kill buffers for channels after /part
+(setq erc-kill-buffer-on-part t)
+;; Kill buffers for private queries after quitting the server
+(setq erc-kill-queries-on-quit t)
+;; Kill buffers for server messages after quitting the server
+(setq erc-kill-server-buffer-on-quit t)
