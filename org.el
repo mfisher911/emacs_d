@@ -53,7 +53,7 @@
 (global-set-key (kbd "C-M-r") 'org-remember)
 
 ;; Keep clocks running
-(setq org-remember-clock-out-on-exit nil)
+;; (setq org-remember-clock-out-on-exit nil)
 
 ;; C-c C-c stores the note immediately
 (setq org-remember-store-without-prompt t)
@@ -74,6 +74,13 @@
   :CLOCK-IN:
   %?" nil bottom nil))))
 (setq org-refile-targets (quote ((org-agenda-files :maxlevel . 5) (nil :maxlevel . 5))))
+
+;; 7.5 editing clock entries
+(setq org-time-stamp-rounding-minutes (quote (1 15)))
+
+;; 8.1.1 verify clock data's more correct
+;; Sometimes I change tasks I'm clocking quickly - this removes clocked tasks with 0:00 duration
+(setq org-clock-out-remove-zero-time-clocks t)
 
 ;; 15.3.5
 ;; Start the weekly agenda today
