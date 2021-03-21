@@ -33,9 +33,6 @@
 (yas/initialize)
 (yas/load-directory "~/el/yasnippet-read-only/snippets")
 
-(load "~/.emacs.d/org.el" 'noerror)
-(load "~/.eamcs.d/erc.el" 'noerror)
-
 (require 'growl)
 (defun growl-appt-display (min-to-app new-time msg)
   (growl (format "Appointment in %s min." min-to-app)
@@ -50,6 +47,3 @@
 (appt-activate 1)              ;; active appt (appointment notification)
 (display-time)                 ;; time display is required for this...
  ;; update appt each time agenda opened
-
-(add-hook 'org-finalize-agenda-hook 'org-agenda-to-appt)
-
