@@ -67,12 +67,6 @@
   :config
   (add-hook 'yaml-mode-hook '(lambda () (ansible 1))))
 
-;; required by flycheck
-(use-package let-alist
-  :ensure t)
-;; (use-package seq
-;;   :ensure t)
-
 (use-package flycheck
   :ensure t
   :init (global-flycheck-mode))
