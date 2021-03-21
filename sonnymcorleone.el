@@ -66,3 +66,6 @@
 ;; (require 'edit-server)
 ;; (edit-server-start)
 ;; (setq edit-server-new-frame nil)
+
+;;; Magit
+(require 'magit)
