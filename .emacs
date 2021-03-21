@@ -9,29 +9,14 @@
   ))
 
 ;;; try to version sniff a bit
-(cond
- ((string-match "23.1.50.1" emacs-version)
+(when (equal system-type 'darwin)
   (setq mac-command-modifier 'meta)
   (setq default-frame-alist (quote ((tool-bar-lines . 0)
-                                    (menu-bar-lines . 1)
                                     (width . 80)
                                     (height . 43))))
-  (when (equal system-type 'darwin)
-    (setenv "PATH" (concat "/opt/local/bin:/usr/local/bin:" (getenv "PATH")))
-    (push "/usr/local/bin" exec-path)
-    (push "/opt/local/bin" exec-path))
-  ))
-(cond
- ((and (boundp 'aquamacs-version-id)
-       (> aquamacs-version-id 200))
-  (setq text-mode-hook (quote (auto-detect-wrap smart-spacing-mode)))
-  (setq default-frame-alist (quote ((tool-bar-lines . 0)
-                                    (menu-bar-lines . 1)
-                                    (width . 80)
-                                    (height . 40))))
-  (if (fboundp 'tabbar)
-      (setq tabbar-mode nil nil (tabbar)))
-))
+  (setenv "PATH" (concat "/opt/local/bin:/usr/local/bin:" (getenv "PATH")))
+  (push "/usr/local/bin" exec-path)
+  (push "/opt/local/bin" exec-path))
 
 ;; turn on the clock
 (load "time")
