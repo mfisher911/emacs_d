@@ -91,6 +91,7 @@
 ;; http://www.hulubei.net/tudor/configuration/.emacs
 (setq make-backup-files nil)
 (setq tramp-backup-directory-alist backup-directory-alist)
+(setq tramp-default-method "sshx")
 
 ; disable tab indent
 (setq-default indent-tabs-mode nil)
