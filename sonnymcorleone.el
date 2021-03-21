@@ -4,7 +4,6 @@
 (setq color-theme-is-global t)
 ;(color-theme-renegade)
 (color-theme-billw)
-(set-default-font "-apple-bitstream vera sans mono-medium-r-normal--12-120-72-72-m-120-iso10646-1")
 
 (autoload 'visual-basic-mode "visual-basic-mode" "Visual Basic mode." t)
 (setq auto-mode-alist (append '(("\\.\\(frm\\|bas\\|cls\\|vbs\\)$" .
