@@ -243,10 +243,6 @@ and subsequent lines as the task note."
     :init
     (exec-path-from-shell-initialize)))
 
-
-;; And for FreeBSD -- if needed
-;; (when (equal system-type 'berkeley-unix))
-
 (use-package jedi
   :ensure t
   :init
