@@ -1,26 +1,21 @@
 ;; ERC
 (require 'erc)
-(require 'erc-match)
 (require 'erc-join)
 (require 'erc-goodies)
-(setq erc-modules (quote(autojoin completion fill irccontrols
-                                  keep-place list match menu
-                                  move-to-prompt netsplit networks
-                                  noncommands readonly ring
-                                  scrolltobottom
-                                  stamp spelling track)))
 
 (setq erc-keywords '("mfisher" "spudnuts"))
-(setq erc-hide-list '("JOIN" "NICK" "PART" "QUIT" "MODE"))
-(setq erc-track-exclude-types (append erc-hide-list
-                                      (quote("324" "329" "332" "333"
-                                             "353" "477"))))
-
+;; (setq erc-hide-list '("JOIN" "NICK" "PART" "QUIT" "MODE"))
+;; (setq erc-track-exclude-types (append erc-hide-list
+;;                                      (quote("324" "329" "332" "333"
+;;                                             "353" "477"))))
+(setq erc-track-exclude-types '("JOIN" "NICK" "PART" "QUIT" "MODE"
+                                "324" "329" "332" "333" "353" "477"))
+(erc-track-mode 1)
 
 (add-hook 'window-configuration-change-hook 
           '(lambda ()
              (setq erc-fill-column (- (window-width) 2))))
-(add-hook 'erc-text-matched-hook 'my-notify-erc)
+;; (add-hook 'erc-text-matched-hook 'my-notify-erc)
 
 ;; note: requires mfisher-freenode-nickserv to be defined, ie in
 ;; custom.el
@@ -33,21 +28,20 @@
                                     mfisher-freenode-nickserv))))))
     
 (setq erc-email-userid "mfisher@csh.rit.edu")
-(setq erc-nick "mfisher")
+;; (setq erc-nick "mfisher")
 (setq erc-prompt-for-password nil)
-(setq erc-system-name "sonnycorleone")
 (setq erc-user-full-name "Mike Fisher")
 (setq erc-user-mode "+iw")
 (setq erc-max-buffer-size 20000)
-(defun my-notify-erc (match-type nickuserhost message)
-  "Notify when a message is received."
-  (growl (format "%s in %s"
-                 ;; Username of sender
-                 (car (split-string nickuserhost "!"))
-                 ;; Channel
-                 (or (erc-default-target) "#unknown"))
-         ;; Remove duplicate spaces
-         (replace-regexp-in-string " +" " " message)))
+;; (defun my-notify-erc (match-type nickuserhost message)
+;;   "Notify when a message is received."
+;;   (growl (format "%s in %s"
+;;                  ;; Username of sender
+;;                  (car (split-string nickuserhost "!"))
+;;                  ;; Channel
+;;                  (or (erc-default-target) "#unknown"))
+;;          ;; Remove duplicate spaces
+;;          (replace-regexp-in-string " +" " " message)))
 ;; Clears out annoying erc-track-mode stuff for when we don't care.
 ;; Useful for when ChanServ restarts :P
 
@@ -60,8 +54,11 @@
 (erc-autojoin-mode 1)
 (setq erc-autojoin-channels-alist
       '(("freenode.net" "#emacs")
-        ("perl.org" "#catalyst")))
+        ;; ("perl.org" "#catalyst")
+        ))
 ;; (erc :server "chat.us.freenode.net" :port 6667 :nick "mfisher")
+;; (erc :server "irc.efnet.net" :port 6669 :nick "mfisher")
+;; (erc :server "localhost")
 
 ;; http://www.emacswiki.org/emacs/UnwrapLine
 (defun unwrap-line ()
@@ -100,3 +97,14 @@
 (setq erc-kill-queries-on-quit t)
 ;; Kill buffers for server messages after quitting the server
 (setq erc-kill-server-buffer-on-quit t)
+
+;; http://www.emacswiki.org/cgi-bin/wiki?BitlBee 
+(add-hook 'erc-join-hook 'bitlbee-identify)
+(defun bitlbee-identify ()
+  "If we're on the bitlbee server, send the identify command to the 
+ &bitlbee channel."
+  (when (and (string= "localhost" erc-session-server)
+             (string= "&bitlbee" (buffer-name)))
+    (erc-message "PRIVMSG" (format "%s identify %s" 
+                                   (erc-default-target) 
+                                   bitlbee-password))))
