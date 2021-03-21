@@ -195,7 +195,10 @@
   (global-set-key (kbd "M-F") 'toggle-frame-fullscreen)
 
   (add-to-list 'Info-default-directory-list
-                "/usr/local/texlive/2012/texmf/doc/info/")
+                "/usr/local/texlive/2013/texmf-dist/doc/info/")
+;;   (add-hook 'Info-mode-hook (lambda ()
+;;                               (setq Info-additional-directory-list
+;;                                     Info-default-directory-list)))
 
   (defun load-gpg-agent-info ()
     "Load the GPG Agent's info from disk."
