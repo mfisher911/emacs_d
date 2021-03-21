@@ -26,16 +26,11 @@
                                "~/Dropbox/org/caps.org.gpg"
                                )))
 
-(setq org-mobile-directory "~/Dropbox/MobileOrg")
-(setq org-mobile-inbox-for-pull "~/Dropbox/MobileOrg/from-mobile.org")
-(setq org-mobile-files (quote ("~/Dropbox/org/work.org.gpg"
-                               "~/Dropbox/org/work-notes.org.gpg"
-                               "~/Dropbox/org/misc.org.gpg"
-                               "~/Dropbox/org/notes.org"
-                               "~/Dropbox/org/personal.org"
-                               "~/Dropbox/org/books-read.org"
-                               "~/Dropbox/org/books-to-read.org"
-                               "~/Dropbox/org/tandberg-install.org")))
+(setq org-mobile-directory "~/Dropbox/Apps/MobileOrg")
+(setq org-mobile-inbox-for-pull "~/Dropbox/Apps/MobileOrg/from-mobile.org")
+(setq org-mobile-files (nconc '("~/Dropbox/org/work-notes.org.gpg"
+                               "~/Dropbox/org/notes.org")
+                              org-agenda-files))
 (setq org-mobile-force-id-on-agenda-items t)
 (setq org-directory "~/Dropbox/org")
 (setq org-publish-timestamp-directory "~/Dropbox/org/.org-timestamps/")
@@ -46,28 +41,12 @@
 (setq org-log-done 'note)
 (setq org-log-into-drawer t)
 
-;;;  Load Org Remember Stuff
-(org-remember-insinuate)
-(define-key global-map "\C-cr" 'org-remember)
-
-;; Start clock if a remember buffer includes :CLOCK-IN:
-(add-hook 'remember-mode-hook 'bh/start-clock-if-needed 'append)
-
 (defun bh/start-clock-if-needed ()
   (save-excursion
     (goto-char (point-min))
     (when (re-search-forward " *:CLOCK-IN: *" nil t)
       (replace-match "")
       (org-clock-in))))
-
-;; Keep clocks running
-;; (setq org-remember-clock-out-on-exit nil)
-
-;; C-c C-c stores the note immediately
-(setq org-remember-store-without-prompt t)
-
-;; I don't use this -- but set it in case I forget to specify a location in a future template
-(setq org-remember-default-headline "Tasks")
 
 ;; 3.1 TODO Keywords
 (setq org-todo-keywords (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d@/!)")
@@ -106,32 +85,33 @@
   :CLOCK-IN:
   %?"
          "phone-messages.org.gpg" "Phone Messages" nil)
-        ("book" ?b
-         "** TODO %^{Short Title}
-  :PROPERTIES:
-  :Full-Title: %^{Full-Title}p
-  :Author:     %^{Author}p
-  :Year:       %^{Year}p
-  :Notes:
-  :Rating:
-  :Review:
-  :END:
-
-"
-         "books-to-read.org" "Books to Read" nil)
         ("ticket" ?k
          "** TODO %^{Ticket}\n   :CLOCK-IN:\n   %?"
          "work.org.gpg" "Request Tracker Tickets" nil)
         ("misc" ?m
          "* %^{event}\n   :CLOCK-IN:\n   %?"
-         "misc.org.gpg" bottom)
-        ("Journal" ?j
-         ;; "* %U %?\n\n  %i\n  %a"
-         "* %U %? %^g\n\n   %x"
-         "journal.org" 'date-tree)))
+         "misc.org.gpg" bottom)))
+
+(setq org-capture-templates '(("t" "todo" entry
+  (file "~/Dropbox/org/refile.org")
+  "* TODO %?\n  %u\n  %a")
+ ("n" "note" entry
+  (file "~/Dropbox/org/refile.org")
+  "* %?                                        :NOTE:\n  %u\n  %a")
+ ("p" "phone" entry
+  (file+headline "phone-messages.org.gpg" "Phone Messages")
+  "** PHONE %^{name} - %^{company|University of Rochester} -                :PHONE:\n  Contact Info: %^{phone}\n  %u\n  :CLOCK-IN:\n  %?")
+ ("k" "ticket" entry
+  (file+headline "work.org.gpg" "Request Tracker Tickets")
+  "** TODO %^{Ticket}\n   :CLOCK-IN:\n   %?")
+ ("m" "misc" entry
+  (file "misc.org.gpg")
+  "* %^{event}\n   :CLOCK-IN:\n   %?")))
 
 (setq org-refile-targets (quote ((nil :maxlevel . 5)
-                                 (org-agenda-files :maxlevel . 5))))
+                                 (org-agenda-files :maxlevel . 5)
+                                 ("work-notes.org.gpg" :maxlevel . 5)
+                                 )))
 (setq org-refile-use-outline-path t)
 
 ;; 7.5 editing clock entries
