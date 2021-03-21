@@ -65,7 +65,7 @@
   (let ((orig-point (point)))
     (shell-command-on-region
      (point-min) (point-max)
-     "perltidy -pbp" nil t shell-command-default-error-buffer)
+     "perltidy" nil t shell-command-default-error-buffer)
     (goto-char (if (<= orig-point (point-max))
                    orig-point
                  (point-max)))))
