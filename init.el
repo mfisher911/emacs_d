@@ -76,15 +76,6 @@
                    orig-point
                  (point-max)))))
 
-;; Use 4 space indents via cperl mode
-(custom-set-variables
-  '(cperl-close-paren-offset -4)
-  '(cperl-continued-statement-offset 0)
-  '(cperl-indent-level 4)
-  '(cperl-indent-parens-as-block t)
-  '(cperl-tab-always-indent t)
-)
-
 ;; Got this from Kai, who may have gotten it from Tom Christiansen
 (defun perldoc (man-args)
   "Launches perldoc for a given item."
