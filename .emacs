@@ -129,6 +129,8 @@
 
 ;;; make the Mac experience consistent
 (when (equal system-type 'darwin)
+  (setq color-theme-is-global nil)
+
   (define-key global-map [ns-drag-file] 'ns-find-file)
   (setq mac-command-modifier 'meta)
   (global-set-key (kbd "M-h") 'ns-do-hide-emacs)
