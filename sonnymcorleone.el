@@ -47,9 +47,6 @@
 
 ;;; org mode
 (load "~/.emacs.d/org.el" 'noerror)
-(require 'google-weather)
-(require 'org-google-weather)
-(setq org-agenda-files (append '("~/Dropbox/org/weather.org") org-agenda-files))
 
 ;; Work around RT noise and throw out email reply threads.
 (defun maf-delete-to-sigdashes ()
