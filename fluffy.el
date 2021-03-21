@@ -23,7 +23,7 @@
 (ido-mode 1)
 (require 'gist)
 
-(load-theme 'mustang)
+(load-theme 'leuven)
 
 (setq jedi:setup-keys t)
 (add-hook 'python-mode-hook 'jedi:setup)
@@ -48,3 +48,11 @@
          :publishing-function org-publish-attachment
          )
         ("mkt402" :components ("mkt402-content" "mkt402-static"))))
+
+(require 'clojure-mode)
+(require 'paredit)
+(add-hook 'clojure-mode-hook 'paredit-mode)
+
+;; PHP mode
+(autoload 'php-mode "php" nil t)
+(add-to-list 'auto-mode-alist '("\\.php$" . php-mode))
