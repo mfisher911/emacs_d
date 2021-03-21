@@ -11,7 +11,7 @@
 (add-hook 'org-mode-hook
 	(lambda()
          ;; flyspell mode to spell check everywhere
-	 (flyspell-mode 1)))
+          (flyspell-mode 1)))
 ;; Make TAB the yas trigger key in the org-mode-hook and turn on flyspell mode
 (add-hook 'org-mode-hook
           (lambda ()
@@ -19,18 +19,18 @@
             (make-variable-buffer-local 'yas/trigger-key)
             (setq yas/trigger-key [tab])
             (define-key yas/keymap [tab] 'yas/next-field-group)))
-(setq org-mobile-directory "/sudo::/usr/local/www/apache22/data/org/mobile")
-(setq org-mobile-inbox-for-pull "/sudo::/usr/local/www/apache22/data/org/mobile/from-mobile.org")
-(setq org-mobile-files (quote ("~/org/work.org"
-                               "~/org/movies.org"
-                               "~/org/notes.org"
-                               "~/org/personal.org"
-                               "~/org/books-read.org"
-                               "~/org/books-to-read.org")))
+(setq org-mobile-directory "~/Dropbox/MobileOrg")
+(setq org-mobile-inbox-for-pull "~/Dropbox/MobileOrg/from-mobile.org")
+(setq org-mobile-files (quote ("~/Dropbox/org/work.org"
+                               "~/Dropbox/org/movies.org"
+                               "~/Dropbox/org/notes.org"
+                               "~/Dropbox/org/personal.org"
+                               "~/Dropbox/org/books-read.org"
+                               "~/Dropbox/org/books-to-read.org")))
 (setq org-mobile-force-id-on-agenda-items t)
-(setq org-directory "~/org")
-(setq org-publish-timestamp-directory "~/org/.org-timestamps/")
-(setq org-default-notes-file "~/org/refile.org")
+(setq org-directory "~/Dropbox/org")
+(setq org-publish-timestamp-directory "~/Dropbox/org/.org-timestamps/")
+(setq org-default-notes-file "~/Dropbox/org/refile.org")
 
 (setq org-enforce-todo-dependencies t)
 (setq org-agenda-dim-blocked-tasks t)
@@ -180,5 +180,5 @@
           (goto-char (match-beginning 0))
           (insert tasks))))))
  
-(add-hook 'org-mobile-post-pull-hook 'my-org-convert-incoming-items)
+;; (add-hook 'org-mobile-post-pull-hook 'my-org-convert-incoming-items)
 
