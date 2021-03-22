@@ -27,7 +27,7 @@
   (display-time))
 
 ;; Prevent the annoying beep on errors
-(setq visible-bell t)
+(setq visible-bell nil)
 
 ;; Display line and column numbers
 (setq line-number-mode t)
