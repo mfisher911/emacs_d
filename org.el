@@ -6,7 +6,9 @@
 ;;;
 ;;; Code:
 (use-package org
-  :mode ("\\.org\\'" . org-mode))
+  :mode ("\\.org\\'" . org-mode)
+  :bind (:map org-mode-map
+              ("M-h" . nil)))
 
 ;; org-checklist provides checklist handling tools
 ;; http://orgmode.org/worg/org-contrib/org-checklist.html
@@ -27,6 +29,18 @@
             (lambda ()
               (local-set-key "\C-c\M-o" 'org-mime-htmlize))))
 
+
+(defun maf-org-html-timestamp (timestamp _contents info)
+  "Transcode a TIMESTAMP object from Org to HTML.
+CONTENTS is nil.  INFO is a plist holding contextual
+information."
+  (let ((value (org-html-plain-text (org-timestamp-translate timestamp) info)))
+    (format "%" (replace-regexp-in-string "--" "&#x2013;" value))))
+
+(org-export-define-derived-backend 'my-html 'html
+  :translate-alist '((timestamp . maf-org-html-timestamp)))
+
+
 (use-package htmlize
   :ensure t)
 
@@ -44,10 +58,10 @@
 ;; Coerce the Org Agenda to Appt mode
 (add-hook 'org-finalize-agenda-hook 'org-agenda-to-appt)
 
-(setq org-agenda-files (quote ("~/org/work.org.gpg"
+(setq org-agenda-files (quote ("~/org/work.org"
                                "~/org/personal.org"
                                "~/org/caps.org"
-                               "~/org/team.org.gpg"
+                               "~/org/team.org"
                                )))
 
 (setq org-mobile-directory "~/org/inbox.org")
@@ -68,7 +82,7 @@
 
 ;; 3.1 TODO Keywords
 (setq org-todo-keywords (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d@/!)")
- (sequence "WAITING(w@/!)" "SOMEDAY(s!)" "|" "CANCELLED(c@/!)"))))
+                                (sequence "WAITING(w@/!)" "SOMEDAY(s!)" "|" "CANCELLED(c@/!)"))))
 
 (setq org-todo-keyword-faces
       (quote (("TODO"      :foreground "red"          :weight bold)
@@ -83,30 +97,53 @@
 
 ;; 6.1 Capture Templates
 (define-key global-map (kbd "C-c c") 'org-capture)
-(setq org-capture-templates '(("t" "todo" entry
-  (file "refile.org")
-  "* TODO %?\n  %u\n  %a")
- ("n" "note" entry
-  (file "refile.org")
-  "* %?                                        :NOTE:\n  %u\n  %a")
- ("p" "phone" entry
-  (file+headline "phone.org.gpg" "Phone Messages")
-  "\n** PHONE %^{name} - %^{company|University of Rochester} -                :PHONE:\n  Contact Info: %^{phone}\n  %u\n\n  %?\n"
-  :clock-in t :clock-resume t)
- ("k" "ticket" entry
-  (file+headline "work.org.gpg" "Request Tracker Tickets")
-  "\n** TODO %^{Ticket}\n\n    %?\n" :clock-in t :clock-resume t)
- ("m" "misc" entry
-  (file "misc.org.gpg")
-  "\n* %^{event}\n\n   %?\n" :clock-in t :clock-resume t)
- ("M" "movie" table-line
-  (file "movies.org")
-  "| %<%Y-%m-%d> | %^{Title} | %^{Theatre} | %^{Rating|3} | %^{New} |"
-  :kill-buffer t)))
+(setq org-capture-templates
+      '(("t" "todo" entry
+         (file "refile.org")
+         "* TODO %?\n  %u\n  %a")
+        ("d" "daily-update" entry
+         (file+headline "~/org/daily-team-status-updates.org"
+                        "Daily Updates")
+         (file "~/org/templates/daily-updates-template.org")
+         :prepend t :empty-lines 1)
+        ("n" "note" entry
+         (file "refile.org")
+         "* %?                                        :NOTE:\n  %u\n  %a")
+        ("w" "weekly-update" entry
+         (file+headline "~/org/weekly-team-status-updates.org"
+                        "Weekly Updates")
+         (file "~/org/templates/weekly-updates-template.org")
+         :prepend t :empty-lines 1)))
+;;         ("p" "phone" entry
+;;          (file+headline "phone.org.gpg" "Phone Messages")
+;;          "\n** PHONE %^{name} - %^{company|University of Rochester} -                :PHONE:\n  Contact Info: %^{phone}\n  %u\n\n  %?\n"
+;;          :clock-in t :clock-resume t)
+;;         ("k" "ticket" entry
+;;          (file+headline "work.org.gpg" "Request Tracker Tickets")
+;;          "\n** TODO %^{Ticket}\n\n    %?\n" :clock-in t :clock-resume t)
+;;         ("m" "misc" entry
+;;          (file "misc.org.gpg")
+;;          "\n* %^{event}\n\n   %?\n" :clock-in t :clock-resume t)
+;;         ("M" "movie" table-line
+;;          (file "movies.org")
+;;          "| %<%Y-%m-%d> | %^{Title} | %^{Theatre} | %^{Rating|3} | %^{New} |"
+;;          :kill-buffer t)))
+
+
+(defun weekly-update-cleanup ()
+  "Clean up the top/summary section of the update"
+  (interactive)
+  (save-excursion
+    (re-search-forward "^   - RT Tickets:" (region-end) t)
+    (org-mark-element)
+    (replace-regexp-in-string "^\\(\s+ - SON-Blackboard: \d+\\) .*$"
+                              "\1"
+                              (buffer-substring (region-start) (region-end)))))
+
 
 (setq org-refile-targets (quote ((nil :maxlevel . 5)
                                  (org-agenda-files :maxlevel . 5)
-                                 ("work-notes.org.gpg" :maxlevel . 5)
+                                 ("work-notes.org" :maxlevel . 5)
                                  )))
 (setq org-refile-use-outline-path t)
 
@@ -123,7 +160,7 @@
 
 ;; Include agenda archive files when searching for things
 (setq org-agenda-text-search-extra-files (quote (agenda-archives)))
-        
+
 ;; 15.7.4 -- add new tasks without disturbin the context
 (setq org-insert-heading-respect-content t)
 

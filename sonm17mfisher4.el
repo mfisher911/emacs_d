@@ -27,25 +27,49 @@
 ;; (load-theme 'leuven)
 ;; (load-theme 'sexy-monochrome)
 
-;; Add flyspell mode for "itsalltext" buffers.
-(add-hook 'find-file-hook
-          (lambda ()
-            (if (and (>= (length buffer-file-name) 94)
-                     (equal "itsalltext"
-                            (substring buffer-file-name 84 94)))
-                (flyspell-mode))))
 
-(add-hook 'find-file-hook
+;; this seems neat: https://github.com/Boruch-Baum/emacs-crossword
+
+(use-package banner-comment
+  :ensure t
+  :commands (banner-comment)
+  :bind ("C-c h" . banner-comment))
+
+(use-package edit-server
+  :ensure t
+  :commands edit-server-start
+  :init
+  (if after-init-time
+      (edit-server-start)
+    (add-hook 'after-init-hook
+              #'(lambda() (edit-server-start))))
+  :config
+  (setq edit-server-new-frame-alist
+        '((name . "Edit with Emacs Frame"))))
+
+;; Add flyspell mode for "itsalltext" buffers.
+(add-hook 'edit-server-start-hook
           (lambda ()
-            (when (and (>= (length buffer-file-name) 117)
-                       (or (equal "rt.son.rochester.edu"
-                                  (substring buffer-file-name 95 115))
-                           (equal "wiki.son.rochester.edu"
-                                  (substring buffer-file-name 95 117))))
+            (when (equal 0 (string-match "^wiki.son.rochester.edu"
+                                       (buffer-name)))
+                (maf-edit-dokuwiki))))
+
+;; Add flyspell mode for "itsalltext" buffers.
+(add-hook 'edit-server-start-hook
+          (lambda ()
+            (when (equal 0 (string-match "^rt.son.rochester.edu"
+                                         (buffer-name)))
               (auto-fill-mode -1)
               (visual-line-mode t)
+              (flyspell-mode)
+              (local-set-key (kbd "M-]") "\t")
               (local-set-key (kbd "C-c C-z") 'maf-delete-to-sigdashes)
               (local-set-key (kbd "C-c C-c") 'maf-close-iat))))
+
+;; https://github.com/purcell/emacs-shfmt/
+(use-package shfmt
+  :ensure t
+  :hook (sh-mode-hook . shfmt-on-save-mode))
 
 ;; Eshell + sudo + tramp help
 ;; https://emacs.stackexchange.com/a/5619
@@ -86,11 +110,45 @@
 ;;   (add-to-list 'flymake-allowed-file-name-masks
 ;;                '("\\.py\\'" flymake-pylint-init)))
 
+(setq lsp-keymap-prefix "s-l")
+(use-package lsp-mode
+  :ensure t
+  :hook ((python-mode . lsp)
+         (lsp-mode . lsp-enable-which-key-integration))
+  :config
+  (setq lsp-pyls-plugins-flake8-config "~/.config/flake8")
+  (setq lsp-headerline-breadcrumb-enable nil)
+  :commands lsp)
+
+(use-package lsp-ui
+  :ensure t
+  :commands lsp-ui-mode
+  :config
+  (setq lsp-ui-doc-enable nil))
+  ;(setq lsp-ui-doc-delay 15))
 
 (use-package which-key
   :ensure t
   :config
   (which-key-mode))
+
+(use-package py-isort
+  :ensure t)
+
+;; (global-eldoc-mode -1)
+
+(use-package python-pytest
+  :ensure t)
+
+(defun eldoc-docstring-format-sym-doc (a b c)
+  "Get rid of errors by ignoring this function (and A, B, C).")
+
+
+;; (lsp-register-client
+;;     (make-lsp-client :new-connection (lsp-tramp-connection "python")
+;;                      :major-modes '(python-mode)
+;;                      :remote? t
+;;                      :server-id 'pyls-remote))
 
 (use-package ansible
   :ensure t)
@@ -98,6 +156,15 @@
 (use-package ansible-doc
   :ensure t)
 
+(use-package dokuwiki-mode
+  :ensure t)
+
+(use-package dokuwiki
+  :ensure t
+  :config
+  (setq dokuwiki-xml-rpc-url
+        "https://wiki.son.rochester.edu/lib/exe/xmlrpc.php")
+  (setq dokuwiki-login-user-name "mfisher4"))
 
 (use-package sqlup-mode
   :ensure t
@@ -147,6 +214,15 @@
       (delete-region beg (point)))
      (insert "\n\n\n"))
   (forward-char 1))
+
+(defun maf-edit-dokuwiki ()
+  "Set up a buffer for editing a Dokuwiki page."
+  (interactive)
+  (auto-fill-mode -1)
+  (visual-line-mode t)
+  (local-set-key (kbd "C-c C-c") 'maf-close-iat)
+  (dokuwiki-mode)
+  (flyspell-mode))
 
 ;; Make it easy to get rid of an Its-All-Text buffer.
 (defun maf-close-iat ()
@@ -267,6 +343,22 @@
   :ensure t
   :config
   (add-hook 'js2-mode-hook 'prettier-js-mode))
+
+;; https://gitlab.com/semente/dotfiles/-/blob/master/emacs/.emacs
+;; bury certain buffers instead of killing them
+(progn
+  (defvar maybe-bury-buffer-list '("*scratch*" "*Messages*" "*notmuch-hello*"
+                                   "*Flycheck error messages*" "*Help*"))
+  (defun maybe-bury-kill-buffer-query-function ()
+    "Bury buffers listed in `maybe-bury-buffer-list' instead of
+killing them."
+    (if (member (buffer-name (current-buffer)) maybe-bury-buffer-list)
+        (bury-buffer)
+      t))
+  (add-hook 'kill-buffer-query-functions
+            'maybe-bury-kill-buffer-query-function))
+
+(highlight-indentation-mode -1)
 
 (defun refresh-rt ()
   "Perform the RT Ticket refresh."
