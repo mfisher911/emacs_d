@@ -34,6 +34,11 @@
 (use-package yaml-mode
   :ensure t)
 
+(use-package banner-comment
+  :ensure t
+  :commands (banner-comment)
+  :bind ("C-c h" . banner-comment))
+
 (use-package flycheck
   :ensure t
   :init (global-flycheck-mode)
