@@ -11,7 +11,7 @@
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
 (when (not package-archive-contents)
-  (package-refresh-contents))
+  (package-refresh-contents t))
 
 (unless (package-installed-p 'use-package)
   (package-install 'use-package))
