@@ -116,7 +116,6 @@
   :hook ((python-mode . lsp)
          (lsp-mode . lsp-enable-which-key-integration))
   :config
-  (setq lsp-pyls-plugins-flake8-config "~/.config/flake8")
   (setq lsp-headerline-breadcrumb-enable nil)
   :commands lsp)
 
@@ -191,7 +190,11 @@
   :ensure t
   :init (global-flycheck-mode)
   :config
-  (setq flycheck-display-errors-delay 3))
+  (setq flycheck-display-errors-delay 3)
+  (flycheck-add-next-checker 'python-flake8 '(warning . python-pylint))
+  :hook
+  ;; override the LSP checker
+  (python-mode . ((flycheck-checker . python-flake8))))
 ; (add-hook 'markdown-mode-hook #'flycheck-mode)
 ; (add-hook 'text-mode-hook #'flycheck-mode)
 
