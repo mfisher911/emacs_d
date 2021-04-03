@@ -27,6 +27,11 @@
 ;; (load-theme 'leuven)
 ;; (load-theme 'sexy-monochrome)
 
+(use-package logview
+  :ensure t)
+
+(use-package mermaid-mode
+  :ensure t)
 
 ;; this seems neat: https://github.com/Boruch-Baum/emacs-crossword
 
