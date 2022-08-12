@@ -362,6 +362,9 @@
   :config
   (rename-modeline "js2-mode" js2-mode "JS2"))
 
+(if (boundp 'mode-line-compact)  ;; requires Emacs 28.1+
+    (setq mode-line-compact t))
+
 ;;; http://superuser.com/a/604264/14385
 (defun replace-smart-quotes (beg end)
   "Replace 'smart quotes' in buffer or region (BEG..END) with ASCII quotes."
