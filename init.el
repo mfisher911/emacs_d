@@ -91,8 +91,10 @@
     (manual-entry man-args)))
 
 ;; Make all "yes or no" prompts show "y or n" instead
-;; http://www.dotemacs.de/dotfiles/AlexanderMikhailian.emacs.html
-(fset 'yes-or-no-p 'y-or-n-p)
+;; https://github.com/SystemCrafters/crafted-emacs/issues/43#issue-1142056835
+(if (boundp 'use-short-answers)
+    (setq use-short-answers t)
+  (fset 'yes-or-no-p 'y-or-n-p))
 
 ;; http://www.hulubei.net/tudor/configuration/.emacs
 (setq make-backup-files nil)
