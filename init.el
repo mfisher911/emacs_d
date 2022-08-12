@@ -121,8 +121,7 @@
 (setq default-indicate-empty-lines t)
 (savehist-mode 1)
 
-;; always enable paren mode
-(show-paren-mode t)
+(add-hook 'prog-mode-hook #'show-paren-local-mode)
 (setq show-paren-style 'mixed)
 
 ;;; force the local org-mode
