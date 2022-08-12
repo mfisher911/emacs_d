@@ -209,6 +209,10 @@
   (global-set-key (kbd "C-c v") 'pbpaste)
   (global-set-key (kbd "C-c x") 'pbcut)
 
+  ;; stop shocking myself with text resizes
+  (global-unset-key (kbd "C-<wheel-up>"))
+  (global-unset-key (kbd "C-<wheel-down>"))
+
   ;;; Useful for https://github.com/dunn/company-emoji
   ;; https://www.reddit.com/r/emacs/comments/8ph0hq/i_have_converted_from_the_mac_port_to_the_ns_port/
   ;; not tested with emacs26 (requires a patched Emacs version for multi-color font support)
