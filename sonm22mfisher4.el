@@ -239,7 +239,9 @@
 (use-package yaml-mode
   :ensure t
   :config
-  (add-hook 'yaml-mode-hook #'(lambda () (ansible 1))))
+  (add-hook 'yaml-mode-hook #'(lambda ()
+                                (ansible 1)
+                                (auto-fill-mode 0))))
 
 (use-package frecentf
   :ensure t)
