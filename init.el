@@ -15,6 +15,17 @@
 (unless (package-installed-p 'use-package)
   (package-install 'use-package))
 (require 'use-package)
+(require 'use-package-ensure)
+(setq use-package-always-ensure t)
+(require 'bind-key)
+
+;; https://github.com/jwiegley/use-package 2022-11-30
+(use-package auto-package-update
+  :ensure t
+  :config
+  (setq auto-package-update-delete-old-versions t)
+  (setq auto-package-update-hide-results t)
+  (auto-package-update-maybe))
 
 (server-start)
 (setq save-abbrevs 'silently)
