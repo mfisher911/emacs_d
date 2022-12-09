@@ -398,3 +398,11 @@
 
 (provide 'init)
 ;;; init.el ends here
+
+;; Steps to fix the info pages:
+;; install_info=$(brew ls -l texinfo| grep 'bin/install-info')
+;; cd $(brew ls -l emacs-plus@29| grep 'info/emacs/dir$'| sed -e 's|/dir||')
+;; cd /opt/homebrew/Cellar/emacs-plus@29/29.0.50/share/info/emacs
+;; for i in *.info; do
+;;     $install_info $i --dir-file dir;
+;; done
