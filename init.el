@@ -263,11 +263,9 @@
   (insert initial-scratch-message))
 
 ;; http://trey-jackson.blogspot.com/2008/01/emacs-tip-11-uniquify.html
-(use-package uniquify
-  :config
-  (setq uniquify-buffer-name-style 'forward)
-  (setq uniquify-separator "/")
-  (setq uniquify-after-kill-buffer-p t))
+(setq uniquify-buffer-name-style 'forward)
+(setq uniquify-separator "/")
+(setq uniquify-after-kill-buffer-p t)
 
 (use-package ws-butler
   :ensure t
