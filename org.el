@@ -14,13 +14,15 @@
 ;; http://orgmode.org/worg/org-contrib/org-checklist.html
 ;; it has to be installed specially -- it's not part of the ELPA package
 ;; mkdir ~/el     # note -- it's in the load path already
-;; cd el; git clone https://code.orgmode.org/bzg/org-mode.git
+;; cd el; git clone https://git.sr.ht/~bzg/org-contrib
 (require 'org-checklist)
 (require 'org-choose)
 (require 'ol-git-link)
 (require 'org-mac-iCal)
-(require 'org-mac-link)
 (require 'org-secretary)
+
+(use-package org-mac-link
+  :ensure t)
 
 (use-package org-mime
   :ensure t
