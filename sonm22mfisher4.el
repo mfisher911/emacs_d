@@ -165,13 +165,13 @@
 ;;                '("\\.py\\'" flymake-pylint-init)))
 
 (setq lsp-keymap-prefix "s-l")
-;; (use-package lsp-mode
-;;   :ensure t
-;;   :hook ((python-mode . lsp)
-;;          (lsp-mode . lsp-enable-which-key-integration))
-;;   :config
-;;   (setq lsp-headerline-breadcrumb-enable nil)
-;;   :commands lsp)
+(use-package lsp-mode
+  :ensure t
+  :hook ((python-mode . lsp)
+         (lsp-mode . lsp-enable-which-key-integration))
+  :config
+  (setq lsp-headerline-breadcrumb-enable nil)
+  :commands lsp)
 
 (use-package lsp-python-ms
   :ensure t
