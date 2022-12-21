@@ -309,8 +309,8 @@
 (define-key (cdr ido-minor-mode-map-entry) [remap write-file] nil)
 (setq ido-enable-prefix t)
 (setq ido-all-frames t) ;; allow making a second frame to the same buffer
-;; avoid the Confirm prompt for throwaway buffers— Justin Andrusk
 (defadvice ido-switch-buffer (around no-confirmation activate)
+  "Avoid the Confirm prompt for throwaway buffers— Justin Andrusk."
   (let ((confirm-nonexistent-file-or-buffer nil))
     ad-do-it))
 
