@@ -300,10 +300,11 @@
 ;; ido -- https://www.masteringemacs.org/article/introduction-to-ido-mode
 (setq ido-enable-flex-matching t)
 ;; (setq ido-everywhere t) -- redundant because of setting ido-mode
-(ido-mode 1)
+(ido-mode 'files)
 ;; more hassle than it's worth (setq ido-use-filename-at-point 'guess)
 (setq ido-create-new-buffer 'always)
-(setq ido-file-extensions-order '(".org" ".txt" ".py" ".el" ".csv" ".ini" ".cfg" ".cnf"))
+(setq ido-file-extensions-order
+      '(".org" ".txt" ".py" ".el" ".csv" ".ini" ".cfg" ".cnf"))
 ;; https://www.emacswiki.org/emacs/InteractivelyDoThings
 (define-key (cdr ido-minor-mode-map-entry) [remap write-file] nil)
 (setq ido-enable-prefix t)
