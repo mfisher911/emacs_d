@@ -394,6 +394,7 @@
   :ensure t)
 
 (provide 'init)
+(put 'narrow-to-region 'disabled nil)
 ;;; init.el ends here
 
 ;; Steps to fix the info pages:
