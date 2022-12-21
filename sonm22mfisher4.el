@@ -6,6 +6,10 @@
 ;;;
 (setq user-mail-address "Michael_Fisher@URMC.Rochester.edu")
 
+;; 2022-09-08: lots of "compat-declare-version" errors; fix:
+;;   M-: (byte-recompile-directory package-user-dir nil 'force)
+;; -- https://todo.sr.ht/~pkal/compat/7
+
 (setq calendar-location-name "Rochester, NY")
 (setq calendar-latitude 43.120031)
 (setq calendar-longitude -77.626047)
