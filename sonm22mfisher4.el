@@ -21,6 +21,9 @@
   :config
   (modus-themes-load-themes))
 
+(use-package ef-themes
+  :ensure t)
+
 (setq sql-product 'postgres)
 
 ;; (use-package circadian
@@ -34,8 +37,12 @@
   "Load theme, taking current system APPEARANCE into consideration."
   (mapc #'disable-theme custom-enabled-themes)
   (pcase appearance
-    ('light (load-theme 'modus-operandi t))
-    ('dark (load-theme 'modus-vivendi t))))
+;;     ('light (load-theme 'modus-operandi t))
+;;     ('dark (load-theme 'modus-vivendi t))
+;;     ('light (load-theme 'ef-spring t))
+;;     ('dark (load-theme 'ef-bio t))
+    ('light (load-theme 'ef-deuteranopia-light t))
+    ('dark (load-theme 'ef-deuteranopia-dark t))))
 
 (add-hook 'ns-system-appearance-change-functions #'my/apply-theme)
 
