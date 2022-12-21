@@ -504,9 +504,9 @@ killing them."
 (defun refresh-rt ()
   "Perform the RT Ticket refresh."
   (interactive)
-  (setq queue-count 5)
   (save-excursion
-    (let (start end shell-command-dont-erase-buffer)
+    (let (queue-count start end shell-command-dont-erase-buffer)
+      (setq queue-count 5)
       (setq shell-command-dont-erase-buffer t)
       (search-forward "RT Tickets:\n")
       (setq start (point-marker))
@@ -520,10 +520,10 @@ killing them."
 (defun weekend-update ()
   "Grab the new details of RT tickets and make a summary comparison."
   (interactive)
-  (setq queue-count 5)
   (refresh-rt)
   (save-excursion
-    (let (start end)
+    (let (queue-count start end)
+      (setq queue-count 5)
       (search-forward "RT Tickets:\n")
       (setq start (point-marker))
       (forward-line queue-count)
