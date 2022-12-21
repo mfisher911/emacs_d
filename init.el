@@ -134,9 +134,6 @@
 (add-hook 'prog-mode-hook #'show-paren-local-mode)
 (setq show-paren-style 'mixed)
 
-;;; force the local org-mode
-(add-to-list 'load-path "~/el/org-mode/lisp") (require 'org-install)
-
 ;; slurp in other code
 (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
     (let* ((my-lisp-dir "~/el/")
