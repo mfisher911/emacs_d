@@ -10,27 +10,62 @@
 (setq calendar-latitude 43.120031)
 (setq calendar-longitude -77.626047)
 
+(load "~/.hammerspoon/Spoons/editWithEmacs.spoon/hammerspoon.el")
+
 (use-package modus-themes
   :ensure t
   :config
   (modus-themes-load-themes))
 
-(use-package circadian
-  :ensure t
-  :custom
-  (circadian-themes '((:sunrise . modus-operandi)
-                      (:sunset  . modus-vivendi)))
-  :config
-  (circadian-setup))
+(setq sql-product 'postgres)
 
-;; (change-theme 'solarized-light 'solarized-dark)
+;; (use-package circadian
+;;   :ensure t
+;;   :config
+;;   (setq circadian-themes '((:sunrise . modus-operandi)
+;;                            (:sunset  . modus-vivendi)))
+;;   (circadian-setup))
+
+(defun my/apply-theme (appearance)
+  "Load theme, taking current system APPEARANCE into consideration."
+  (mapc #'disable-theme custom-enabled-themes)
+  (pcase appearance
+    ('light (load-theme 'modus-operandi t))
+    ('dark (load-theme 'modus-vivendi t))))
+
+(add-hook 'ns-system-appearance-change-functions #'my/apply-theme)
+
+
+;; (use-package theme-changer
+;;   :ensure t
+;;   :config
+;;   (change-theme 'modus-operandi 'modus-vivendi))
 ;; (load-theme 'leuven)
 ;; (load-theme 'sexy-monochrome)
+
+;; (use-package tron-legacy-theme
+;;   :ensure t
+;;   :config
+;;   (load-theme 'tron-legacy t))
+
+(use-package rg
+  :ensure t
+  :config
+  (rg-enable-default-bindings))
 
 (use-package logview
   :ensure t)
 
 (use-package mermaid-mode
+  :ensure t)
+
+(use-package restclient
+  :ensure t)
+
+(use-package lispy
+  :ensure t)
+
+(use-package json-mode
   :ensure t)
 
 ;; this seems neat: https://github.com/Boruch-Baum/emacs-crossword
@@ -39,6 +74,9 @@
   :ensure t
   :commands (banner-comment)
   :bind ("C-c h" . banner-comment))
+
+(use-package dilbert
+  :ensure t)
 
 (use-package edit-server
   :ensure t
@@ -116,13 +154,25 @@
 ;;                '("\\.py\\'" flymake-pylint-init)))
 
 (setq lsp-keymap-prefix "s-l")
-(use-package lsp-mode
+;; (use-package lsp-mode
+;;   :ensure t
+;;   :hook ((python-mode . lsp)
+;;          (lsp-mode . lsp-enable-which-key-integration))
+;;   :config
+;;   (setq lsp-headerline-breadcrumb-enable nil)
+;;   :commands lsp)
+
+(use-package lsp-python-ms
   :ensure t
-  :hook ((python-mode . lsp)
-         (lsp-mode . lsp-enable-which-key-integration))
+  :init
+  (setenv "COMPlus_EnableDiagnostics" "0")
+  (setq lsp-python-ms-auto-install-server t)
+  :hook (python-mode . (lambda ()
+                          (require 'lsp-python-ms)
+                          (lsp))) ;; or lsp-deferred
   :config
   (setq lsp-headerline-breadcrumb-enable nil)
-  :commands lsp)
+  (setq lsp-pyls-plugins-flake8-enabled t))
 
 (use-package lsp-ui
   :ensure t
@@ -147,12 +197,11 @@
 (defun eldoc-docstring-format-sym-doc (a b c)
   "Get rid of errors by ignoring this function (and A, B, C).")
 
-
-;; (lsp-register-client
-;;     (make-lsp-client :new-connection (lsp-tramp-connection "python")
-;;                      :major-modes '(python-mode)
-;;                      :remote? t
-;;                      :server-id 'pyls-remote))
+(lsp-register-client
+    (make-lsp-client :new-connection (lsp-tramp-connection "python")
+                     :major-modes '(python-mode)
+                     :remote? nil
+                     :server-id 'pyls-remote))
 
 (use-package ansible
   :ensure t)
@@ -183,23 +232,28 @@
 (use-package sqlformat
   :ensure t
   :custom
-  (sqlformat-command 'pgformatter)
-  (sqlformat-args '("-w64")))
+  (sqlformat-command 'sqlfluff))
+;;   (sqlformat-command 'pgformatter)
+;;   (sqlformat-args '("-w64")))
 
 (use-package yaml-mode
   :ensure t
   :config
-  (add-hook 'yaml-mode-hook '(lambda () (ansible 1))))
+  (add-hook 'yaml-mode-hook #'(lambda () (ansible 1))))
+
+(use-package frecentf
+  :ensure t)
 
 (use-package flycheck
   :ensure t
   :init (global-flycheck-mode)
   :config
   (setq flycheck-display-errors-delay 3)
-  (flycheck-add-next-checker 'python-flake8 '(warning . python-pylint))
-  :hook
-  ;; override the LSP checker
-  (python-mode . ((flycheck-checker . python-flake8))))
+  (setq flycheck-global-modes '(not org-mode))
+  (flycheck-add-next-checker 'python-flake8 '(warning . python-pylint)))
+;;   :hook
+;;   ;; override the LSP checker
+;;   (python-mode . ((flycheck-checker . python-flake8))))
 ; (add-hook 'markdown-mode-hook #'flycheck-mode)
 ; (add-hook 'text-mode-hook #'flycheck-mode)
 
@@ -208,8 +262,43 @@
 (add-hook 'after-save-hook
           'executable-make-buffer-file-executable-if-script-p)
 
+(use-package avy
+  :ensure t)
+
+(use-package multiple-cursors
+  :ensure t)
+
+(use-package hydra
+  :ensure t)
+
+(use-package tree-sitter
+  :ensure t)
+
+(use-package tree-sitter-langs
+  :ensure t)
+
+(use-package combobulate
+  ;; Ensure `combobulate-mode` is activated when you launch a mode it supports
+  :hook ((python-mode . combobulate-mode)))
+
 ;;; org mode
 (load "~/.emacs.d/org.el" 'noerror)
+
+;; ido -- https://www.masteringemacs.org/article/introduction-to-ido-mode
+(setq ido-enable-flex-matching t)
+;; (setq ido-everywhere t) -- redundant because of setting ido-mode
+(ido-mode 1)
+(setq ido-use-filename-at-point 'guess)
+(setq ido-create-new-buffer 'always)
+(setq ido-file-extensions-order '(".org" ".txt" ".py" ".el" ".csv" ".ini" ".cfg" ".cnf"))
+;; https://www.emacswiki.org/emacs/InteractivelyDoThings
+(define-key (cdr ido-minor-mode-map-entry) [remap write-file] nil)
+(setq ido-enable-prefix t)
+(setq ido-all-frames 'current)
+;; avoid the Confirm prompt for throwaway buffers— Justin Andrusk
+(defadvice ido-switch-buffer (around no-confirmation activate)
+  (let ((confirm-nonexistent-file-or-buffer nil))
+    ad-do-it))
 
 ;; Work around RT noise and throw out email reply threads.
 (defun maf-delete-to-sigdashes ()
@@ -318,7 +407,8 @@
 (use-package elpy
   :ensure t
   :config
-  (elpy-enable))
+  (elpy-enable)
+  (setq elpy-shell-echo-output nil))
 ;;   (defalias 'workon 'pyvenv-workon))
 
 (use-package web-mode
@@ -331,7 +421,7 @@
   :ensure t
   :config
   (add-hook 'python-mode-hook 'blacken-mode)
-  (setq blacken-line-length 78))
+  (setq blacken-line-length 78)) ;; 'fill))
 
 ;; (use-package isortify
 ;;   :ensure t
@@ -350,7 +440,8 @@
 (use-package prettier-js
   :ensure t
   :config
-  (add-hook 'js2-mode-hook 'prettier-js-mode))
+  (add-hook 'js2-mode-hook 'prettier-js-mode)
+  (setq js2-basic-offset 2))
 
 ;; https://gitlab.com/semente/dotfiles/-/blob/master/emacs/.emacs
 ;; bury certain buffers instead of killing them
@@ -367,6 +458,18 @@ killing them."
             'maybe-bury-kill-buffer-query-function))
 
 (highlight-indentation-mode -1)
+
+(defun indent-report ()
+  "Indent the weekly report submissions."
+  (interactive)
+  (save-excursion
+    (let (start end)
+      (narrow-to-region (region-beginning) (region-end))
+      (goto-char (region-beginning))
+      (while (re-search-forward "^\\([[:alnum:]]\\)" nil t)
+        (replace-match "    - \\1")
+        (org-fill-paragraph))
+      (widen))))
 
 (defun refresh-rt ()
   "Perform the RT Ticket refresh."
@@ -413,6 +516,30 @@ killing them."
       (call-process-region start end "sort_attendees.py" nil t)
       (kill-region start end nil)))
   (org-fill-paragraph t t))
+
+;; https://protesilaos.com/emacs/lin
+(require 'lin)
+
+(setq lin-face 'lin-blue) ; check doc string for alternative styles
+
+(lin-setup) ; Either run this or change `lin-mode-hooks'
+
+(customize-set-variable
+ 'lin-mode-hooks ; do not use `setq' with this; `customize-set-variable' runs `lin-setup' automatically
+ '(dired-mode-hook
+   elfeed-search-mode-hook
+   git-rebase-mode-hook
+   ibuffer-mode-hook
+   ilist-mode-hook
+   ledger-report-mode-hook
+   log-view-mode-hook
+   magit-log-mode-hook
+   mu4e-headers-mode
+   notmuch-search-mode-hook
+   notmuch-tree-mode-hook
+   occur-mode-hook
+   org-agenda-mode-hook
+   tabulated-list-mode-hook))
 
 (provide 'sonm17mfisher)
 ;;; sonm17mfisher4.el ends here
