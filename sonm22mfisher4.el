@@ -582,6 +582,25 @@ killing them."
                      "--html" html))))
 
 
+(defun feed2bbevals ()
+  "Translate a feed entry for Bb Evals handling."
+  (interactive)
+  (save-excursion
+    (let (start end)
+      (setq start (point-marker))
+      (yank)
+      (insert "\n")
+      (setq end (point-marker))
+      (goto-char start)
+      (while (re-search-forward "[\"]	[\"]" nil t)
+        (replace-match " "))
+      (goto-char start)
+      (while (re-search-forward "  " nil t)
+        (replace-match " "))
+      (upcase-region start end)
+      (kill-ring-save start end)))
+  (goto-char (point-max)))
+
 
 (lin-setup) ; Either run this or change `lin-mode-hooks'
 
