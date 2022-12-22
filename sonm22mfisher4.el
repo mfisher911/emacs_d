@@ -627,7 +627,8 @@ killing them."
    notmuch-tree-mode-hook
    occur-mode-hook
    org-agenda-mode-hook
-   tabulated-list-mode-hook))
+   tabulated-list-mode-provide))
+
 
 (provide 'sonm22mfisher)
 ;;; sonm22mfisher4.el ends here
