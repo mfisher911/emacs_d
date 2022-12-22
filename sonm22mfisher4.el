@@ -33,6 +33,16 @@
 ;;                            (:sunset  . modus-vivendi)))
 ;;   (circadian-setup))
 
+
+;; improve M-. -- https://github.com/jacktasia/dumb-jump (2022-12-21)
+(use-package dumb-jump
+  :ensure t
+  :config
+  (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
+  (setq xref-show-definitions-function
+        #'xref-show-definitions-completing-read))
+
+
 (defun my/apply-theme (appearance)
   "Load theme, taking current system APPEARANCE into consideration."
   (mapc #'disable-theme custom-enabled-themes)
