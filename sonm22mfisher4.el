@@ -559,10 +559,7 @@ killing them."
       (kill-region start end nil)))
   (org-fill-paragraph t t))
 
-;; https://protesilaos.com/emacs/lin
-(require 'lin)
 
-(setq lin-face 'lin-blue) ; check doc string for alternative styles
 (defun send-minutes ()
   "Send meeting minutes."
   (interactive)
@@ -601,8 +598,19 @@ killing them."
       (kill-ring-save start end)))
   (goto-char (point-max)))
 
+;; https://protesilaos.com/emacs/lin
+(use-package lin
+  :ensure t
+  :config
+  (setq lin-face 'lin-blue) ; check doc string for alternative styles
+  (setq lin-mode-hooks
+        '(dired-mode-hook
+          grep-mode-hook
+          magit-log-mode-hook
+          org-agenda-mode-hook))
+  (lin-global-mode 1))
 
-(lin-setup) ; Either run this or change `lin-mode-hooks'
+
 
 (customize-set-variable
  'lin-mode-hooks ; do not use `setq' with this; `customize-set-variable' runs `lin-setup' automatically
