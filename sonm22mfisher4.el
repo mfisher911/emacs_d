@@ -192,6 +192,7 @@
                           (require 'lsp-python-ms)
                           (lsp))) ;; or lsp-deferred
   :config
+  (setq lsp-warn-no-matched-clients nil)
   (setq lsp-headerline-breadcrumb-enable nil)
   (setq lsp-pyls-plugins-flake8-enabled t))
 
