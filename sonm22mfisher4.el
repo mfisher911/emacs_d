@@ -610,6 +610,10 @@ killing them."
           org-agenda-mode-hook))
   (lin-global-mode 1))
 
+(use-package company
+  :ensure t
+  :config
+  (add-hook 'after-init-hook 'global-company-mode))
 
 
 (customize-set-variable
