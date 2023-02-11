@@ -32,7 +32,6 @@
 (setq tramp-temp-name-prefix
       (concat (getenv "TMPDIR") "tramp."))
 
-
 (defun pbcopy ()
   "Copy the current paste buffer to the Mac."
   (interactive)
