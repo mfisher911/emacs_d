@@ -52,8 +52,6 @@
   (elpy-enable)
   (defalias 'workon 'pyvenv-workon))
 
-(use-package isortify
-  :ensure t
   :config
   (add-hook 'python-hook-mode 'isortify-mode))
 
