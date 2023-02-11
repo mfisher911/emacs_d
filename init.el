@@ -195,16 +195,6 @@
     :init
     (exec-path-from-shell-initialize)))
 
-;; python stuff from http://www.emacswiki.org/cgi-bin/wiki/PythonMode
-(add-hook 'python-mode-hook
-          #'(lambda ()
-             (define-key python-mode-map "\C-m" 'newline-and-indent)
-             (setq show-trailing-whitespace t)))
-(defun py-next-block ()
-  "Go to the next block.  Cf. `forward-sexp' for 'lisp-mode'."
-  (interactive)
-  (py-mark-block nil 't)
-  (back-to-indentation))
 
 (setq inhibit-splash-screen t)
 (setq initial-scratch-message
