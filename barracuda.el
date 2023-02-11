@@ -53,8 +53,11 @@
   (elpy-enable)
   (defalias 'workon 'pyvenv-workon))
 
+;; https://github.com/wyuenho/emacs-pet/
+(use-package pet
+  :hook (python-mode)
   :config
-  (add-hook 'python-hook-mode 'isortify-mode))
+  (add-hook 'python-mode-hook 'pet-flycheck-setup))
 
 (use-package banner-comment
   :ensure t
