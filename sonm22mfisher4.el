@@ -479,14 +479,6 @@ killing them."
 (use-package try
   :ensure t)
 
-;; seems like it's recentering on C-v or something and that makes me
-;; angry
-;;
-;; (use-package beacon
-;;   :ensure t
-;;   :config
-;;   (beacon-mode 1))
-
 (use-package diminish
   :ensure t
   :config
