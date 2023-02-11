@@ -17,10 +17,7 @@
 
 (load "~/.hammerspoon/Spoons/editWithEmacs.spoon/hammerspoon.el")
 
-(use-package modus-themes
-  :ensure t
-  :config
-  (modus-themes-load-themes))
+(use-package modus-themes)
 
 (use-package ef-themes
   :ensure t)
