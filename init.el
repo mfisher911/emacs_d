@@ -117,6 +117,7 @@
 
 ;;; make the Mac experience consistent
 (when (equal system-type 'darwin)
+  (load "darwin.el")
 
 (setq inhibit-splash-screen t)
 (setq initial-scratch-message
