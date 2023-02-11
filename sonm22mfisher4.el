@@ -486,6 +486,13 @@ killing them."
 
 (highlight-indentation-mode -1)
 
+;; (use-package hl-indent-scope
+;;   :commands
+;;   (hl-indent-scope-mode)
+;;   :hook
+;;   ((c-mode c++-mode cmake-mode python-mode emacs-lisp-mode) .
+;;    hl-indent-scope-mode))
+
 (defun indent-report ()
   "Indent the weekly report submissions."
   (interactive)
