@@ -233,6 +233,9 @@
 (use-package httpcode
   :ensure t)
 
+;; make more links clickable -- 2023-02-06
+(global-goto-address-mode)
+
 (put 'narrow-to-region 'disabled nil)
 (provide 'init)
 ;;; init.el ends here
