@@ -294,6 +294,12 @@
     (when (not (display-graphic-p))
       (setenv "GPG_AGENT_INFO" agent))))
 
+;; specific imports
+(mapc (lambda (conf)
+        (load conf 'noerror))
+      '("perl.el" "python.el"))
+;; others: gnus.el, gpg.el, latex.el
+
 ;;; Magit
 (use-package magit
   :ensure t
