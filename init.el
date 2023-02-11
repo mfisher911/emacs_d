@@ -108,14 +108,14 @@
 (add-hook 'prog-mode-hook #'show-paren-local-mode)
 (setq show-paren-style 'mixed)
 
-;; slurp in other code
+;; slurp in non-packaged code
 (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
     (let* ((my-lisp-dir "~/el/")
            (default-directory my-lisp-dir))
       (setq load-path (cons my-lisp-dir load-path))
       (normal-top-level-add-subdirs-to-load-path)))
 
-;;; make the Mac experience consistent
+;;; OS-specific configs
 (when (equal system-type 'darwin)
   (load "darwin.el")
   (setq initial-scratch-message
