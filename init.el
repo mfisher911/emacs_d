@@ -117,7 +117,7 @@
 
 ;;; OS-specific configs
 (when (equal system-type 'darwin)
-  (load "darwin.el")
+  (load "~/.emacs.d/darwin.el" 'noerror)
   (setq initial-scratch-message
         (format
          ";; scratch buffer created %s\n;; %s\n;;%s\n;; happy hacking\n\n"
