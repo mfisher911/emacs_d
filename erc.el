@@ -1,8 +1,9 @@
-;; (erc :server "chat.us.freenode.net" :port 6667 :nick "mfisher")
 ;; ERC
 (require 'erc)
 (require 'erc-join)
 (require 'erc-goodies)
+(require 'erc-track)
+(require 'erc-truncate)
 
 (use-package erc-hl-nicks
   :ensure t
@@ -15,52 +16,26 @@
                                             "353" "477"))))
 ;; (setq erc-track-exclude-types '("JOIN" "NICK" "PART" "QUIT" "MODE"
 ;;                                 "324" "329" "332" "333" "353" "477"))
+
 (erc-track-mode 1)
 (erc-truncate-mode 1)
 
 (add-hook 'window-configuration-change-hook 
           '(lambda ()
              (setq erc-fill-column (- (window-width) 2))))
-;; (add-hook 'erc-text-matched-hook 'my-notify-erc)
 
-;; note: requires mfisher-freenode-nickserv to be defined, ie in
-;; custom.el
-(add-hook 'erc-after-connect
-    	  '(lambda (SERVER NICK)
-    	     (cond
-    	      ((string-match "freenode\\.net" SERVER)
-    	       (erc-message "PRIVMSG"
-                            (format "NickServ identify %s"
-                                    mfisher-freenode-nickserv))))))
-    
-(setq erc-email-userid "mfisher@csh.rit.edu")
+(setq erc-email-userid "mfisher@shell.fisher.one")
 ;; (setq erc-nick "mfisher")
 (setq erc-prompt-for-password nil)
 (setq erc-user-full-name "Mike Fisher")
 (setq erc-user-mode "+iw")
-(setq erc-max-buffer-size 20000)
-;; (defun my-notify-erc (match-type nickuserhost message)
-;;   "Notify when a message is received."
-;;   (growl (format "%s in %s"
-;;                  ;; Username of sender
-;;                  (car (split-string nickuserhost "!"))
-;;                  ;; Channel
-;;                  (or (erc-default-target) "#unknown"))
-;;          ;; Remove duplicate spaces
-;;          (replace-regexp-in-string " +" " " message)))
-;; Clears out annoying erc-track-mode stuff for when we don't care.
-;; Useful for when ChanServ restarts :P
+(setq erc-max-buffer-size 262144)
 
 (defun reset-erc-track-mode ()
   (interactive)
   (setq erc-modified-channels-alist nil)
   (erc-modified-channels-update))
-(setq erc-input-line-position -2)
-
-(erc-autojoin-mode 1)
-(setq erc-autojoin-channels-alist
-      '(("freenode.net" "#emacs" "#org-mode")
-        ))
+(setq erc-input-line-position -1)
 
 ;; http://www.emacswiki.org/emacs/UnwrapLine
 (defun unwrap-line ()
@@ -93,9 +68,49 @@
               erc-channel-users)
      (format " %S/%S/%S" ops voices members))))
 
-;; Kill buffers for channels after /part
-(setq erc-kill-buffer-on-part t)
-;; Kill buffers for private queries after quitting the server
-(setq erc-kill-queries-on-quit t)
-;; Kill buffers for server messages after quitting the server
-(setq erc-kill-server-buffer-on-quit t)
+(setq erc-keep-place-indicator t)
+(setq erc-keep-place-indicator-follow t)
+
+(defun erc-cmd-MOP ()
+  "Op all non-opped users in a channel."
+  (let ((to-op '())
+        (k nil)
+        (v nil))
+    (maphash (lambda (k v)
+               (if (not (erc-channel-user-op-p k))
+                   (setq to-op (add-to-list 'to-op k))))
+             erc-channel-users)
+    (mapcar 'erc-cmd-OP to-op)))
+
+(defun erc-cmd-SHRUG ()
+  "Send a shrug visualization."
+  (erc-cmd-SAY "¯\\_(ツ)_/¯"))
+
+(add-hook 'erc-mode-hook
+          (function (lambda ()
+                      (ncm-mode)
+                      (turn-on-flyspell)
+                      (erc-keep-place-mode t))))
+
+
+;;; ignores
+(defcustom erc-foolish-content '("^<.*?> \\?" "^<.*?> , *rr"
+                                 "\\*CLICK\\*" "\\*BANG\\*"
+                                 "^<cat.*> .*: you"
+                                 "^<cat.*> .* !!+"
+                                 "hate america?")
+  "Regular expressions to identify foolish content.
+    Usually what happens is that you add the bots to
+    `erc-ignore-list' and the bot commands to this list."
+  :group 'erc
+  :type '(repeat regexp))
+
+(defun erc-foolish-content (msg)
+  "Check whether MSG is foolish."
+  (erc-list-match erc-foolish-content msg))
+
+(add-hook 'erc-insert-pre-hook
+          (lambda (s)
+            (when (erc-foolish-content s)
+              (setq erc-insert-this nil))))
+
