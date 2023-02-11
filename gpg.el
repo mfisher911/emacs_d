@@ -23,5 +23,34 @@
                                 (line-end-position)))
       (kill-buffer))))
 
+(defun pinentry-curses-send-command (process command)
+  "Copied this from somewhere for PGP interaction with PROCESS and COMMAND."
+  (with-current-buffer
+      (erase-buffer)
+    (process-send-string process command)
+    (while (and (eq (process-status process) 'run)
+		(not (progn
+		       (goto-char (point-max))
+		       (looking-back "^\\(OK\\|ERR .*\\)\n" nil))))
+      (accept-process-output process 0.1))))
+
+(defun pinentry-curses-test ()
+  "Test to see whether pinentry (curses) is able to process."
+  (interactive)
+  (unwind-protect
+      (let* ((buffer (generate-new-buffer "pinentry"))
+	     (process (start-process "pinentry" buffer "pinentry-curses"))
+	     (inhibit-redisplay t))
+	(pinentry-curses-send-command process
+				      (format "OPTION ttyname=%s\n"
+					      (terminal-name)))
+	(pinentry-curses-send-command process
+				      (format "OPTION ttytype=%s\n"
+					      (tty-type)))
+	(pinentry-curses-send-command process "GETPIN\n")
+	(kill-process process))
+    (redraw-frame (selected-frame))))
+
+
 (provide 'gpg)
 ;;; gpg.el ends here
