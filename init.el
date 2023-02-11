@@ -145,6 +145,7 @@
 (setq uniquify-separator "/")
 (setq uniquify-after-kill-buffer-p t)
 
+;; https://github.com/lewang/ws-butler -- trim whitespace at ends of lines
 (use-package ws-butler
   :ensure t
   :init
