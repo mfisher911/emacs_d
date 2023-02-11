@@ -54,7 +54,6 @@
 
 (add-hook 'ns-system-appearance-change-functions #'my/apply-theme)
 
-
 ;; (use-package theme-changer
 ;;   :ensure t
 ;;   :config
@@ -86,8 +85,6 @@
 
 (use-package json-mode
   :ensure t)
-
-;; this seems neat: https://github.com/Boruch-Baum/emacs-crossword
 
 (use-package banner-comment
   :ensure t
@@ -634,7 +631,6 @@ We can use this function to `interactive' without needing to call
 
 ;; 2023-02-03
 (use-package powershell)
-
 
 (provide 'sonm22mfisher)
 ;;; sonm22mfisher4.el ends here
