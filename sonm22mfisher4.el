@@ -441,12 +441,6 @@
   (add-hook 'python-mode-hook 'blacken-mode)
   (setq blacken-line-length 78)) ;; 'fill))
 
-;; (use-package isortify
-;;   :ensure t
-;;   :config
-;;   (add-hook 'python-mode-hook 'isortify-mode)
-;;   (setq isortify-line-width 78))
-
 ; (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
 (add-to-list 'default-frame-alist '(ns-appearance . dark))
 
