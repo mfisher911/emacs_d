@@ -162,7 +162,7 @@
 
 ;; specific imports
 (mapc (lambda (conf)
-        (load conf 'noerror))
+        (load (concat "~/.emacs.d/" conf) 'noerror))
       '("perl.el" "python.el"))
 ;; others: gnus.el, gpg.el, latex.el
 
