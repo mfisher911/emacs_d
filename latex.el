@@ -3,7 +3,12 @@
 ;;;   LaTeX customizations.
 ;;; Code:
 
-;; LaTeX additions
+;; Stuff for LaTeX
+(setq tex-default-mode (quote latex-mode))
+(add-hook 'latex-mode-hook 'turn-on-flyspell)
+(setq tex-dvi-view-command
+      (if (eq window-system 'x) "xdvi" "dvi2tty * | cat -s"))
+
 (add-hook 'latex-mode-hook
           (function (lambda () (setq sentence-end-double-space nil))))
 

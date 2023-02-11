@@ -47,12 +47,6 @@
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode 0))
 
-;; Stuff for LaTeX
-(setq tex-default-mode (quote latex-mode))
-(add-hook 'latex-mode-hook 'turn-on-flyspell)
-(setq tex-dvi-view-command
-      (if (eq window-system 'x) "xdvi" "dvi2tty * | cat -s"))
-
 ;; Stuff for C/C++ programming
 (setq c-basic-offset 4)
 (setq c-tab-always-indent nil)
