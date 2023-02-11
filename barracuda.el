@@ -19,9 +19,7 @@
 ;; (load-theme 'leuven)
 
 (use-package modus-themes
-  :ensure t
-  :config
-  (modus-themes-load-themes))
+  :ensure t)
 
 (use-package circadian
   :ensure t
