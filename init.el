@@ -19,7 +19,7 @@
 (setq use-package-always-ensure t)
 (require 'bind-key)
 
-;; https://github.com/jwiegley/use-package 2022-11-30
+;; https://github.com/rranelli/auto-package-update.el
 (use-package auto-package-update
   :ensure t
   :config
