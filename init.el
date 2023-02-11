@@ -157,14 +157,8 @@
                          (car (split-string
                                (downcase (system-name))
                                "\\."))
-                         ".el"))
-      (hostname (system-name)))
-  (cond
-   ((string-match "vpn-client-.*" hostname)
-    (load "~/.emacs.d/sonm17mfisher4.el" 'noerror))
-   (t (load conf-file 'noerror))
-))
-
+                         ".el")))
+   (load conf-file 'noerror))
 
 ;; specific imports
 (mapc (lambda (conf)
