@@ -147,9 +147,6 @@
   (setq tramp-temp-name-prefix
         (concat (getenv "TMPDIR") "tramp."))
 
-  ;; LaTeX additions
-  (add-hook 'latex-mode-hook
-            (function (lambda () (setq sentence-end-double-space nil))))
 
   (add-to-list 'Info-default-directory-list
                 "/usr/local/texlive/2019/texmf-dist/doc/info/")
@@ -294,33 +291,6 @@
   (kill-buffer)
   (jump-to-register :magit-fullscreen))
 
-;;
-;; TeXcount setup for TeXcount version 2.3
-;;
-(defun texcount-setup ()
-  "Make a container function for doing LaTeX word counting."
-  (defun latex-word-count ()
-    (interactive)
-    (let*
-      ( (this-file (buffer-file-name))
-        (enc-str (symbol-name buffer-file-coding-system))
-        (enc-opt
-          (cond
-            ((string-match "utf-8" enc-str) "-utf8")
-            ((string-match "latin" enc-str) "-latin1")
-            ("-encoding=guess")
-        ) )
-        (word-count
-          (with-output-to-string
-            (with-current-buffer standard-output
-              (call-process "/usr/texbin/texcount"
-                            nil t nil "-0" enc-opt this-file)
-      ) ) ) )
-      (message word-count)
-  ) )
-  (define-key latex-mode-map (kbd "C-c C-w") 'latex-word-count)
-)
-(add-hook 'latex-mode-hook 'texcount-setup t)
 (setq compilation-ask-about-save nil)
 
 ;;; http://whattheemacsd.com/appearance.el-01.html
