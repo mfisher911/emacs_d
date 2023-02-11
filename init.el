@@ -159,7 +159,7 @@
                                (downcase (system-name))
                                "\\."))
                          ".el")))
-   (load conf-file 'noerror))
+  (load conf-file 'noerror))
 
 ;; specific imports
 (mapc (lambda (conf)
