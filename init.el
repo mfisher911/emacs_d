@@ -118,13 +118,21 @@
 ;;; make the Mac experience consistent
 (when (equal system-type 'darwin)
   (load "darwin.el")
+  (setq initial-scratch-message
+        (format
+         ";; scratch buffer created %s\n;; %s\n;;%s\n;; happy hacking\n\n"
+         (format-time-string "%Y-%m-%d at %T")
+         (car (split-string (emacs-version) "\n"))
+         (car (cdr (split-string (emacs-version) "\n"))))))
+(when (equal system-type 'berkeley-unix)
+  (setq initial-scratch-message
+        (format
+         ";; scratch buffer created %s\n;; %s\n;; happy hacking\n\n"
+         (format-time-string "%Y-%m-%d at %T")
+         (car (split-string (emacs-version) "\n")))))
 
 (setq inhibit-splash-screen t)
-(setq initial-scratch-message
-      (format ";; scratch buffer created %s\n;; %s\n;;%s\n;; happy hacking\n\n"
-              (format-time-string "%Y-%m-%d at %T")
-              (car (split-string (emacs-version) "\n"))
-              (car (cdr (split-string (emacs-version) "\n")))))
+
 (defun create-scratch-buffer nil
   "Create a customized scratch buffer."
   (interactive)
