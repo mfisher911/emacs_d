@@ -1,3 +1,4 @@
+;; -*- mode:emacs-lisp; -*-
 ;;; sonm22mfisher4 --- Personal customizations
 ;;;
 ;;; Commentary:
