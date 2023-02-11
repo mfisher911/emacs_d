@@ -238,6 +238,6 @@
 (use-package httpcode
   :ensure t)
 
-(provide 'init)
 (put 'narrow-to-region 'disabled nil)
+(provide 'init)
 ;;; init.el ends here
