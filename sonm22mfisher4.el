@@ -570,24 +570,6 @@ killing them."
   :config
   (add-hook 'after-init-hook 'global-company-mode))
 
-
-(customize-set-variable
- 'lin-mode-hooks ; do not use `setq' with this; `customize-set-variable' runs `lin-setup' automatically
- '(dired-mode-hook
-   elfeed-search-mode-hook
-   git-rebase-mode-hook
-   ibuffer-mode-hook
-   ilist-mode-hook
-   ledger-report-mode-hook
-   log-view-mode-hook
-   magit-log-mode-hook
-   mu4e-headers-mode
-   notmuch-search-mode-hook
-   notmuch-tree-mode-hook
-   occur-mode-hook
-   org-agenda-mode-hook
-   tabulated-list-mode-provide))
-
 ;; 2023-02-03
 (use-package powershell)
 
