@@ -428,7 +428,6 @@
   :config
   (elpy-enable)
   (setq elpy-shell-echo-output nil))
-;;   (defalias 'workon 'pyvenv-workon))
 
 (use-package web-mode
   :ensure t
