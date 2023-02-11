@@ -635,6 +635,9 @@ We can use this function to `interactive' without needing to call
                      (t                         choice))))
       (if (listp results) (first results) results))))
 
+;; 2023-02-03
+(use-package powershell)
+
 
 (provide 'sonm22mfisher)
 ;;; sonm22mfisher4.el ends here
