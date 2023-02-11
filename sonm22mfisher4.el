@@ -579,18 +579,6 @@ killing them."
       (kill-ring-save start end)))
   (goto-char (point-max)))
 
-;; https://protesilaos.com/emacs/lin
-(use-package lin
-  :ensure t
-  :config
-  (setq lin-face 'lin-blue) ; check doc string for alternative styles
-  (setq lin-mode-hooks
-        '(dired-mode-hook
-          grep-mode-hook
-          magit-log-mode-hook
-          org-agenda-mode-hook))
-  (lin-global-mode 1))
-
 (use-package company
   :ensure t
   :config
