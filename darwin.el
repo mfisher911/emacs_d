@@ -67,6 +67,7 @@
   (set-fontset-font
    t 'symbol (font-spec :family "Apple Color Emoji") nil 'prepend))
 
+;; https://github.com/purcell/exec-path-from-shell
 (use-package exec-path-from-shell
   :ensure t
   :init

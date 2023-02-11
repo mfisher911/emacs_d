@@ -46,6 +46,7 @@
 (use-package pyvenv
   :ensure t)
 
+;; https://github.com/jorgenschaefer/elpy
 (use-package elpy
   :ensure t
   :config
