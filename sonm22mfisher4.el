@@ -560,26 +560,6 @@ killing them."
       (kill-region start end nil)))
   (org-fill-paragraph t t))
 
-
-(defun send-minutes ()
-  "Send meeting minutes."
-  (interactive)
-  (execute-kbd-macro (read-kbd-macro "C-c C-e h h C-c C-e t u"))
-  (save-excursion
-    (org-previous-visible-heading 1)
-    (let (start end subject text html)
-      (setq start (+ 3 (line-beginning-position)))
-      (setq end (line-end-position))
-      (setq subject (buffer-substring-no-properties start end))
-      (setq text (concat (substring (buffer-file-name) 0 -3) "txt"))
-      (setq html (concat (substring (buffer-file-name) 0 -3) "html"))
-      (start-process "send-report-email" nil
-                     "~/src/misc/send_report_email.py"
-                     subject
-                     "--text" text
-                     "--html" html))))
-
-
 (defun feed2bbevals ()
   "Translate a feed entry for Bb Evals handling."
   (interactive)
