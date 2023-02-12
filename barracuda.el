@@ -50,8 +50,7 @@
 (use-package elpy
   :ensure t
   :config
-  (elpy-enable)
-  (defalias 'workon 'pyvenv-workon))
+  (elpy-enable))
 
 ;; https://github.com/wyuenho/emacs-pet/
 (use-package pet
