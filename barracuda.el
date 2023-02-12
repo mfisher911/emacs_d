@@ -64,11 +64,6 @@
   :commands (banner-comment)
   :bind ("C-c h" . banner-comment))
 
-;; chmod +x
-;; ref. http://th.nao.ac.jp/MEMBER/zenitani/elisp-j.html#chmod
-(add-hook 'after-save-hook
-          'executable-make-buffer-file-executable-if-script-p)
-
 (use-package apache-mode
   :ensure t)
 

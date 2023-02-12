@@ -236,6 +236,11 @@
 ;; make more links clickable -- 2023-02-06
 (global-goto-address-mode)
 
+;; chmod +x
+;; ref. http://th.nao.ac.jp/MEMBER/zenitani/elisp-j.html#chmod
+(add-hook 'after-save-hook
+          'executable-make-buffer-file-executable-if-script-p)
+
 (put 'narrow-to-region 'disabled nil)
 (provide 'init)
 ;;; init.el ends here
