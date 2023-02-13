@@ -13,3 +13,5 @@ org-export-as-s5.el
 tramp
 transient
 url
+.last-package-update-day
+eln-cache/
