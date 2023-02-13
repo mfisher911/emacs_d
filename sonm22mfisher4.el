@@ -184,7 +184,8 @@
   :config
   (which-key-mode))
 
-(use-package py-isort)
+(use-package python-isort
+  :hook (python-mode-hook . python-isort-on-save-mode))
 
 ;; (global-eldoc-mode -1)
 
