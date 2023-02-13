@@ -21,7 +21,6 @@
 
 ;; https://github.com/rranelli/auto-package-update.el
 (use-package auto-package-update
-  :ensure t
   :config
   (setq auto-package-update-delete-old-versions t)
   (setq auto-package-update-hide-results t)
@@ -141,7 +140,6 @@
 
 ;; https://github.com/lewang/ws-butler -- trim whitespace at ends of lines
 (use-package ws-butler
-  :ensure t
   :init
   (ws-butler-global-mode))
 
@@ -163,7 +161,6 @@
 
 ;;; Magit
 (use-package magit
-  :ensure t
   :bind ("C-x v \\" . magit-status)
   :config
   (setq magit-push-always-verify nil)
@@ -192,7 +189,6 @@
 
 ;; Javascript2 mode.
 (use-package js2-mode
-  :ensure t
   :mode "\\.js\\'"
   :config
   (rename-modeline "js2-mode" js2-mode "JS2"))
@@ -215,7 +211,6 @@
                           nil beg end))
 
 (use-package markdown-mode
-  :ensure t
   :mode "\\.md\\'"
   :config
   (add-hook 'markdown-mode-hook 'turn-on-flyspell))
@@ -230,8 +225,7 @@
 (setq default-directory "~/")
 
 ;; HTTP Error Messages
-(use-package httpcode
-  :ensure t)
+(use-package httpcode)
 
 ;; make more links clickable -- 2023-02-06
 (global-goto-address-mode)

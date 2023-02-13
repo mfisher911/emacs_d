@@ -19,8 +19,7 @@
 
 (use-package modus-themes)
 
-(use-package ef-themes
-  :ensure t)
+(use-package ef-themes)
 
 (setq sql-product 'postgres)
 
@@ -34,7 +33,6 @@
 
 ;; improve M-. -- https://github.com/jacktasia/dumb-jump (2022-12-21)
 (use-package dumb-jump
-  :ensure t
   :config
   (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
   (setq xref-show-definitions-function
@@ -55,47 +53,36 @@
 (add-hook 'ns-system-appearance-change-functions #'my/apply-theme)
 
 ;; (use-package theme-changer
-;;   :ensure t
 ;;   :config
 ;;   (change-theme 'modus-operandi 'modus-vivendi))
 ;; (load-theme 'leuven)
 ;; (load-theme 'sexy-monochrome)
 
 ;; (use-package tron-legacy-theme
-;;   :ensure t
 ;;   :config
 ;;   (load-theme 'tron-legacy t))
 
 (use-package rg
-  :ensure t
   :config
   (rg-enable-default-bindings))
 
-(use-package logview
-  :ensure t)
+(use-package logview)
 
-(use-package mermaid-mode
-  :ensure t)
+(use-package mermaid-mode)
 
-(use-package restclient
-  :ensure t)
+(use-package restclient)
 
-(use-package lispy
-  :ensure t)
+(use-package lispy)
 
-(use-package json-mode
-  :ensure t)
+(use-package json-mode)
 
 (use-package banner-comment
-  :ensure t
   :commands (banner-comment)
   :bind ("C-c h" . banner-comment))
 
-(use-package dilbert
-  :ensure t)
+(use-package dilbert)
 
 (use-package edit-server
-  :ensure t
   :commands edit-server-start
   :init
   (if after-init-time
@@ -127,15 +114,13 @@
 
 ;; https://github.com/purcell/emacs-shfmt/
 (use-package shfmt
-  :ensure t
   :hook (sh-mode-hook . shfmt-on-save-mode))
 
 ;; Eshell + sudo + tramp help
 ;; https://emacs.stackexchange.com/a/5619
 ;; at some point, need to do: ```alias sudo 'eshell/sudo $*'```
 (use-package esh-autosuggest
-  :hook (eshell-mode . esh-autosuggest-mode)
-  :ensure t)
+  :hook (eshell-mode . esh-autosuggest-mode))
 (require 'em-tramp)
 (require 'em-alias)
 (setq eshell-prefer-lisp-functions t)
@@ -171,7 +156,6 @@
 
 (setq lsp-keymap-prefix "s-l")
 (use-package lsp-mode
-  :ensure t
   :hook ((python-mode . lsp)
          (lsp-mode . lsp-enable-which-key-integration))
   :config
@@ -179,7 +163,6 @@
   :commands lsp)
 
 (use-package lsp-python-ms
-  :ensure t
   :init
   (setenv "COMPlus_EnableDiagnostics" "0")
   (setq lsp-python-ms-auto-install-server t)
@@ -192,24 +175,20 @@
   (setq lsp-pyls-plugins-flake8-enabled t))
 
 (use-package lsp-ui
-  :ensure t
   :commands lsp-ui-mode
   :config
   (setq lsp-ui-doc-enable nil))
   ;(setq lsp-ui-doc-delay 15))
 
 (use-package which-key
-  :ensure t
   :config
   (which-key-mode))
 
-(use-package py-isort
-  :ensure t)
+(use-package py-isort)
 
 ;; (global-eldoc-mode -1)
 
-(use-package python-pytest
-  :ensure t)
+(use-package python-pytest)
 
 (defun eldoc-docstring-format-sym-doc (a b c)
   "Get rid of errors by ignoring this function (and A, B, C).")
@@ -220,24 +199,18 @@
                      :remote? nil
                      :server-id 'pyls-remote))
 
-(use-package ansible
-  :ensure t)
+(use-package ansible)
+(use-package ansible-doc)
 
-(use-package ansible-doc
-  :ensure t)
-
-(use-package dokuwiki-mode
-  :ensure t)
+(use-package dokuwiki-mode)
 
 (use-package dokuwiki
-  :ensure t
   :config
   (setq dokuwiki-xml-rpc-url
         "https://wiki.son.rochester.edu/lib/exe/xmlrpc.php")
   (setq dokuwiki-login-user-name "mfisher4"))
 
 (use-package sqlup-mode
-  :ensure t
   :config
   ;; Set a global keyword to use sqlup on a region
   ;; (global-set-key (kbd "C-c u") 'sqlup-capitalize-keywords-in-region)
@@ -247,24 +220,20 @@
   (add-hook 'sql-interactive-mode-hook 'sqlup-mode))
 
 (use-package sqlformat
-  :ensure t
   :custom
   (sqlformat-command 'sqlfluff))
 ;;   (sqlformat-command 'pgformatter)
 ;;   (sqlformat-args '("-w64")))
 
 (use-package yaml-mode
-  :ensure t
   :config
   (add-hook 'yaml-mode-hook #'(lambda ()
                                 (ansible 1)
                                 (auto-fill-mode 0))))
 
-(use-package frecentf
-  :ensure t)
+(use-package frecentf)
 
 (use-package flycheck
-  :ensure t
   :init (global-flycheck-mode)
   :config
   (setq flycheck-display-errors-delay 3)
@@ -281,20 +250,14 @@
 (add-hook 'after-save-hook
           'executable-make-buffer-file-executable-if-script-p)
 
-(use-package avy
-  :ensure t)
+(use-package avy)
 
-(use-package multiple-cursors
-  :ensure t)
+(use-package multiple-cursors)
 
-(use-package hydra
-  :ensure t)
+(use-package hydra)
 
-(use-package tree-sitter
-  :ensure t)
-
-(use-package tree-sitter-langs
-  :ensure t)
+(use-package tree-sitter)
+(use-package tree-sitter-langs)
 
 (use-package combobulate
   ;; Ensure `combobulate-mode` is activated when you launch a mode it supports
@@ -354,22 +317,19 @@
 (setq auto-mode-alist (append '(("\\.\\(frm\\|bas\\|cls\\|vbs\\)$" .
                                  visual-basic-mode)) auto-mode-alist))
 
-(use-package apache-mode
-  :ensure t)
+(use-package apache-mode)
 
 (autoload 'nagios-mode "nagios-mode" nil t)
 
 (autoload 'icinga2-mode "icinga2-mode" nil t)
 
 (use-package csv-mode
-  :ensure t
   :mode "\\.[Cc][Ss][Vv]\\'")
 
 ;; (define-key csv-mode-map (kbd "C-M-n") 'next-logical-line)
 ;; (define-key csv-mode-map (kbd "C-M-p") 'previous-logical-line)
 
 (use-package graphviz-dot-mode
-  :ensure t
   :mode "\\.[Dd][Oo][Tt]\\'"
   :custom
   (graphviz-dot-preview-extension "pdf"))
@@ -396,19 +356,16 @@
 ;; (require 'flymake-perlcritic)
 
 (use-package elpy
-  :ensure t
   :config
   (elpy-enable)
   (setq elpy-shell-echo-output nil))
 
 (use-package web-mode
-  :ensure t
   :config
   (add-to-list 'auto-mode-alist '("\\.html$" . web-mode))
   (setq web-mode-code-indent-offset 2))
 
 (use-package blacken
-  :ensure t
   :config
   (add-hook 'python-mode-hook 'blacken-mode)
   (setq blacken-line-length 78)) ;; 'fill))
@@ -417,12 +374,10 @@
 (add-to-list 'default-frame-alist '(ns-appearance . dark))
 
 (use-package direnv
-  :ensure t
   :config
   (direnv-mode))
 
 (use-package prettier-js
-  :ensure t
   :config
   (add-hook 'js2-mode-hook 'prettier-js-mode)
   (setq js2-basic-offset 2))
@@ -441,11 +396,9 @@ killing them."
   (add-hook 'kill-buffer-query-functions
             'maybe-bury-kill-buffer-query-function))
 
-(use-package try
-  :ensure t)
+(use-package try)
 
 (use-package diminish
-  :ensure t
   :config
   (diminish 'beacon-mode))
 
@@ -538,7 +491,6 @@ killing them."
   (goto-char (point-max)))
 
 (use-package company
-  :ensure t
   :config
   (add-hook 'after-init-hook 'global-company-mode))
 
