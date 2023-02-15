@@ -64,27 +64,7 @@
 
 ;; (mac-auto-operator-composition-mode)
 
-;; (use-package ligature
-;;   :load-path "~/el/ligature.el"
 ;;   :config
-;;   ;; Enable the www ligature in every possible major mode
-;;   (ligature-set-ligatures 't '("www"))
-
-;;   ;; Enable ligatures in programming modes
-;;   (ligature-set-ligatures 'prog-mode '("www" "**" "***" "**/" "*>" "*/" "\\\\" "\\\\\\" "{-" "::"
-;;                                      ":::" ":=" "!!" "!=" "!==" "-}" "----" "-->" "->" "->>"
-;;                                      "-<" "-<<" "-~" "#{" "#[" "##" "###" "####" "#(" "#?" "#_"
-;;                                      "#_(" ".-" ".=" ".." "..<" "..." "?=" "??" ";;" "/*" "/**"
-;;                                      "/=" "/==" "/>" "//" "///" "&&" "||" "||=" "|=" "|>" "^=" "$>"
-;;                                      "++" "+++" "+>" "=:=" "==" "===" "==>" "=>" "=>>" "<="
-;;                                      "=<<" "=/=" ">-" ">=" ">=>" ">>" ">>-" ">>=" ">>>" "<*"
-;;                                      "<*>" "<|" "<|>" "<$" "<$>" "<!--" "<-" "<--" "<->" "<+"
-;;                                      "<+>" "<=" "<==" "<=>" "<=<" "<>" "<<" "<<-" "<<=" "<<<"
-;;                                      "<~" "<~~" "</" "</>" "~@" "~-" "~>" "~~" "~~>" "%%"))
-
-;;   ;; Enables ligature checks globally in all buffers. You can also do it
-;;   ;; per mode with `ligature-mode'.
-;;   (global-ligature-mode 't))
 
 
 (provide 'barracuda)
