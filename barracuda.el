@@ -38,8 +38,6 @@
   :config
   (setq flycheck-display-errors-delay 3))
 
-(use-package pyvenv)
-
 ;; https://github.com/jorgenschaefer/elpy
 (use-package elpy
   :config
